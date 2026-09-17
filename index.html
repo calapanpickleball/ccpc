@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Calapan City Pickleball Club</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#083D5F;
+    --navy-deep:#062C40;
+    --gold:#FAB813;
+    --gold-dark:#E5A700;
+    --orange:#FF6600;
+    --blue:#3992B9;
+    --red:#BB1421;
+
+    --paper:#FFFFFF;
+    --bg:#FAF8F2;
+    --ink:#0F2B3D;
+    --ink-soft:#5C7480;
+    --line:#E4E1D6;
+    --line-strong:#D2CDBB;
+
+    --navy-tint:#E7F0F4;
+    --gold-tint:#FEF3D9;
+    --orange-tint:#FFE7D6;
+    --blue-tint:#E9F3F7;
+    --red-tint:#FBEAEA;
+
+    --shadow:0 1px 2px rgba(8,61,95,0.05), 0 10px 28px rgba(8,61,95,0.07);
+    --display:'Fredoka', -apple-system, BlinkMacSystemFont, sans-serif;
+    --sans:'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--sans);
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;}
+  img{max-width:100%; display:block;}
+
+  /* ---------- Brand color strip (echoes the club's color blocks) ---------- */
+  .brand-strip{display:flex; height:5px;}
+  .brand-strip span{flex:1;}
+  .brand-strip .c1{background:var(--gold);}
+  .brand-strip .c2{background:var(--orange);}
+  .brand-strip .c3{background:var(--navy);}
+  .brand-strip .c4{background:var(--blue);}
+  .brand-strip .c5{background:var(--red);}
+
+  /* ---------- Nav ---------- */
+  .nav{
+    position:sticky; top:0; z-index:50;
+    background:rgba(250,248,242,0.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
+    padding:14px 32px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+  }
+  .nav .brand{
+    display:flex; align-items:center; gap:10px;
+    font-family:var(--display);
+    font-weight:600;
+    font-size:17px;
+    color:var(--navy);
+    text-decoration:none;
+  }
+  .nav .brand .mark{
+    width:30px; height:30px;
+    border-radius:8px;
+    background:var(--navy);
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+  }
+  .nav-links{
+    display:flex; align-items:center; gap:28px;
+    font-size:14px; font-weight:500;
+    color:var(--ink-soft);
+  }
+  .nav-links a{text-decoration:none; transition:color .15s ease;}
+  .nav-links a:hover{color:var(--navy);}
+  .nav-cta{
+    background:var(--navy);
+    color:#fff !important;
+    padding:9px 18px;
+    border-radius:999px;
+    font-weight:600 !important;
+    text-decoration:none;
+    font-size:13.5px;
+    transition:background .15s ease;
+  }
+  .nav-cta:hover{background:var(--navy-deep);}
+  @media (max-width:720px){
+    .nav-links span.hide-mobile{display:none;}
+  }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    background:var(--navy);
+    background-image:radial-gradient(circle at 85% 20%, rgba(250,184,19,0.14), transparent 55%);
+    color:#fff;
+    padding:76px 32px 0;
+    overflow:hidden;
+    position:relative;
+  }
+  .hero-inner{
+    max-width:1160px;
+    margin:0 auto;
+    display:grid;
+    grid-template-columns:1.05fr 0.95fr;
+    gap:40px;
+    align-items:center;
+  }
+  @media (max-width:900px){
+    .hero-inner{grid-template-columns:1fr; text-align:left;}
+  }
+
+  .hero-eyebrow{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    font-size:13px;
+    font-weight:600;
+    color:var(--gold);
+    background:rgba(250,184,19,0.14);
+    border:1px solid rgba(250,184,19,0.4);
+    padding:6px 14px;
+    border-radius:999px;
+    margin-bottom:22px;
+  }
+  .hero h1{
+    font-family:var(--display);
+    font-weight:700;
+    font-size:clamp(34px, 5vw, 54px);
+    line-height:1.1;
+    letter-spacing:-0.01em;
+    margin:0 0 20px;
+    max-width:14ch;
+  }
+  .hero p.sub{
+    font-size:17px;
+    color:rgba(255,255,255,0.78);
+    max-width:46ch;
+    margin:0 0 32px;
+  }
+  .hero-actions{
+    display:flex;
+    align-items:center;
+    gap:18px;
+    flex-wrap:wrap;
+  }
+  .btn-primary{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    background:var(--gold);
+    color:var(--navy-deep);
+    font-weight:700;
+    font-size:15.5px;
+    padding:15px 26px;
+    border-radius:8px;
+    text-decoration:none;
+    transition:transform .12s ease, background .12s ease;
+  }
+  .btn-primary:hover{background:var(--gold-dark); transform:translateY(-1px);}
+  .btn-ghost{
+    color:#fff;
+    font-weight:600;
+    font-size:14.5px;
+    text-decoration:none;
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    border-bottom:1px solid rgba(255,255,255,0.35);
+    padding-bottom:2px;
+  }
+  .btn-ghost:hover{border-color:#fff;}
+
+  .hero-stats{
+    display:flex;
+    gap:36px;
+    margin-top:48px;
+    padding-top:28px;
+    border-top:1px solid rgba(255,255,255,0.14);
+  }
+  .hero-stats .stat .n{
+    font-family:var(--display);
+    font-size:26px;
+    font-weight:700;
+    color:var(--gold);
+  }
+  .hero-stats .stat .l{
+    font-size:12.5px;
+    color:rgba(255,255,255,0.65);
+    margin-top:2px;
+  }
+  @media (max-width:900px){
+    .hero-stats{flex-wrap:wrap; gap:28px;}
+  }
+
+  /* Court illustration */
+  .court-wrap{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:20px 0 40px;
+  }
+  .court-wrap svg{width:100%; max-width:400px; height:auto;}
+
+  /* ---------- Section shell ---------- */
+  section.block{padding:80px 32px;}
+  .block-inner{max-width:1160px; margin:0 auto;}
+  .section-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    gap:20px;
+    flex-wrap:wrap;
+    margin-bottom:40px;
+  }
+  .section-head .text{max-width:60ch;}
+  .section-head .kicker{
+    font-size:13px;
+    font-weight:700;
+    color:var(--navy);
+    margin:0 0 8px;
+  }
+  .section-head h2{
+    font-family:var(--display);
+    font-size:clamp(26px, 3vw, 34px);
+    font-weight:600;
+    margin:0 0 10px;
+    color:var(--navy);
+  }
+  .section-head p{
+    color:var(--ink-soft);
+    font-size:15.5px;
+    margin:0;
+  }
+
+  /* ---------- Activities ---------- */
+  .tabs{
+    display:inline-flex;
+    gap:4px;
+    background:#EFEBE0;
+    padding:4px;
+    border-radius:999px;
+  }
+  .tab-btn{
+    font-family:var(--sans);
+    font-size:14px;
+    font-weight:600;
+    color:var(--ink-soft);
+    background:transparent;
+    border:none;
+    padding:9px 22px;
+    border-radius:999px;
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  .tab-btn.active{
+    background:var(--navy);
+    color:#fff;
+  }
+
+  .activity-grid{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:22px;
+  }
+  @media (max-width:920px){
+    .activity-grid{grid-template-columns:repeat(2, 1fr);}
+  }
+  @media (max-width:640px){
+    .activity-grid{grid-template-columns:1fr;}
+  }
+
+  .activity-card{
+    background:var(--paper);
+    border:1px solid var(--line);
+    border-radius:12px;
+    overflow:hidden;
+    box-shadow:var(--shadow);
+    display:flex;
+    flex-direction:column;
+    text-decoration:none;
+    color:inherit;
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  a.activity-card:hover{
+    transform:translateY(-3px);
+    box-shadow:0 4px 10px rgba(8,61,95,0.08), 0 16px 32px rgba(8,61,95,0.10);
+  }
+
+  .activity-image{
+    width:100%;
+    aspect-ratio:16/10;
+    background:var(--navy-tint);
+    overflow:hidden;
+    position:relative;
+    flex-shrink:0;
+  }
+  .activity-image img{width:100%; height:100%; object-fit:cover;}
+  .activity-image .placeholder-icon{
+    width:100%; height:100%;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .activity-date-overlay{
+    position:absolute;
+    top:10px; left:10px;
+    background:rgba(255,255,255,0.94);
+    border-radius:8px;
+    padding:6px 9px;
+    text-align:center;
+    min-width:46px;
+    box-shadow:0 2px 6px rgba(8,61,95,0.12);
+  }
+  .activity-date-overlay .mon{font-size:10px; font-weight:700; letter-spacing:0.03em; color:var(--red);}
+  .activity-date-overlay.is-past .mon{color:var(--ink-soft);}
+  .activity-date-overlay .day{font-family:var(--display); font-size:17px; font-weight:600; line-height:1.1; color:var(--ink);}
+
+  .activity-tag{
+    position:absolute;
+    top:10px; right:10px;
+    font-size:11px;
+    font-weight:700;
+    padding:4px 10px;
+    border-radius:999px;
+    color:#fff;
+  }
+  .tag-open-play{background:var(--blue);}
+  .tag-tournament{background:var(--red);}
+  .tag-clinic{background:var(--gold); color:var(--navy-deep);}
+  .tag-fun-match{background:var(--orange);}
+  .tag-default{background:var(--navy);}
+  .activity-tag.is-past{background:#8B96A0; color:#fff;}
+
+  .activity-body{
+    padding:18px 20px 20px;
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+    flex:1;
+  }
+  .activity-body h3{
+    font-family:var(--display);
+    font-size:17px;
+    font-weight:600;
+    margin:0;
+    color:var(--ink);
+  }
+  .activity-venue{
+    font-size:13px;
+    color:var(--ink-soft);
+    display:flex;
+    align-items:center;
+    gap:6px;
+  }
+  .activity-desc{
+    font-size:13.5px;
+    color:var(--ink-soft);
+    margin:2px 0 0;
+  }
+  .activity-link-hint{
+    margin-top:auto;
+    padding-top:10px;
+    font-size:12.5px;
+    font-weight:600;
+    color:var(--navy);
+    display:flex;
+    align-items:center;
+    gap:5px;
+  }
+
+  .panel{display:none;}
+  .panel.active{display:block;}
+  .empty-activities{
+    grid-column:1/-1;
+    text-align:center;
+    padding:40px 20px;
+    color:var(--ink-soft);
+    font-size:14.5px;
+    background:var(--paper);
+    border:1px dashed var(--line-strong);
+    border-radius:12px;
+  }
+
+  /* ---------- CTA band ---------- */
+  .cta-band{
+    background:var(--navy-tint);
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+    padding:56px 32px;
+    text-align:center;
+  }
+  .cta-band h2{
+    font-family:var(--display);
+    font-size:26px;
+    font-weight:600;
+    margin:0 0 10px;
+    color:var(--navy);
+  }
+  .cta-band p{
+    color:var(--ink-soft);
+    font-size:15px;
+    margin:0 0 24px;
+  }
+  .btn-secondary{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    background:var(--navy);
+    color:#fff;
+    font-weight:700;
+    font-size:15px;
+    padding:14px 26px;
+    border-radius:8px;
+    text-decoration:none;
+    transition:background .12s ease;
+  }
+  .btn-secondary:hover{background:var(--navy-deep);}
+
+  /* ---------- Footer ---------- */
+  footer{
+    padding:36px 32px;
+    text-align:center;
+    color:var(--ink-soft);
+    font-size:13px;
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="#top" class="brand">
+    <span class="mark">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#fff" stroke-width="1.6"/><circle cx="9" cy="9" r="1.1" fill="#fff"/><circle cx="15" cy="9" r="1.1" fill="#fff"/><circle cx="12" cy="12" r="1.1" fill="#fff"/><circle cx="9" cy="15" r="1.1" fill="#fff"/><circle cx="15" cy="15" r="1.1" fill="#fff"/></svg>
+    </span>
+    Calapan City Pickleball Club
+  </a>
+  <div class="nav-links">
+    <span class="hide-mobile"><a href="#activities">Activities</a></span>
+    <a href="membership-application.html" class="nav-cta">Join Us</a>
+  </div>
+</nav>
+<div class="brand-strip"><span class="c1"></span><span class="c2"></span><span class="c3"></span><span class="c4"></span><span class="c5"></span></div>
+
+<header class="hero" id="top">
+  <div class="hero-inner">
+    <div>
+      <span class="hero-eyebrow">Calapan City · Oriental Mindoro</span>
+      <h1>Play, compete, and connect on the court.</h1>
+      <p class="sub">The official home of pickleball in Calapan City — open plays, clinics for beginners, and friendly tournaments for every skill level.</p>
+      <div class="hero-actions">
+        <a href="membership-application.html" class="btn-primary">
+          Join Us
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <a href="#activities" class="btn-ghost">See our activities</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><div class="n">120+</div><div class="l">Active members</div></div>
+        <div class="stat"><div class="n">4</div><div class="l">Partner courts in the city</div></div>
+        <div class="stat"><div class="n">Weekly</div><div class="l">Open play sessions</div></div>
+      </div>
+    </div>
+
+    <div class="court-wrap">
+      <svg viewBox="0 0 320 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="20" y="20" width="280" height="360" rx="6" stroke="rgba(255,255,255,0.9)" stroke-width="3"/>
+        <line x1="20" y1="150" x2="300" y2="150" stroke="rgba(255,255,255,0.55)" stroke-width="2.5"/>
+        <line x1="20" y1="250" x2="300" y2="250" stroke="rgba(255,255,255,0.55)" stroke-width="2.5"/>
+        <line x1="160" y1="20" x2="160" y2="150" stroke="rgba(255,255,255,0.55)" stroke-width="2.5"/>
+        <line x1="160" y1="250" x2="160" y2="380" stroke="rgba(255,255,255,0.55)" stroke-width="2.5"/>
+        <line x1="20" y1="200" x2="300" y2="200" stroke="#FAB813" stroke-width="3.5"/>
+        <circle cx="230" cy="120" r="16" fill="#FAB813"/>
+        <circle cx="222" cy="112" r="1.6" fill="#083D5F"/>
+        <circle cx="238" cy="112" r="1.6" fill="#083D5F"/>
+        <circle cx="230" cy="120" r="1.6" fill="#083D5F"/>
+        <circle cx="222" cy="128" r="1.6" fill="#083D5F"/>
+        <circle cx="238" cy="128" r="1.6" fill="#083D5F"/>
+      </svg>
+    </div>
+  </div>
+</header>
+
+<section class="block" id="activities">
+  <div class="block-inner">
+    <div class="section-head">
+      <div class="text">
+        <p class="kicker">What's happening</p>
+        <h2>Club activities</h2>
+        <p>Sorted automatically by date — upcoming events count down to game day, past events stay here as a record.</p>
+      </div>
+      <div class="tabs">
+        <button class="tab-btn active" data-tab="upcoming">Upcoming</button>
+        <button class="tab-btn" data-tab="past">Past</button>
+      </div>
+    </div>
+
+    <div class="panel active" id="panel-upcoming">
+      <div class="activity-grid" id="grid-upcoming"></div>
+    </div>
+    <div class="panel" id="panel-past">
+      <div class="activity-grid" id="grid-past"></div>
+    </div>
+  </div>
+</section>
+
+<div class="cta-band">
+  <h2>Ready to pick up a paddle?</h2>
+  <p>Membership is open year-round — new players are always welcome, no experience necessary.</p>
+  <a href="membership-application.html" class="btn-secondary">
+    Join the club
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </a>
+</div>
+
+<footer>
+  Calapan City Pickleball Club · Calapan City, Oriental Mindoro <br>
+  Program and Events Committee
+</footer>
+
+<script>
+/* ============================================================
+   ACTIVITIES — edit this list to manage what shows on the site.
+
+   Each activity needs a real calendar "date" (YYYY-MM-DD). The
+   page automatically sorts it into the Upcoming or Past tab by
+   comparing that date to today — you never have to move an item
+   between lists by hand.
+
+   Optional per-activity fields:
+   - image: a URL to a photo/banner for the card. Leave "" to show
+     a plain color placeholder instead.
+   - link:  a URL to open when the card is clicked (e.g. a
+     Facebook event, a Google Form, or a page with more details).
+     Leave "" to make the card non-clickable.
+   - tag:   one of "Open Play", "Tournament", "Clinic", "Fun Match"
+     (controls the card's color-coded label) — any other text
+     still works, it just uses the default navy label color.
+   ============================================================ */
+const activities = [
+  { date:"2026-10-03", tag:"Fun Match",  title:"Wrong Outfit, Wrong Paddle",       venue:"PKL Box", desc:"Casual round-robin games for all skill levels. Paddles available for first-timers.", image:"", link:"" },
+  { date:"2026-10-24", tag:"Tournament",     title:"2nd Team Tournament",        venue:"PKL Box",    desc:"A hands-on intro to rules, scoring, and the dink — perfect for new members.", image:"", link:"" },
+  { date:"2026-11-05", tag:"Clinic", title:"Drills",       venue:"TBA", desc:"Doubles bracket tournament with divisions for beginner, intermediate, and open level.", image:"", link:"" },
+  { date:"2026-11-13", tag:"Tournament",  title:"One Mindoro: Dual Meet",      venue:"PKL Box",         desc:"Friendly mixed-doubles matches followed by dinner with the club.", image:"", link:"" },
+  { date:"2026-11-28", tag:"Open Play", title:"DUPR Open Play",     venue:"Balai Mindoro", desc:"Our members represented the club against clubs from across Oriental Mindoro.", image:"", link:"" },
+  { date:"2026-12-7", tag:"Fun Match",     title:"CCPC Week",venue:"TBA", desc:"A free session introducing pickleball to students during summer break.", image:"", link:"" },
+  { date:"2026-12-12", tag:"Tournament",  title:"Christmas Party",    venue:"TBA",    desc:"Celebrating the club's founding with an all-day open play and potluck.", image:"", link:"" },
+  { date:"2026-05-03", tag:"Fun Match",  title:"Club vs. Club Friendly",   venue:"Barangay Ilaya Court",         desc:"An exhibition match against the Naujan Pickleball Group.", image:"", link:"" },
+];
+
+const MONTHS = ["JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC"];
+
+const TAG_CLASS = {
+  "Open Play":  "tag-open-play",
+  "Tournament": "tag-tournament",
+  "Clinic":     "tag-clinic",
+  "Fun Match":  "tag-fun-match"
+};
+
+function esc(str){
+  const d = document.createElement('div');
+  d.textContent = str == null ? '' : String(str);
+  return d.innerHTML;
+}
+
+function paddlePlaceholder(){
+  return `<div class="placeholder-icon">
+    <svg width="42" height="42" viewBox="0 0 24 24" fill="none">
+      <circle cx="10" cy="10" r="7" stroke="#083D5F" stroke-width="1.6" opacity="0.35"/>
+      <circle cx="8" cy="8" r="0.9" fill="#083D5F" opacity="0.35"/>
+      <circle cx="12" cy="8" r="0.9" fill="#083D5F" opacity="0.35"/>
+      <circle cx="10" cy="10" r="0.9" fill="#083D5F" opacity="0.35"/>
+      <circle cx="8" cy="12" r="0.9" fill="#083D5F" opacity="0.35"/>
+      <circle cx="12" cy="12" r="0.9" fill="#083D5F" opacity="0.35"/>
+      <line x1="14.5" y1="14.5" x2="20" y2="20" stroke="#083D5F" stroke-width="1.6" opacity="0.35" stroke-linecap="round"/>
+    </svg>
+  </div>`;
+}
+
+function cardHTML(item, isPast){
+  const d = new Date(item.date + "T00:00:00");
+  const mon = isNaN(d.getTime()) ? "" : MONTHS[d.getMonth()];
+  const day = isNaN(d.getTime()) ? "" : String(d.getDate()).padStart(2,'0');
+  const tagClass = isPast ? "" : (TAG_CLASS[item.tag] || "tag-default");
+
+  const media = item.image
+    ? `<img src="${esc(item.image)}" alt="${esc(item.title)}">`
+    : paddlePlaceholder();
+
+  const inner = `
+    <div class="activity-image">
+      ${media}
+      <div class="activity-date-overlay ${isPast ? 'is-past' : ''}">
+        <div class="mon">${mon}</div>
+        <div class="day">${day}</div>
+      </div>
+      <span class="activity-tag ${isPast ? 'is-past' : tagClass}">${esc(item.tag || '')}</span>
+    </div>
+    <div class="activity-body">
+      <h3>${esc(item.title)}</h3>
+      <div class="activity-venue">${esc(item.venue)}</div>
+      <p class="activity-desc">${esc(item.desc)}</p>
+      ${item.link ? `<div class="activity-link-hint">More details
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>` : ''}
+    </div>
+  `;
+
+  if (item.link) {
+    return `<a class="activity-card" href="${esc(item.link)}" target="_blank" rel="noopener">${inner}</a>`;
+  }
+  return `<div class="activity-card">${inner}</div>`;
+}
+
+function renderActivities(){
+  const today = new Date();
+  today.setHours(0,0,0,0);
+
+  const upcoming = activities
+    .filter(a => new Date(a.date + "T00:00:00") >= today)
+    .sort((a,b) => new Date(a.date) - new Date(b.date));
+
+  const past = activities
+    .filter(a => new Date(a.date + "T00:00:00") < today)
+    .sort((a,b) => new Date(b.date) - new Date(a.date));
+
+  const upcomingGrid = document.getElementById('grid-upcoming');
+  const pastGrid = document.getElementById('grid-past');
+
+  upcomingGrid.innerHTML = upcoming.length
+    ? upcoming.map(a => cardHTML(a, false)).join('')
+    : '<div class="empty-activities">No upcoming activities scheduled yet — check back soon.</div>';
+
+  pastGrid.innerHTML = past.length
+    ? past.map(a => cardHTML(a, true)).join('')
+    : '<div class="empty-activities">No past activities recorded yet.</div>';
+}
+
+renderActivities();
+
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('panel-' + btn.dataset.tab).classList.add('active');
+  });
+});
+</script>
+
+</body>
+</html>
