@@ -871,7 +871,7 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
     <button class="modal-close" id="modalCloseBtn" aria-label="Close">&times;</button>
 
     <div class="modal-head">
-      <h2>Membership Application</h2>
+      <h2>CCPC Membership Application</h2>
       <p>Please complete every required field accurately.</p>
     </div>
 
@@ -891,8 +891,8 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
             <input type="text" id="m-fullName" required autocomplete="name" />
           </div>
           <div class="modal-field">
-            <label>Nickname</label>
-            <input type="text" id="m-nickname" />
+            <label>Nickname <span class="modal-req">*</span></label>
+            <input type="text" id="m-nickname" required />
           </div>
         </div>
 
@@ -1044,6 +1044,8 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
         <div class="modal-error-banner" id="modalErrorBanner"></div>
         <button type="submit" class="modal-submit-btn" id="modalSubmitBtn">Submit application</button>
         <p class="modal-fine-print">By submitting, you confirm that the information provided above is true and correct.</p>
+        <p class="modal-fine-print"> Applications are subject to approval by the membership committee and officers, and applicable fees apply.</p>
+       
       </div>
 
     </form>
