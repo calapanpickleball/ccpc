@@ -1,5 +1,14 @@
 [
   {
+    "date": "2026-08-16",
+    "tag": "Fun Match",
+    "title": "CCPC x MTC Dual Meet",
+    "venue": "SM Paloo 4Ecom Center",
+    "desc": "An exhibition match against the Morning Tickle Club.",
+    "image": "thumb-tba.jpg",
+    "link": "https://calapanpickleball.github.io/CCPCxMTC/dualmeet.html"
+  },
+  {
     "date": "2026-10-03",
     "tag": "Fun Match",
     "title": "Wrong Outfit, Wrong Paddle",
@@ -18,21 +27,31 @@
     "link": "https://calapanpickleball.github.io/teamtournament/index.html"
   },
   {
-    "date": "2026-11-13",
+    "date": "2026-11-14",
     "tag": "Tournament",
-    "title": "One Mindoro: Dual Meet",
+    "title": "CCPC x Stackers Dual Meet",
     "venue": "PKL Box",
-    "desc": "A friendly but competitive dual meet bringing together pickleball players from Oriental Mindoro and Occidental Mindoro in the spirit of sportsmanship and camaraderie.",
+    "desc": "A friendly but competitive dual meet bringing together pickleball players from CCPC and San Jose Stackers in the spirit of sportsmanship and camaraderie.",
     "image": "thumb-dual.jpg",
     "link": "https://calapanpickleball.github.io/ccpc/one-mindoro-dual-meet.html"
   },
   {
-    "date": "2026-08-16",
-    "tag": "Fun Match",
-    "title": "CCPC x MTC Dual Meet",
-    "venue": "SM Paloo 4Ecom Center",
-    "desc": "An exhibition match against the Morning Tickle Club.",
+    "date": "2026-10-10",
+    "tag": "Open Play",
+    "title": "SUPER DUPR",
+    "venue": "Balai Mindoro",
+    "desc": "A competitive DUPR Open play for those who have NR and low realibility DUPR rating.",
+    "image": "thumb-dual.jpg",
+    "link": ""
+  },
+  {
+    "date": "2026-11-05",
+    "tag": "Clinic",
+    "title": "Drills",
+    "venue": "TBA",
+    "desc": "A focused training session designed to improve fundamentals, technique, consistency, and game strategy through structured drills.",
     "image": "thumb-tba.jpg",
-    "link": "https://calapanpickleball.github.io/CCPCxMTC/dualmeet.html"
+    "link": ""
   }
+
 ]
