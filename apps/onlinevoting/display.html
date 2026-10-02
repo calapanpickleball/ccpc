@@ -42,7 +42,7 @@ if(L.size>=5){if(!pr.ready)pr.ready=true;else{if(S.phase!==pr.ph){const m={regis
 const n0=Object.keys(N).length,v0=Object.keys(V).length;if(n0>pr.n)SFX.play('voter-join');if(v0>pr.v)SFX.play('vote-cast');
 Object.keys(S.reveal||{}).forEach(k=>{if(!pr.rv[k]){hold[k]=Date.now()+2200;SFX.play('award-drumroll');setTimeout(()=>{SFX.play('award-reveal');draw()},2200)}});
 if(Object.keys(R.winners||{}).length<pr.w&&!R.current)SFX.play('raffle-redraw')}snap()}
-if(tab>=1&&tab<=2)SFX.loop('bg-lobby');else SFX.stop('bg-lobby');[0,1,2,3,4,5].forEach(i=>$('#t'+i).classList.toggle('hide',i!==tab));
+SFX.stop('bg-lobby');if(tab===3&&S.phase==='voting')SFX.loop('bg-voting');else SFX.stop('bg-voting');[0,1,2,3,4,5].forEach(i=>$('#t'+i).classList.toggle('hide',i!==tab));
 $('#cards').innerHTML=Object.values(P).sort((a,b)=>a.num-b.num).map(p=>`<div class="card pc"><div class="num">#${p.num}</div><h3>${esc(p.name)}</h3></div>`).join('');{const cn=Object.keys(P).length;$('#cards').style.gridTemplateColumns='repeat('+(cn<=24?6:cn<=35?7:8)+',1fr)'}
 const n=Object.keys(N).length,v=Object.keys(V).length,pc=n?Math.round(v/n*100):0;$('#rc').textContent=n;$('#vc').textContent=`${v} sa ${n} registered voters ang nakaboto na (${pc}%)`;$('#pb').style.width=pc+'%';
 const st=S.settings||{},url=st.voteUrl||DEF.url,ssid=st.ssid||DEF.ssid,pw=st.pass||DEF.pass,disp=url.replace(/^https?:\/\//,'').replace(/\/$/,'');
