@@ -105,14 +105,14 @@ tbody tr{cursor:pointer}tbody tr:hover{background:var(--navy-tint)}
 <section id="login" hidden class="card login">
   <img src="logo.jpg" alt="Calapan City Pickleball Club">
   <h2>Members Database</h2>
-  <p class="muted">Para sa club officers lang. Mag-sign in gamit ang Gmail.</p>
+  <p class="muted">For club officers only. Sign in with your Gmail account.</p>
   <button class="btn gold" id="gbtn">Sign in with Google</button>
   <p class="err" id="lerr"></p>
-  <p class="muted"><a href="index.html" style="color:var(--navy)">Bumalik sa club website</a></p>
+  <p class="muted"><a href="index.html" style="color:var(--navy)">Back to the club website</a></p>
 </section>
 <section id="wait" hidden class="card login">
-  <h2>Naghihintay ng approval</h2>
-  <p class="muted">Naka-sign in ka na, pero kailangan pang bigyan ng role ng Super Admin ang account mo. Subukan ulit mamaya.</p>
+  <h2>Waiting for approval</h2>
+  <p class="muted">You're signed in, but a Super Admin still needs to give your account a role. Please try again later.</p>
   <button class="btn line" onclick="auth.signOut()">Sign out</button>
 </section>
 
@@ -149,10 +149,10 @@ tbody tr{cursor:pointer}tbody tr:hover{background:var(--navy-tint)}
     </section>
     <section id="va" hidden>
       <h2 style="color:var(--navy);margin-bottom:6px">Membership applications</h2>
-      <p class="muted">Galing ito sa application form ng club website. I-approve para maging member, o i-reject para tanggalin.</p>
+      <p class="muted">These come from the club website's application form. Move each one through the review steps, then approve it as a member, or reject it.</p>
       <div class="card tw"><table><thead><tr><th>Name</th><th>Nickname</th><th>Phone</th><th>Submitted</th><th>Status</th></tr></thead><tbody id="atb"></tbody></table></div>
       <h2 style="color:var(--navy);margin:30px 0 6px">Rejected applications</h2>
-      <p class="muted">Record ng mga na-reject: kailan at sino ang nag-reject. Pwede pang i-restore o i-delete nang tuluyan.</p>
+      <p class="muted">A record of rejected applications: when, by whom, and why. They can be restored or permanently deleted.</p>
       <div class="card tw"><table><thead><tr><th>Name</th><th>Nickname</th><th>Date rejected</th><th>Rejected by</th><th>Reason</th></tr></thead><tbody id="rtb"></tbody></table></div>
     </section>
     <section id="vu" hidden></section>
@@ -166,9 +166,9 @@ tbody tr{cursor:pointer}tbody tr:hover{background:var(--navy-tint)}
 <script>
 /* ===== SETUP ===== */
 const firebaseConfig={apiKey:"AIzaSyB4IiCCQHtGeIT44n71oGlKk7PIOSWxfg8",authDomain:"ccpc-1943f.firebaseapp.com",databaseURL:"https://ccpc-1943f-default-rtdb.firebaseio.com",projectId:"ccpc-1943f",storageBucket:"ccpc-1943f.firebasestorage.app",messagingSenderId:"904942754236",appId:"1:904942754236:web:aecbec51d5cd0b745b33b9"};
-const SUPER_ADMIN="YOUR_GMAIL@gmail.com"; // <-- palitan: ito ang magiging Super Admin
-const APPS="membershipApplications",MEMBERS="members"; // APPS = galing sa club website form
-const fbApp=firebase.initializeApp(firebaseConfig,"members"); // hiwalay na app name para di maghalo sa login ng ibang pages
+const SUPER_ADMIN="YOUR_GMAIL@gmail.com"; // <-- replace: this account becomes the Super Admin
+const APPS="membershipApplications",MEMBERS="members"; // APPS = submitted from the club website form
+const fbApp=firebase.initializeApp(firebaseConfig,"members"); // separate app name so it doesn't mix with logins on your other pages
 const auth=fbApp.auth(),db=fbApp.firestore();
 
 /* ===== FIELDS (same names as the website form) ===== */
@@ -282,8 +282,8 @@ function start(){
   $("#fbt").hidden=$("#fmd").hidden=role=="viewer";
   $("#thead").innerHTML="<tr>"+COLS.map(([k,l])=>`<th data-k="${k}">${l}</th>`).join("")+"</tr>";
   $("#thead").onclick=e=>{const k=e.target.dataset.k;if(k){sort={k,d:sort.k==k?-sort.d:1};draw()}};
-  unsubs.push(db.collection(MEMBERS).onSnapshot(s=>{mem=s.docs.map(d=>norm({id:d.id,...d.data()}));draw()},e=>alert("Hindi ma-load ang members: "+e.message)));
-  if(isAdm())unsubs.push(db.collection(APPS).onSnapshot(s=>{apps=s.docs.map(d=>norm({id:d.id,...d.data()})).sort((a,b)=>(b.submittedAt?.seconds||0)-(a.submittedAt?.seconds||0));drawApps();draw()},e=>alert("Hindi ma-load ang applications: "+e.message)));
+  unsubs.push(db.collection(MEMBERS).onSnapshot(s=>{mem=s.docs.map(d=>norm({id:d.id,...d.data()}));draw()},e=>alert("Could not load members: "+e.message)));
+  if(isAdm())unsubs.push(db.collection(APPS).onSnapshot(s=>{apps=s.docs.map(d=>norm({id:d.id,...d.data()})).sort((a,b)=>(b.submittedAt?.seconds||0)-(a.submittedAt?.seconds||0));drawApps();draw()},e=>alert("Could not load applications: "+e.message)));
 }
 const map={q:"#q",mo:"#fmo",g:"#fg",cs:"#fcs",bt:"#fbt",md:"#fmd",st:"#fst"};
 Object.entries(map).forEach(([k,id])=>$(id).oninput=e=>{flt[k]=e.target.value;draw()});
@@ -307,7 +307,7 @@ function draw(){
    (isAdm()?`<button class="stat" onclick="go('a')"><span class="n">${pend().length}</span><span class="l">New applications</span></button>`:"");
   $("#abadge").textContent=pend().length;$("#abadge").hidden=!pend().length;
   const r=rows();
-  $("#tb").innerHTML=r.length?r.map(m=>`<tr onclick="view('${m.id}')"><td><b>${esc(m.nickname)}</b></td><td>${esc(m.fullName)}</td><td>${age(m.birthdate)}</td><td>${esc(m.gender)}</td><td>${esc(m.dupr)}</td><td>${esc(m.phone)}</td><td><span class="tag t-${m.status}">${esc(m.status)}</span></td></tr>`).join(""):'<tr><td colspan="7" class="empty">Walang nahanap. Subukang i-clear ang filters.</td></tr>';
+  $("#tb").innerHTML=r.length?r.map(m=>`<tr onclick="view('${m.id}')"><td><b>${esc(m.nickname)}</b></td><td>${esc(m.fullName)}</td><td>${age(m.birthdate)}</td><td>${esc(m.gender)}</td><td>${esc(m.dupr)}</td><td>${esc(m.phone)}</td><td><span class="tag t-${m.status}">${esc(m.status)}</span></td></tr>`).join(""):'<tr><td colspan="7" class="empty">No members found. Try clearing the filters.</td></tr>';
   $("#count").textContent=r.length+" of "+mem.length+" members";
 }
 
@@ -329,19 +329,19 @@ function detailsBase(m){
 function view(id){
   const m=mem.find(x=>x.id==id);if(!m)return;
   let h=`<div class="mh"><h2>${esc(m.fullName)}</h2><p class="muted" style="margin:4px 0 0">${m.nickname?'"'+esc(m.nickname)+'" &middot; ':""}<span class="tag t-${m.status}">${esc(m.status)}</span></p></div>`+details(m);
-  if(role=="viewer")h+='<div class="sec"><div class="note">Ang address, emergency contact, at health info ay para sa admins lang.</div></div>';
+  if(role=="viewer")h+='<div class="sec"><div class="note">Address, emergency contact, and health info are visible to admins only.</div></div>';
   h+='<div class="sub">'+(isAdm()?`<button class="btn red" onclick="del('${id}')">Delete</button><button class="btn line" onclick="print()">Print</button><button class="btn gold" onclick="edit('${id}')">Edit</button>`:"")+'<button class="btn line" onclick="closeModal()">Close</button></div>';
   openModal(h);
 }
 function edit(id,appId){
   const a=appId?apps.find(x=>x.id==appId):null;
-  if(a&&stIdx(a)<3)return alert("Kailangan munang Club Fee Paid ang status bago maging member.");
+  if(a&&stIdx(a)<3)return alert("The status must be Club Fee Paid before the applicant can become a member.");
   const m=id?mem.find(x=>x.id==id):a?{...a,status:"Active",dateJoined:today()}:{status:"Active",dateJoined:today(),applicationStatus:"Club Fee Paid"};
-  openModal(`<div class="mh"><h2>${id?"Edit member":a?"Approve application":"Add member"}</h2>${a?'<p class="muted" style="margin:4px 0 0">Tingnan ang details at lagyan ng DUPR ID bago i-save.</p>':""}</div><form id="mf">${formHTML(m)}<div class="sub"><button type="button" class="btn line" onclick="closeModal()">Cancel</button><button class="btn gold" type="submit">${a?"Save as member":"Save changes"}</button></div></form>`);
+  openModal(`<div class="mh"><h2>${id?"Edit member":a?"Approve application":"Add member"}</h2>${a?'<p class="muted" style="margin:4px 0 0">Review the details and add a DUPR ID before saving.</p>':""}</div><form id="mf">${formHTML(m)}<div class="sub"><button type="button" class="btn line" onclick="closeModal()">Cancel</button><button class="btn gold" type="submit">${a?"Save as member":"Save changes"}</button></div></form>`);
   const f=$("#mf"),b=f.elements.birthdate;b.oninput=()=>$("#ageOut").textContent=age(b.value);
   f.onsubmit=async e=>{
     e.preventDefault();const d=readForm(f);
-    if(!DEC.every(([k,,r])=>!r||d.declarations[k]))return alert("Lagyan ng check ang tatlong required na declarations.");
+    if(!DEC.every(([k,,r])=>!r||d.declarations[k]))return alert("Please check the three required declarations.");
     try{
       if(a){
         d.createdAt=Date.now();d.consentDate=tsDate(a.submittedAt)||today();d.fromApplication=appId;
@@ -350,11 +350,11 @@ function edit(id,appId){
       }else if(id)await db.collection(MEMBERS).doc(id).update(d);
       else{d.createdAt=Date.now();d.consentDate=today();await db.collection(MEMBERS).add(d)}
       closeModal();
-    }catch(err){alert("Hindi na-save: "+err.message)}
+    }catch(err){alert("Could not save: "+err.message)}
   };
 }
 $("#add").onclick=()=>edit();
-async function del(id){const m=mem.find(x=>x.id==id);if(confirm("I-delete si "+m.fullName+"? Hindi na ito mababalik.")){await db.collection(MEMBERS).doc(id).delete();closeModal()}}
+async function del(id){const m=mem.find(x=>x.id==id);if(confirm("Delete "+m.fullName+"? This cannot be undone.")){await db.collection(MEMBERS).doc(id).delete();closeModal()}}
 $("#csv").onclick=()=>{
   const q=v=>'"'+String(v??"").replace(/"/g,'""')+'"';
   const out=[F.map(f=>q(f.l)).join(",")].concat(rows().map(m=>F.map(f=>q(m[f.k])).join(",")));
@@ -366,8 +366,8 @@ const pend=()=>apps.filter(a=>a.status!="rejected"),rej=()=>apps.filter(a=>a.sta
 const tsFull=t=>t&&t.toDate?t.toDate().toLocaleString("en-PH",{dateStyle:"medium",timeStyle:"short"}):"—";
 function drawApps(){
   const p=pend(),r=rej().sort((a,b)=>(b.rejectedAt?.seconds||0)-(a.rejectedAt?.seconds||0));
-  $("#atb").innerHTML=p.length?p.map(a=>`<tr onclick="viewApp('${a.id}')"><td><b>${esc(a.fullName)}</b></td><td>${esc(a.nickname)}</td><td>${esc(a.phone)}</td><td>${tsDate(a.submittedAt)||"—"}</td><td>${stTag(a)}</td></tr>`).join(""):'<tr><td colspan="5" class="empty">Walang bagong application ngayon.</td></tr>';
-  $("#rtb").innerHTML=r.length?r.map(a=>`<tr onclick="viewApp('${a.id}')"><td><b>${esc(a.fullName)}</b></td><td>${esc(a.nickname)}</td><td>${tsFull(a.rejectedAt)}</td><td>${esc(a.rejectedBy)||"—"}</td><td>${esc(a.rejectReason)||"—"}</td></tr>`).join(""):'<tr><td colspan="5" class="empty">Wala pang na-reject na application.</td></tr>';
+  $("#atb").innerHTML=p.length?p.map(a=>`<tr onclick="viewApp('${a.id}')"><td><b>${esc(a.fullName)}</b></td><td>${esc(a.nickname)}</td><td>${esc(a.phone)}</td><td>${tsDate(a.submittedAt)||"—"}</td><td>${stTag(a)}</td></tr>`).join(""):'<tr><td colspan="5" class="empty">No new applications right now.</td></tr>';
+  $("#rtb").innerHTML=r.length?r.map(a=>`<tr onclick="viewApp('${a.id}')"><td><b>${esc(a.fullName)}</b></td><td>${esc(a.nickname)}</td><td>${tsFull(a.rejectedAt)}</td><td>${esc(a.rejectedBy)||"—"}</td><td>${esc(a.rejectReason)||"—"}</td></tr>`).join(""):'<tr><td colspan="5" class="empty">No rejected applications yet.</td></tr>';
 }
 function viewApp(id){
   const a=apps.find(x=>x.id==id);if(!a)return;const rj=a.status=="rejected",i=stIdx(a);
@@ -389,14 +389,14 @@ async function setStatus(id,dir){
 async function rejectApp(id){
   const a=apps.find(x=>x.id==id);
   const r=(prompt("Reason for rejecting this application (required):")||"").trim();
-  if(!r)return alert("Kailangan ng reason para ma-reject ang application.");
+  if(!r)return alert("A reason is required to reject an application.");
   await db.collection(APPS).doc(id).update({status:"rejected",rejectedAt:AU.serverTimestamp(),rejectedBy:me.email,rejectReason:r,rejectedAtStage:STAT[stIdx(a)],statusHistory:hist("Rejected: "+r)});closeModal();
 }
 async function restoreApp(id){
   const D=AU.delete();
   await db.collection(APPS).doc(id).update({status:D,rejectedAt:D,rejectedBy:D,rejectReason:D,rejectedAtStage:D,statusHistory:hist("Restored")});closeModal();
 }
-async function delApp(id){if(confirm("Tuluyang i-delete ang application na ito? Hindi na ito mababalik.")){await db.collection(APPS).doc(id).delete();closeModal()}}
+async function delApp(id){if(confirm("Permanently delete this application? This cannot be undone.")){await db.collection(APPS).doc(id).delete();closeModal()}}
 
 /* ===== TABS + USERS ===== */
 function go(v){
@@ -408,13 +408,13 @@ document.querySelectorAll(".tab").forEach(b=>b.onclick=()=>go(b.dataset.v));
 async function loadUsers(){
   let s;
   try{s=await db.collection("users").get()}
-  catch(e){$("#vu").innerHTML='<div class="note">Hindi ma-load ang users: '+esc(e.message)+'. Siguraduhing na-publish ang pinakabagong firestore.rules.</div>';return}
-  $("#vu").innerHTML='<h2 style="color:var(--navy);margin-bottom:6px">Users</h2><p class="muted">Bagong Gmail logins ay "pending" hanggang bigyan mo ng role.</p><div class="card tw"><table><thead><tr><th>Email</th><th>Name</th><th>Role</th><th>Admin sub-role</th><th></th></tr></thead><tbody>'+
+  catch(e){$("#vu").innerHTML='<div class="note">Could not load users: '+esc(e.message)+'. Make sure the latest firestore.rules is published.</div>';return}
+  $("#vu").innerHTML='<h2 style="color:var(--navy);margin-bottom:6px">Users</h2><p class="muted">New Gmail logins stay "pending" until you give them a role.</p><div class="card tw"><table><thead><tr><th>Email</th><th>Name</th><th>Role</th><th>Admin sub-role</th><th></th></tr></thead><tbody>'+
   s.docs.map(d=>{const u=d.data();return `<tr style="cursor:default"><td>${esc(u.email)}</td><td>${esc(u.name)}</td><td><select onchange="setRole('${d.id}',this.value)">${["pending","viewer","admin","superadmin"].map(r=>`<option ${r==u.role?"selected":""}>${r}</option>`).join("")}</select></td><td><select ${u.role!="admin"?"disabled":""} onchange="setSub('${d.id}',this.value)"><option value="">None</option>${SUBROLES.map(r=>`<option ${r==u.subRole?"selected":""}>${r}</option>`).join("")}</select></td><td><button class="btn red pill" onclick="rmUser('${d.id}')">Remove</button></td></tr>`}).join("")+"</tbody></table></div>";
 }
 async function setRole(id,r){await db.collection("users").doc(id).update(r=="admin"?{role:r}:{role:r,subRole:firebase.firestore.FieldValue.delete()});loadUsers()}
 async function setSub(id,v){await db.collection("users").doc(id).update({subRole:v})}
-async function rmUser(id){if(confirm("Alisin ang user na ito?")){await db.collection("users").doc(id).delete();loadUsers()}}
+async function rmUser(id){if(confirm("Remove this user?")){await db.collection("users").doc(id).delete();loadUsers()}}
 </script>
 </body>
 </html>
