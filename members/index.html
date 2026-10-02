@@ -66,6 +66,7 @@ tbody tr{cursor:pointer}tbody tr:hover{background:var(--navy-tint)}
 .step{font-size:12px;font-weight:600;padding:5px 11px;border-radius:99px;border:1px solid var(--line-strong);color:var(--ink-soft)}
 .step.done{background:var(--navy-tint);color:var(--navy);border-color:var(--navy)}
 .step.cur{background:var(--gold);color:var(--navy-deep);border-color:var(--gold)}
+.or{display:flex;align-items:center;gap:10px;margin:18px 0 12px;color:var(--ink-soft);font-size:12.5px}.or:before,.or:after{content:"";flex:1;height:1px;background:var(--line)}
 .muted{color:var(--ink-soft);font-size:13px}
 .empty{text-align:center;padding:36px 20px;color:var(--ink-soft)}
 /* modal (same look as the club site's application form) */
@@ -107,6 +108,16 @@ tbody tr{cursor:pointer}tbody tr:hover{background:var(--navy-tint)}
   <h2>Members Database</h2>
   <p class="muted">For club officers only. Sign in with your Gmail account.</p>
   <button class="btn gold" id="gbtn">Sign in with Google</button>
+  <div class="or"><span>or use email and password</span></div>
+  <form id="eform" style="text-align:left">
+    <input type="email" id="em" placeholder="Email" autocomplete="email" required>
+    <input type="password" id="pw" placeholder="Password (at least 6 characters)" autocomplete="current-password" required style="margin-top:8px">
+    <div style="display:flex;gap:8px;margin-top:10px">
+      <button class="btn" type="submit" style="flex:1">Sign in</button>
+      <button class="btn line" type="button" id="signup" style="flex:1">Create account</button>
+    </div>
+    <p class="muted" style="margin:10px 0 0;text-align:center"><a href="#" id="forgot" style="color:var(--navy)">Forgot password?</a></p>
+  </form>
   <p class="err" id="lerr"></p>
   <p class="muted"><a href="../index.html" style="color:var(--navy)">Back to the club website</a></p>
 </section>
@@ -116,10 +127,21 @@ tbody tr{cursor:pointer}tbody tr:hover{background:var(--navy-tint)}
   <button class="btn line" onclick="auth.signOut()">Sign out</button>
 </section>
 
+<section id="verify" hidden class="card login">
+  <h2>Verify your email</h2>
+  <p class="muted">We sent a verification link to <b id="vmail"></b>. Open the link in that email, then press the button below.</p>
+  <div style="display:flex;flex-direction:column;gap:8px">
+    <button class="btn gold" id="vdone">I've verified my email</button>
+    <button class="btn line" id="vresend">Resend email</button>
+    <button class="btn line" onclick="auth.signOut()">Sign out</button>
+  </div>
+  <p class="err" id="vmsg"></p>
+</section>
+
 <!-- APP -->
 <div id="app" hidden>
   <nav class="nav">
-    <a class="brand" href="index.html"><img src="logo.jpg" alt="">CCPC Members</a>
+    <a class="brand" href="../index.html"><img src="logo.jpg" alt="">CCPC Members</a>
     <div class="tabs">
       <button class="tab on" data-v="m">Members</button>
       <button class="tab" data-v="a" id="ta" hidden>Applications<i id="abadge">0</i></button>
@@ -219,7 +241,7 @@ const tsDate=t=>t&&t.toDate?t.toDate().toISOString().slice(0,10):"";
 let me=null,role="",subRole="",mem=[],apps=[],unsubs=[],sort={k:"nickname",d:1};
 const flt={q:"",mo:"",g:"",cs:"",bt:"",md:"",st:""};
 const isAdm=()=>role=="superadmin"||role=="admin";
-const show=id=>["login","wait","app"].forEach(x=>$("#"+x).hidden=x!=id);
+const show=id=>["login","wait","verify","app"].forEach(x=>$("#"+x).hidden=x!=id);
 const closeModal=()=>$("#ov").hidden=true;
 const openModal=h=>{$("#mc").innerHTML='<button class="x" onclick="closeModal()" aria-label="Close">&times;</button>'+h;$("#ov").hidden=false};
 $("#ov").hidden=true;
@@ -232,9 +254,29 @@ $("#th").onclick=()=>setTheme(document.documentElement.dataset.theme=="dark"?"li
 /* ===== AUTH ===== */
 $("#gbtn").onclick=()=>auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).catch(e=>$("#lerr").textContent=e.message);
 $("#lo").onclick=()=>auth.signOut();
+const say=(t,ok)=>{const e=$("#lerr");e.textContent=t;e.style.color=ok?"var(--navy)":""};
+const niceErr=e=>({"auth/invalid-credential":"Wrong email or password.","auth/wrong-password":"Wrong email or password.","auth/user-not-found":"Wrong email or password.","auth/email-already-in-use":"That email already has an account. Try signing in instead.","auth/weak-password":"Password must be at least 6 characters.","auth/invalid-email":"That email address doesn't look right.","auth/operation-not-allowed":"Email/password sign-in is not enabled in Firebase yet.","auth/too-many-requests":"Too many attempts. Please wait a moment and try again."}[e.code]||e.message);
+$("#eform").onsubmit=e=>{e.preventDefault();say("");auth.signInWithEmailAndPassword($("#em").value.trim(),$("#pw").value).catch(err=>say(niceErr(err)))};
+$("#signup").onclick=async()=>{
+  const em=$("#em").value.trim(),pw=$("#pw").value;say("");
+  if(!em||pw.length<6)return say("Enter your email and a password of at least 6 characters.");
+  try{const c=await auth.createUserWithEmailAndPassword(em,pw);await c.user.sendEmailVerification()}catch(err){say(niceErr(err))}
+};
+$("#forgot").onclick=async e=>{
+  e.preventDefault();const em=$("#em").value.trim();
+  if(!em)return say("Type your email above first, then click Forgot password.");
+  try{await auth.sendPasswordResetEmail(em);say("Password reset email sent. Check your inbox (and spam folder).",1)}catch(err){say(niceErr(err))}
+};
+$("#vresend").onclick=async()=>{try{await auth.currentUser.sendEmailVerification();$("#vmsg").style.color="var(--navy)";$("#vmsg").textContent="Verification email sent again."}catch(err){$("#vmsg").style.color="";$("#vmsg").textContent=niceErr(err)}};
+$("#vdone").onclick=async()=>{
+  await auth.currentUser.reload();
+  if(auth.currentUser.emailVerified){await auth.currentUser.getIdToken(true);location.reload()}
+  else{$("#vmsg").style.color="";$("#vmsg").textContent="Not verified yet. Open the link in your email first."}
+};
 auth.onAuthStateChanged(async u=>{
   unsubs.forEach(f=>f());unsubs=[];me=u;
   if(!u||!u.email){show("login");return}
+  if(u.providerData.some(p=>p.providerId=="password")&&!u.emailVerified){$("#vmail").textContent=u.email;show("verify");return}
   try{
     const ref=db.collection("users").doc(u.uid);let s=await ref.get();
     const isSA=u.email.toLowerCase()==SUPER_ADMIN.toLowerCase();
