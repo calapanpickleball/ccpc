@@ -168,8 +168,8 @@ tbody tr{cursor:pointer}tbody tr:hover{background:var(--navy-tint)}
 const firebaseConfig={apiKey:"AIzaSyB4IiCCQHtGeIT44n71oGlKk7PIOSWxfg8",authDomain:"ccpc-1943f.firebaseapp.com",databaseURL:"https://ccpc-1943f-default-rtdb.firebaseio.com",projectId:"ccpc-1943f",storageBucket:"ccpc-1943f.firebasestorage.app",messagingSenderId:"904942754236",appId:"1:904942754236:web:aecbec51d5cd0b745b33b9"};
 const SUPER_ADMIN="YOUR_GMAIL@gmail.com"; // <-- palitan: ito ang magiging Super Admin
 const APPS="membershipApplications",MEMBERS="members"; // APPS = galing sa club website form
-firebase.initializeApp(firebaseConfig);
-const auth=firebase.auth(),db=firebase.firestore();
+const fbApp=firebase.initializeApp(firebaseConfig,"members"); // hiwalay na app name para di maghalo sa login ng ibang pages
+const auth=fbApp.auth(),db=fbApp.firestore();
 
 /* ===== FIELDS (same names as the website form) ===== */
 const GROUPS=["Personal information","Contact","Emergency contact","Health","Pickleball and club"];
@@ -234,7 +234,7 @@ $("#gbtn").onclick=()=>auth.signInWithPopup(new firebase.auth.GoogleAuthProvider
 $("#lo").onclick=()=>auth.signOut();
 auth.onAuthStateChanged(async u=>{
   unsubs.forEach(f=>f());unsubs=[];me=u;
-  if(!u){show("login");return}
+  if(!u||!u.email){show("login");return}
   try{
     const ref=db.collection("users").doc(u.uid);let s=await ref.get();
     const isSA=u.email.toLowerCase()==SUPER_ADMIN.toLowerCase();
