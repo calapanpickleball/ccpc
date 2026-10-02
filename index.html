@@ -589,6 +589,14 @@
     background:var(--navy-tint); border-color:var(--navy); color:var(--navy);
   }
 
+  .modal-hint{font-weight:500;font-size:11.5px;color:var(--ink-soft);margin-left:4px;}
+  .modal-field label.modal-inline{display:flex;align-items:center;gap:8px;font-weight:500;font-size:12.5px;color:var(--ink-soft);margin-top:4px;cursor:pointer;}
+  .modal-inline input{width:auto !important;accent-color:var(--navy);}
+  .modal-tip{position:relative;display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;border-radius:50%;background:var(--navy);color:#fff;font-size:11px;font-weight:700;cursor:help;margin-left:4px;}
+  .modal-tip::after{content:attr(data-tip);position:absolute;left:50%;bottom:calc(100% + 8px);transform:translateX(-60%);width:230px;background:var(--navy-deep);color:#fff;font-size:12px;font-weight:500;line-height:1.4;padding:8px 10px;border-radius:7px;opacity:0;pointer-events:none;transition:opacity .12s;z-index:5;}
+  .modal-tip:hover::after,.modal-tip:focus::after{opacity:1;}
+  #modalConditionField{display:none;}
+  #modalConditionField.show{display:flex;}
   #modalMedicationField{display:none;}
   #modalMedicationField.show{display:flex;}
 
@@ -936,6 +944,34 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
       </div>
 
       <div class="modal-section">
+        <h3>Pickleball Details</h3>
+        <p class="modal-section-note">Helps us place you in the right games and groups.</p>
+
+        <div class="modal-row single">
+          <div class="modal-field">
+            <label>Skill level <span class="modal-req">*</span></label>
+            <select id="m-skillLevel" required>
+              <option value="" disabled selected>Select</option>
+              <option>Beginner</option><option>Novice</option><option>Low Intermediate</option>
+              <option>High Intermediate</option><option>Advanced</option><option>Advanced+</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="modal-row" style="margin-top:16px;">
+          <div class="modal-field">
+            <label>DUPR ID <span class="modal-hint">Highly recommended</span></label>
+            <input type="text" id="m-dupr" placeholder="Your DUPR ID" />
+            <label class="modal-inline"><input type="checkbox" id="m-noDupr" /> I don't have a DUPR ID yet</label>
+          </div>
+          <div class="modal-field">
+            <label>Career high DUPR rating <span class="modal-tip" tabindex="0" data-tip="Your highest DUPR rating ever. You can see it in the DUPR app, on your profile.">?</span> <span class="modal-hint">Optional</span></label>
+            <input type="number" id="m-duprHigh" min="1" max="8" step="0.001" placeholder="e.g. 3.512" />
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-section">
         <h3>Contact Details</h3>
         <p class="modal-section-note">How we'll reach you and who to notify in an emergency.</p>
 
@@ -959,9 +995,15 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
 
         <div class="modal-row" style="margin-top:16px;">
           <div class="modal-field">
-            <label>Emergency contact & relationship <span class="modal-req">*</span></label>
-            <input type="text" id="m-emergencyContact" placeholder="e.g. Maria Santos – Mother" required />
+            <label>Emergency contact name <span class="modal-req">*</span></label>
+            <input type="text" id="m-emergencyName" placeholder="e.g. Maria Santos" required />
           </div>
+          <div class="modal-field">
+            <label>Relationship <span class="modal-req">*</span></label>
+            <input type="text" id="m-emergencyRelationship" placeholder="e.g. Mother" required />
+          </div>
+        </div>
+        <div class="modal-row" style="margin-top:16px;">
           <div class="modal-field">
             <label>Contact number <span class="modal-req">*</span></label>
             <input type="tel" inputmode="numeric" id="m-emergencyNumber" required placeholder="09xxxxxxxxx" />
@@ -1004,6 +1046,13 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
               <input type="radio" name="m-medicalCondition" id="m-med-no" value="No">
               <label class="modal-pill" for="m-med-no">No</label>
             </div>
+          </div>
+        </div>
+
+        <div class="modal-row single" id="modalConditionField" style="margin-top:16px;">
+          <div class="modal-field">
+            <label>What condition? <span class="modal-req">*</span></label>
+            <input type="text" id="m-condition" placeholder="e.g. Hypertension, asthma" />
           </div>
         </div>
 
@@ -1118,6 +1167,8 @@ function resetModalToForm(){
   modalForm.classList.remove('hide');
   modalSuccessScreen.classList.remove('show');
   document.getElementById('modalMedicationField').classList.remove('show');
+  document.getElementById('modalConditionField').classList.remove('show');
+  document.getElementById('m-dupr').disabled = false;
   document.getElementById('modalFbNameField').classList.remove('show');
   document.querySelectorAll('.modal-choice-group label.modal-pill').forEach(l => l.classList.remove('is-checked'));
   document.getElementById('m-age').value = '';
@@ -1184,6 +1235,16 @@ document.getElementById('m-declFacebook').addEventListener('change', (e) => {
 /* ============================================================
    Submit
    ============================================================ */
+const mDupr = document.getElementById('m-dupr'), mNoDupr = document.getElementById('m-noDupr');
+mNoDupr.addEventListener('change', () => { mDupr.disabled = mNoDupr.checked; if (mNoDupr.checked) mDupr.value = ''; });
+document.querySelectorAll('input[name="m-medicalCondition"]').forEach(radio => {
+  radio.addEventListener('change', () => {
+    const yes = document.getElementById('m-med-yes').checked;
+    document.getElementById('modalConditionField').classList.toggle('show', yes);
+    document.getElementById('m-condition').required = yes;
+  });
+});
+
 const modalErrorBanner = document.getElementById('modalErrorBanner');
 function showModalError(msg){ modalErrorBanner.textContent = msg; modalErrorBanner.classList.add('show'); }
 function clearModalError(){ modalErrorBanner.classList.remove('show'); modalErrorBanner.textContent = ''; }
@@ -1221,6 +1282,12 @@ modalForm.addEventListener('submit', async (e) => {
     const data = {
       fullName: document.getElementById('m-fullName').value.trim(),
       nickname: document.getElementById('m-nickname').value.trim(),
+      skillLevel: document.getElementById('m-skillLevel').value,
+      dupr: document.getElementById('m-dupr').value.trim(),
+      noDupr: document.getElementById('m-noDupr').checked,
+      duprCareerHigh: document.getElementById('m-duprHigh').value ? Number(document.getElementById('m-duprHigh').value) : null,
+      applicationStatus: 'Under Assessment',
+      statusHistory: [{ status: 'Under Assessment', by: 'Online application', at: Date.now() }],
       birthdate: mBirthdate.value,
       age: mAge.value ? Number(mAge.value) : null,
       gender: genderEl ? genderEl.value : '',
@@ -1228,12 +1295,15 @@ modalForm.addEventListener('submit', async (e) => {
       phone: document.getElementById('m-phone').value.trim(),
       email: document.getElementById('m-email').value.trim(),
       address: document.getElementById('m-address').value.trim(),
-      emergencyContact: document.getElementById('m-emergencyContact').value.trim(),
+      emergencyName: document.getElementById('m-emergencyName').value.trim(),
+      emergencyRelationship: document.getElementById('m-emergencyRelationship').value.trim(),
+      emergencyContact: document.getElementById('m-emergencyName').value.trim() + ' – ' + document.getElementById('m-emergencyRelationship').value.trim(),
       emergencyNumber: document.getElementById('m-emergencyNumber').value.trim(),
       height: document.getElementById('m-height').value ? Number(document.getElementById('m-height').value) : null,
       weight: document.getElementById('m-weight').value ? Number(document.getElementById('m-weight').value) : null,
       bloodType: document.getElementById('m-bloodType').value,
       medicalCondition: medicalEl ? medicalEl.value : '',
+      condition: (medicalEl && medicalEl.value === 'Yes') ? document.getElementById('m-condition').value.trim() : '',
       medication: document.getElementById('m-medication').value.trim(),
       declarations: {
         fit: document.getElementById('m-declFit').checked,
