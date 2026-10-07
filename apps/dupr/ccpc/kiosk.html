@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Check in · DUPR Engine v.1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --green:#083d5f; --green-2:#052b44; --green-soft:rgba(8,61,95,.10);
+    --charcoal:#083d5f; --charcoal-deep:#052b44;
+    --bg:#f2f5f8; --surface:#ffffff; --surface-2:#f6f8fa; --text:#1b2a36; --muted:#5f7080; --border:#d9e0e6;
+    --red:#bb1421; --orange:#ff6600;
+    --shadow:0 10px 30px rgba(38,42,38,.10); --radius:18px;
+  }
+  html[data-theme="dark"]{
+    --green:#fab813; --green-2:#e0a30a; --green-soft:rgba(250,184,19,.16);
+    --bg:#0b1a26; --surface:#112a3c; --surface-2:#0e2231; --text:#eef3f7; --muted:#8fa6b8; --border:#1f3d54;
+    --shadow:0 10px 34px rgba(0,0,0,.45);
+  }
+  html[data-theme="dark"] .step-title .num, html[data-theme="dark"] .btn-primary, html[data-theme="dark"] .welcome .tick{color:#052b44;}
+  *{box-sizing:border-box;}
+  html,body{margin:0;min-height:100%;}
+  body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--text);-webkit-tap-highlight-color:transparent;
+    padding-bottom:env(safe-area-inset-bottom,0px);}
+  header.top{background:linear-gradient(135deg,var(--charcoal) 0%,var(--charcoal-deep) 100%);color:#fff;
+    padding:calc(12px + env(safe-area-inset-top,0px)) clamp(14px,3vw,32px) 12px;display:flex;align-items:center;gap:clamp(10px,2vw,22px);
+    border-bottom:4px solid #fab813;}
+  header.top .logo{height:clamp(46px,8vw,76px);width:clamp(46px,8vw,76px);border-radius:12px;flex-shrink:0;background:#fff;object-fit:cover;box-shadow:0 2px 10px rgba(0,0,0,.4);}
+  header.top .titles{flex:1;min-width:0;text-align:center;}
+  header.top h1{margin:0;font-family:'Baloo 2',sans-serif;font-weight:800;font-size:clamp(22px,4.2vw,40px);line-height:1.05;letter-spacing:.01em;}
+  header.top .sub{margin-top:2px;font-size:clamp(12px,1.9vw,16px);color:#c3cdc3;font-weight:500;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .theme-btn{position:fixed;right:max(12px,env(safe-area-inset-right,0px));bottom:max(12px,env(safe-area-inset-bottom,0px));width:46px;height:46px;border-radius:50%;
+    border:1px solid var(--border);background:var(--surface);color:var(--text);font-size:20px;cursor:pointer;box-shadow:var(--shadow);z-index:5;}
+  main{max-width:960px;margin:0 auto;padding:clamp(14px,3vw,30px);}
+  .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:clamp(16px,3vw,30px);}
+  .step{margin-bottom:clamp(20px,3.4vw,30px);}
+  .step-title{display:flex;align-items:center;gap:12px;font-family:'Baloo 2',sans-serif;font-weight:700;font-size:clamp(19px,3vw,26px);margin:0 0 12px;line-height:1.15;}
+  .step-title .num{flex-shrink:0;width:clamp(30px,4.6vw,38px);height:clamp(30px,4.6vw,38px);border-radius:50%;background:var(--green);color:#fff;display:flex;align-items:center;justify-content:center;font-size:clamp(16px,2.6vw,20px);}
+  .bucket-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,210px),1fr));gap:12px;}
+  .choice{position:relative;min-height:68px;padding:12px 16px;border-radius:14px;border:2px solid var(--border);background:var(--surface-2);color:var(--text);
+    font:inherit;font-weight:700;font-size:clamp(17px,2.4vw,21px);cursor:pointer;text-align:left;display:flex;flex-direction:column;justify-content:center;gap:2px;transition:.12s;}
+  .choice small{font-weight:500;font-size:13px;color:var(--muted);}
+  .choice:active{transform:scale(.985);}
+  .choice.selected{border-color:var(--green);background:var(--green-soft);box-shadow:0 0 0 3px var(--green-soft);}
+  .choice.selected::after{content:'✓';position:absolute;top:8px;right:12px;color:var(--green);font-size:20px;font-weight:800;}
+  .seg{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  .seg .choice{align-items:center;text-align:center;}
+  .empty-note{padding:20px;border:2px dashed var(--border);border-radius:14px;color:var(--muted);text-align:center;font-weight:600;}
+  .fields{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  .field{display:flex;flex-direction:column;gap:6px;min-width:0;}
+  .field.full{grid-column:1/-1;}
+  .field label{font-size:13px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;}
+  .field input{width:100%;height:58px;border-radius:14px;border:2px solid var(--border);background:var(--surface-2);color:var(--text);
+    padding:0 16px;font:inherit;font-size:20px;font-weight:600;outline:none;}
+  .field input:focus{border-color:var(--green);box-shadow:0 0 0 3px var(--green-soft);}
+  .field input:disabled{opacity:.55;}
+  .combo{position:relative;}
+  .results{position:absolute;left:0;right:0;top:calc(100% + 6px);background:var(--surface);border:2px solid var(--green);border-radius:14px;box-shadow:var(--shadow);
+    z-index:20;max-height:min(320px,42vh);overflow:auto;display:none;}
+  .results.show{display:block;}
+  .results .item{padding:15px 18px;font-size:19px;font-weight:600;cursor:pointer;border-bottom:1px solid var(--border);}
+  .results .item:last-child{border-bottom:none;}
+  .results .item:active,.results .item:hover{background:var(--green-soft);}
+  .results .none{padding:15px 18px;color:var(--muted);font-weight:600;}
+  .linkbtn{background:none;border:none;color:var(--green);font:inherit;font-weight:700;font-size:15px;padding:8px 0 0;cursor:pointer;text-decoration:underline;text-align:left;}
+  .hint{font-size:13px;color:var(--muted);margin-top:2px;}
+  .error{min-height:22px;margin:4px 0 12px;color:var(--red);font-weight:700;font-size:15px;}
+  .actions{display:flex;gap:12px;flex-wrap:wrap;}
+  .btn{height:64px;border-radius:16px;border:2px solid transparent;font:inherit;font-weight:800;font-size:clamp(18px,2.6vw,22px);cursor:pointer;padding:0 28px;}
+  .btn-primary{flex:1;min-width:220px;background:var(--green);color:#fff;box-shadow:0 6px 16px var(--green-soft);}
+  .btn-primary:disabled{opacity:.6;cursor:wait;}
+  .btn-ghost{background:transparent;border-color:var(--border);color:var(--muted);}
+  /* welcome popup */
+  .overlay{position:fixed;inset:0;background:rgba(20,24,20,.82);display:none;align-items:center;justify-content:center;z-index:50;padding:20px;}
+  .overlay.show{display:flex;}
+  .welcome{background:var(--surface);border-radius:28px;border:3px solid var(--green);box-shadow:0 20px 60px rgba(0,0,0,.5);padding:clamp(24px,5vw,50px);
+    text-align:center;max-width:720px;width:100%;animation:pop .28s ease-out;overflow:hidden;position:relative;}
+  @keyframes pop{from{transform:scale(.9);opacity:0}to{transform:scale(1);opacity:1}}
+  .welcome .tick{width:clamp(70px,12vw,104px);height:clamp(70px,12vw,104px);border-radius:50%;background:var(--green);color:#fff;font-size:clamp(40px,7vw,62px);
+    display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-weight:800;}
+  .welcome h2{margin:0 0 6px;font-family:'Baloo 2',sans-serif;font-weight:800;font-size:clamp(28px,5.4vw,46px);line-height:1.1;color:var(--text);}
+  .welcome .who{font-size:clamp(19px,3vw,26px);font-weight:700;color:var(--green);margin-bottom:4px;}
+  .welcome .cat{font-size:clamp(14px,2vw,17px);color:var(--muted);font-weight:600;margin-bottom:14px;}
+  .welcome .luck{font-size:clamp(20px,3.2vw,28px);font-weight:700;margin-bottom:22px;}
+  .welcome .bar{position:absolute;left:0;bottom:0;height:7px;background:var(--green);width:100%;transform-origin:left;animation:shrink 5s linear forwards;}
+  @keyframes shrink{from{transform:scaleX(1)}to{transform:scaleX(0)}}
+  .welcome .btn{height:54px;font-size:19px;}
+  @media (max-width:640px){ .fields{grid-template-columns:1fr;} header.top .sub{white-space:normal;} }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <img class="logo" alt="CCPC" src="ccpc-logo.png" onerror="this.style.visibility='hidden'">
+  <div class="titles">
+    <h1>Check in</h1>
+    <div class="sub" id="sessionSub">Welcome! Please check in below.</div>
+  </div>
+  <img class="logo" alt="DUPR" src="data:image/jpeg;base64,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">
+</header>
+
+<main>
+  <div class="card">
+    <div class="step">
+      <h2 class="step-title"><span class="num">1</span>Which category are you playing?</h2>
+      <div class="bucket-grid" id="bucketGrid"></div>
+    </div>
+
+    <div class="step">
+      <h2 class="step-title"><span class="num">2</span>Are you a member of CCPC?</h2>
+      <div class="seg">
+        <button type="button" class="choice" id="btnYes">Yes</button>
+        <button type="button" class="choice" id="btnNo">No</button>
+      </div>
+    </div>
+
+    <div class="step">
+      <h2 class="step-title"><span class="num">3</span>Your details</h2>
+      <div class="fields">
+        <div class="field full combo">
+          <label for="fName" id="lblName">Name</label>
+          <input type="text" id="fName" autocomplete="off" autocapitalize="words" spellcheck="false" placeholder="Choose Yes or No above first">
+          <div class="results" id="results"></div>
+          <button type="button" class="linkbtn" id="btnNotListed" style="display:none;">Can't find your name? Continue as non-member</button>
+          <div class="hint" id="nameHint" style="display:none;">Start typing your name, then tap it in the list.</div>
+        </div>
+        <div class="field">
+          <label for="fDuprId">DUPR ID</label>
+          <input type="text" id="fDuprId" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="e.g. ABC1234">
+        </div>
+        <div class="field">
+          <label for="fRating">Current DUPR rating</label>
+          <input type="text" id="fRating" inputmode="decimal" autocomplete="off" placeholder="e.g. 3.250 or NR">
+          <div class="hint">2.000 – 6.000, or NR if not rated yet.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="error" id="err"></div>
+    <div class="actions">
+      <button type="button" class="btn btn-primary" id="btnSubmit">Submit</button>
+      <button type="button" class="btn btn-ghost" id="btnReset">Start over</button>
+    </div>
+  </div>
+</main>
+
+<button class="theme-btn" id="themeBtn" title="Light / dark mode">🌙</button>
+
+<div class="overlay" id="welcomeOverlay">
+  <div class="welcome">
+    <div class="tick">✓</div>
+    <h2 id="wTitle">Welcome!</h2>
+    <div class="who" id="wWho"></div>
+    <div class="cat" id="wCat"></div>
+    <div class="luck">Goodluck and Enjoy your game!</div>
+    <button type="button" class="btn btn-ghost" id="btnWelcomeOk">OK</button>
+    <div class="bar"></div>
+  </div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script>
+/* DUPR Engine data lives in the original ccpc-dupr project */
+const firebaseConfig = {
+  apiKey: "AIzaSyBv_s3wzr6nbFcqZbTI0UDdcijFWnO-t4I",
+  authDomain: "ccpc-dupr.firebaseapp.com",
+  databaseURL: "https://ccpc-dupr-default-rtdb.firebaseio.com",
+  projectId: "ccpc-dupr",
+  storageBucket: "ccpc-dupr.firebasestorage.app",
+  messagingSenderId: "49883771837",
+  appId: "1:49883771837:web:ca4be96157a62afbc858d4",
+  measurementId: "G-9D46L85X2T"
+};
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+const dbMembers = db;   // members collection is in the same project
+const MEMBERS_COL = 'ccpc-dupr';
+
+/* ---------- helpers ---------- */
+const $ = id => document.getElementById(id);
+function escapeHtml(str){ return String(str == null ? '' : str).replace(/[&<>"']/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c])); }
+function parseDupr(raw){
+  const v = (raw || '').trim();
+  if (v.toUpperCase() === 'NR') return { ok:true, raw:'NR', value:3.0, db:'NR' };
+  const num = parseFloat(v);
+  if (isNaN(num) || !/^\d+(\.\d+)?$/.test(v) || num < 2 || num > 6) return { ok:false, error:'Enter NR or a rating from 2.000 to 6.000.' };
+  const r = Math.round(num * 1000) / 1000;
+  return { ok:true, raw:r.toFixed(3), value:r, db:r };
+}
+function duprNumeric(v){ return v === 'NR' ? 3.0 : Number(v); }
+function fmtNum(n){ return (Math.round(n * 1000) / 1000).toFixed(3); }
+function fmtDupr(v){ return v === 'NR' ? 'NR' : (v === undefined || v === null || v === '' ? '' : Number(v).toFixed(3)); }
+
+/* ---------- theme ---------- */
+const html = document.documentElement;
+function applyTheme(t){ html.setAttribute('data-theme', t); $('themeBtn').textContent = t === 'dark' ? '☀️' : '🌙'; try { localStorage.setItem('ccpc-kiosk-theme', t); } catch (e) {} }
+let savedTheme = 'light'; try { savedTheme = localStorage.getItem('ccpc-kiosk-theme') || 'light'; } catch (e) {}
+applyTheme(savedTheme);
+$('themeBtn').addEventListener('click', () => applyTheme(html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'));
+
+/* ---------- live data ---------- */
+let BUCKETS = [], bucketsLoaded = false, sessionName = '', allMembers = [];
+db.collection('ccpc-queue-buckets').onSnapshot(snap => {
+  BUCKETS = snap.docs.map(d => { const x = d.data(); return { key:d.id, label:x.name || 'Bucket', mode:x.mode === 'singles' ? 'singles' : 'doubles',
+    order:(x.order !== undefined && x.order !== null) ? Number(x.order) : (x.createdAtMs || 0), createdAtMs:x.createdAtMs || 0 }; })
+    .sort((a, b) => a.order - b.order || a.createdAtMs - b.createdAtMs);
+  bucketsLoaded = true;
+  if (state.bucket && !BUCKETS.some(b => b.key === state.bucket)) state.bucket = null;
+  renderBuckets();
+}, err => { $('bucketGrid').innerHTML = `<div class="empty-note">Could not load categories. ${escapeHtml(err.message)}</div>`; });
+db.collection('ccpc-queue-session').doc('state').onSnapshot(doc => {
+  sessionName = (doc.exists && doc.data().currentSessionName) || '';
+  $('sessionSub').textContent = sessionName ? sessionName : 'Welcome! Please check in below.';
+}, () => {});
+dbMembers.collection(MEMBERS_COL).onSnapshot(snap => {
+  allMembers = snap.docs.map(d => ({ id:d.id, ...d.data() })).filter(m => m.name);
+}, err => console.warn('Members database not available:', err.message));
+
+/* ---------- form state ---------- */
+const state = { bucket:null, mode:null, member:null };
+function renderBuckets(){
+  const g = $('bucketGrid');
+  if (!bucketsLoaded) { g.innerHTML = `<div class="empty-note">Loading categories…</div>`; return; }
+  if (!BUCKETS.length) { g.innerHTML = `<div class="empty-note">No categories yet. Please see the organizer.</div>`; return; }
+  g.innerHTML = BUCKETS.map(b => `<button type="button" class="choice ${state.bucket === b.key ? 'selected' : ''}" data-key="${b.key}">${escapeHtml(b.label)}<small>${b.mode === 'singles' ? 'Singles' : 'Doubles'}</small></button>`).join('');
+  g.querySelectorAll('.choice').forEach(btn => btn.addEventListener('click', () => { state.bucket = btn.dataset.key; renderBuckets(); clearError(); }));
+}
+function setMode(mode){
+  const prev = state.mode;
+  state.mode = mode;
+  $('btnYes').classList.toggle('selected', mode === 'yes');
+  $('btnNo').classList.toggle('selected', mode === 'no');
+  const isYes = mode === 'yes';
+  $('btnNotListed').style.display = isYes ? '' : 'none';
+  $('nameHint').style.display = isYes ? '' : 'none';
+  $('fName').placeholder = isYes ? 'Start typing your name…' : (mode === 'no' ? 'Your full name' : 'Choose Yes or No above first');
+  $('fName').disabled = !mode;
+  if (isYes) {
+    if (prev !== 'yes') { state.member = null; $('fDuprId').value = ''; $('fRating').value = ''; }
+    $('fDuprId').disabled = !state.member; $('fRating').disabled = !state.member;
+    $('fDuprId').placeholder = 'Filled in when you pick your name'; $('fRating').placeholder = 'Filled in when you pick your name';
+  } else {
+    state.member = null; hideResults();
+    $('fDuprId').disabled = !mode; $('fRating').disabled = !mode;
+    $('fDuprId').placeholder = 'e.g. ABC1234'; $('fRating').placeholder = 'e.g. 3.250 or NR';
+  }
+  clearError();
+  if (mode) $('fName').focus();
+}
+$('btnYes').addEventListener('click', () => setMode('yes'));
+$('btnNo').addEventListener('click', () => setMode('no'));
+$('btnNotListed').addEventListener('click', () => { setMode('no'); });
+
+/* member search: names only in the list */
+function hideResults(){ $('results').classList.remove('show'); $('results').innerHTML = ''; }
+$('fName').addEventListener('input', () => {
+  if (state.mode !== 'yes') return;
+  if (state.member) { state.member = null; $('fDuprId').value = ''; $('fRating').value = ''; $('fDuprId').disabled = true; $('fRating').disabled = true; }
+  const q = $('fName').value.trim().toLowerCase();
+  if (q.length < 1) { hideResults(); return; }
+  const matches = allMembers.filter(m => m.name.toLowerCase().includes(q)).sort((a, b) => {
+    const as = a.name.toLowerCase().startsWith(q) ? 0 : 1, bs = b.name.toLowerCase().startsWith(q) ? 0 : 1;
+    return as - bs || a.name.localeCompare(b.name);
+  }).slice(0, 8);
+  const r = $('results');
+  r.innerHTML = matches.length ? matches.map(m => `<div class="item" data-id="${m.id}">${escapeHtml(m.name)}</div>`).join('')
+    : `<div class="none">No member found. You can continue as a non-member below.</div>`;
+  r.classList.add('show');
+  r.querySelectorAll('.item').forEach(el => el.addEventListener('pointerdown', e => { e.preventDefault(); pickMember(el.dataset.id); }));
+});
+function pickMember(id){
+  const m = allMembers.find(x => x.id === id);
+  if (!m) return;
+  state.member = m;
+  $('fName').value = m.name;
+  $('fDuprId').value = m.duprId || '';
+  $('fRating').value = fmtDupr(m.curDupr);
+  $('fDuprId').disabled = false; $('fRating').disabled = false;
+  hideResults(); clearError();
+}
+document.addEventListener('pointerdown', e => { if (!e.target.closest('.combo')) hideResults(); });
+
+/* ---------- submit ---------- */
+function showError(msg){ $('err').textContent = msg; }
+function clearError(){ $('err').textContent = ''; }
+let submitting = false;
+$('btnSubmit').addEventListener('click', async () => {
+  if (submitting) return;
+  clearError();
+  const bucket = BUCKETS.find(b => b.key === state.bucket);
+  if (!BUCKETS.length) { showError('No categories yet. Please see the organizer.'); return; }
+  if (!bucket) { showError('Step 1: please pick the category you are playing.'); return; }
+  if (!state.mode) { showError('Step 2: please tell us if you are a CCPC member.'); return; }
+  const name = $('fName').value.trim().replace(/\s+/g, ' ');
+  const duprId = $('fDuprId').value.trim();
+  if (state.mode === 'yes' && !state.member) { showError('Please tap your name in the list, or choose "No" if you are not a member.'); return; }
+  if (!name) { showError('Please enter your name.'); return; }
+  if (!duprId) { showError('Please enter your DUPR ID.'); return; }
+  const cur = parseDupr($('fRating').value);
+  if (!cur.ok) { showError(cur.error); return; }
+
+  submitting = true;
+  const btn = $('btnSubmit'); btn.disabled = true; btn.textContent = 'Checking you in…';
+  try {
+    const m = state.member;
+    let dupr = cur.value, duprRaw = cur.raw;
+    let memberUpdate = null;
+    if (state.mode === 'yes' && m) {
+      /* participant rating = CURRENT DUPR; clubDupr is only recalculated so the members database stays consistent */
+      const ath = m.athDupr === undefined || m.athDupr === null || m.athDupr === '' ? 'NR' : m.athDupr;
+      const club = Math.round(((duprNumeric(ath) + duprNumeric(cur.db)) / 2) * 1000) / 1000;
+      const changed = (m.duprId || '') !== duprId || String(m.curDupr) !== String(cur.db);
+      if (changed) memberUpdate = { duprId, curDupr: cur.db, clubDupr: club, updatedAt: firebase.firestore.FieldValue.serverTimestamp() };
+    }
+    await db.collection('ccpc-queue-participants').add({
+      bucket: bucket.key,
+      sourceType: state.mode === 'yes' ? 'member' : 'guest',
+      memberId: state.mode === 'yes' && m ? m.id : null,
+      name, duprId, dupr, duprRaw,
+      status: 'active', statusSince: Date.now(), sitOutStreak: 0,
+      viaKiosk: true,
+      joinedAt: firebase.firestore.FieldValue.serverTimestamp()
+    });
+    if (memberUpdate) {
+      try { await dbMembers.collection(MEMBERS_COL).doc(m.id).update(memberUpdate); }
+      catch (e) { console.warn('Could not update the CCPC Members Database:', e.message); }
+    }
+    showWelcome(name, bucket);
+  } catch (err) {
+    showError('Sorry, check-in did not go through. Please try again or see the organizer. (' + err.message + ')');
+  } finally {
+    submitting = false; btn.disabled = false; btn.textContent = 'Submit';
+  }
+});
+
+/* ---------- welcome popup, back to the form after 5 seconds ---------- */
+let welcomeTimer = null;
+function showWelcome(name, bucket){
+  $('wTitle').textContent = sessionName ? `Welcome to ${sessionName}!` : 'Welcome!';
+  $('wWho').textContent = name;
+  $('wCat').textContent = `${bucket.label} · ${bucket.mode === 'singles' ? 'Singles' : 'Doubles'}`;
+  const ov = $('welcomeOverlay');
+  const bar = ov.querySelector('.bar');
+  bar.style.animation = 'none'; void bar.offsetWidth; bar.style.animation = '';
+  ov.classList.add('show');
+  clearTimeout(welcomeTimer);
+  welcomeTimer = setTimeout(closeWelcome, 5000);
+}
+function closeWelcome(){
+  clearTimeout(welcomeTimer);
+  $('welcomeOverlay').classList.remove('show');
+  resetForm();
+}
+$('btnWelcomeOk').addEventListener('click', closeWelcome);
+
+/* ---------- reset: Start over + 60 s idle ---------- */
+function resetForm(){
+  state.bucket = null; state.member = null; state.mode = null;
+  ['fName','fDuprId','fRating'].forEach(id => { $(id).value = ''; });
+  setMode(null);
+  $('fName').blur();
+  hideResults(); clearError(); renderBuckets();
+  window.scrollTo({ top:0 });
+}
+$('btnReset').addEventListener('click', resetForm);
+let idleTimer = null;
+function formDirty(){ return !!(state.bucket || state.mode || $('fName').value || $('fDuprId').value || $('fRating').value); }
+function bumpIdle(){
+  clearTimeout(idleTimer);
+  idleTimer = setTimeout(() => { if (!$('welcomeOverlay').classList.contains('show') && formDirty() && !submitting) resetForm(); }, 60000);
+}
+['pointerdown','keydown','input','touchstart'].forEach(ev => document.addEventListener(ev, bumpIdle, { passive:true }));
+bumpIdle();
+
+setMode(null);
+renderBuckets();
+</script>
+</body>
+</html>
