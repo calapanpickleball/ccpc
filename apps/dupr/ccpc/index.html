@@ -350,7 +350,7 @@
     <div class="bucket-card" style="margin-bottom:18px;">
       <div class="logs-toolbar">
         <div class="field" style="margin:0;min-width:240px;"><label>Session</label>
-          <select id="lbSessionFilter"><option value="">Current session</option></select></div>
+          <div id="lbSessionLabel" style="font-weight:700;padding:9px 0;">Current session</div></div>
         <div style="font-size:12.5px;color:var(--muted);">Ranked by Wins → Total Points → Point Differential</div>
       </div>
     </div>
@@ -2347,8 +2347,6 @@ document.getElementById('btnEndConfirm').addEventListener('click', async () => {
 
 /* ================= LOGS ================= */
 function renderSessionFilterOptions(){
-  const lb = document.getElementById('lbSessionFilter');
-  if (lb) { const lcur = lb.value; lb.innerHTML = `<option value="">Current session</option>` + sessionsList.map(x => `<option value="${x.id}">${escapeHtml(x.name)} · ${x.date}</option>`).join(''); lb.value = lcur; }
   updateExportTargetLabel();
 }
 function renderLogBucketFilter(){
@@ -2683,7 +2681,6 @@ async function restoreSnapshot(id){
 
 
 /* ================= LEADERBOARD (per session, per bucket) ================= */
-let lbSessionSel = '';
 function buildLeaderboard(sessionId){
   const res = {};
   BUCKETS.forEach(b => res[b.key] = {});
@@ -2717,7 +2714,9 @@ function lbBuckets(sessionId){
 function renderLeaderboard(){
   const grid = document.getElementById('lbGrid');
   if (!grid) return;
-  const sid = lbSessionSel || sessionState.currentSessionId;
+  const sid = sessionState.currentSessionId;
+  const lbl = document.getElementById('lbSessionLabel');
+  if (lbl) lbl.textContent = (sessionState.currentSessionName || 'Current session') + (sessionState.currentSessionDate ? ' · ' + sessionState.currentSessionDate : '');
   const data = buildLeaderboard(sid);
   const medals = ['🥇','🥈','🥉'];
   const lbList = lbBuckets(sid);
@@ -2739,7 +2738,6 @@ function renderLeaderboard(){
     </div>`;
   }).join('');
 }
-document.getElementById('lbSessionFilter').addEventListener('change', e => { lbSessionSel = e.target.value; renderLeaderboard(); });
 
 /* ================= DUPR CSV EXPORT ================= */
 const DUPR_HEADERS = ['matchType','event','date','playerA1','playerA1DuprId','playerA1ExternalId','playerA2','playerA2DuprId','playerA2ExternalId','playerB1','playerB1DuprId','playerB1ExternalId','playerB2','playerB2DuprId','playerB2ExternalId','teamAGame1','teamBGame1','teamAGame2','teamBGame2','teamAGame3','teamBGame3','teamAGame4','teamBGame4','teamAGame5','teamBGame5','location','scoreType'];
