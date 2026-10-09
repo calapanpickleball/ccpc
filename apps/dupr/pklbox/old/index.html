@@ -387,11 +387,6 @@
   <div class="field"><label>Player 2</label><select id="pairB"></select></div>
   <div class="error-text" id="errPair"></div>
   <div class="modal-actions"><button class="btn btn-ghost" id="btnPairCancel">Cancel</button><button class="btn btn-primary" id="btnPairSave">Pair</button></div></div></div>
-<!-- Edit Participant Name Modal -->
-<div class="overlay" id="renameOverlay"><div class="modal"><h2>Edit name</h2><div class="modal-sub" id="renameSub"></div>
-  <div class="field"><label for="renameInput">Player name</label><input type="text" id="renameInput" maxlength="60"></div>
-  <div class="error-text" id="errRename"></div>
-  <div class="modal-actions"><button class="btn btn-ghost" id="btnRenameCancel">Cancel</button><button class="btn btn-primary" id="btnRenameSave">Save</button></div></div></div>
 <!-- Add / Edit Bucket Modal -->
 <div class="overlay" id="bucketOverlay">
   <div class="modal">
@@ -705,7 +700,6 @@ function formatDuration(totalSeconds){
   return `${s}s`;
 }
 function refKeyFor(p){
-  if (p.refKey) return p.refKey;   // kept stable when a guest is renamed so stats/leaderboard history stays together
   return p.sourceType === 'member' ? ('m_' + p.memberId) : ('g_' + (p.name||'').trim().toLowerCase().replace(/[^a-z0-9]+/g,'_'));
 }
 
@@ -925,7 +919,6 @@ function renderParticipants(){
         <td>${p.duprRaw || fmtNum(p.dupr)}</td>
         <td><span class="badge ${sk}">${STATUS_LABELS[sk]}</span></td>
         <td><div class="row-actions">
-          <button class="btn-icon" title="Edit name" onclick="openRenameModal('${p.id}')">✎</button>
           ${dup ? `<button class="btn-icon" title="Not a duplicate (clear the mark)" onclick="dismissDuplicate('${p.id}')">✓</button>` : ''}
           ${b.mode === 'fixed' && partnerOf(p) ? `<button class="btn-icon" title="Unpair / change partner" ${p.status==='queued'?'disabled':''} onclick="unpairPlayers('${p.id}')">🔗</button>` : ''}<button class="btn-icon warn" title="${p.status==='resting'?'Set available':'Set resting'}" ${p.status==='queued'?'disabled':''} onclick="toggleRest('${p.id}','${p.status}')">${p.status==='resting'?'▶':'⏸'}</button>
           <button class="btn-icon danger" title="Remove" ${p.status==='queued'?'disabled':''} onclick="removeParticipant('${p.id}')">🗑</button>
@@ -1107,55 +1100,6 @@ async function removeParticipant(id){
   try { const q = partnerOf(p); if (p) await flushElapsed(p); await db.collection('pkl-queue-participants').doc(id).delete(); if (q) await db.collection('pkl-queue-participants').doc(q.id).update({ pairId: firebase.firestore.FieldValue.delete() }); }
   catch(err){ showToast('Remove failed: ' + err.message, true); }
 }
-
-/* ---- Edit participant name (allowed in any status: available, queued, playing, resting) ---- */
-const renameOverlay = document.getElementById('renameOverlay');
-let renamePid = null;
-function openRenameModal(pid){
-  const p = participants.find(x => x.id === pid);
-  if (!p) return;
-  renamePid = pid;
-  document.getElementById('renameSub').textContent = `${bucketLabel(p.bucket)} · ${STATUS_LABELS[statusKey(p)]}`;
-  document.getElementById('renameInput').value = p.name || '';
-  document.getElementById('errRename').textContent = '';
-  renameOverlay.classList.add('show');
-  setTimeout(() => { const i = document.getElementById('renameInput'); i.focus(); i.select(); }, 50);
-}
-document.getElementById('btnRenameCancel').addEventListener('click', () => renameOverlay.classList.remove('show'));
-renameOverlay.addEventListener('click', e => { if (e.target === renameOverlay) renameOverlay.classList.remove('show'); });
-document.getElementById('renameInput').addEventListener('keydown', e => { if (e.key === 'Enter') document.getElementById('btnRenameSave').click(); });
-document.getElementById('btnRenameSave').addEventListener('click', async () => {
-  const errEl = document.getElementById('errRename');
-  const p = participants.find(x => x.id === renamePid);
-  if (!p) { renameOverlay.classList.remove('show'); return; }
-  const name = document.getElementById('renameInput').value.trim().replace(/\s+/g, ' ');
-  if (!name) { errEl.textContent = 'Name is required.'; return; }
-  if (name === p.name) { renameOverlay.classList.remove('show'); return; }
-  const clash = participants.find(x => x.id !== p.id && normName(x.name) === normName(name));
-  if (clash && !confirm(`${clash.name} (${bucketLabel(clash.bucket)}) already has this name. Save anyway? Both will be marked Duplicate.`)) return;
-  const btn = document.getElementById('btnRenameSave');
-  btn.disabled = true;
-  try {
-    const key = refKeyFor(p);   // lock the stats key (matters for guests, whose key comes from the name)
-    const pUpdate = { name };
-    if (!p.refKey && p.sourceType !== 'member') pUpdate.refKey = key;
-    const fix = arr => (arr || []).map(e => e.participantId === p.id ? { ...e, name, ...(p.sourceType !== 'member' ? { refKey: key } : {}) } : e);
-    const has = arr => (arr || []).some(e => e.participantId === p.id);
-    const ops = [b => b.update(db.collection('pkl-queue-participants').doc(p.id), pUpdate)];
-    queueMatches.filter(m => has(m.team1) || has(m.team2)).forEach(m =>
-      ops.push(b => b.update(db.collection('pkl-queue-matches').doc(m.id), { team1: fix(m.team1), team2: fix(m.team2) })));
-    logs.filter(l => (!l.sessionId || l.sessionId === sessionState.currentSessionId) && (has(l.team1) || has(l.team2))).forEach(l =>
-      ops.push(b => b.update(db.collection('pkl-queue-logs').doc(l.id), { team1: fix(l.team1), team2: fix(l.team2) })));
-    for (let i = 0; i < ops.length; i += 400) {
-      const batch = db.batch();
-      ops.slice(i, i + 400).forEach(f => f(batch));
-      await batch.commit();
-    }
-    renameOverlay.classList.remove('show');
-    showToast('Name updated.');
-  } catch (err) { errEl.textContent = 'Could not save: ' + err.message; }
-  finally { btn.disabled = false; }
-});
 
 /* ---- Hover stat tooltip (this session only) ---- */
 function sessionLogs(sessionId){ return logs.filter(l => l.sessionId === (sessionId || sessionState.currentSessionId)); }
@@ -1654,7 +1598,7 @@ function matchIdSetFromSnapshot(m){ return new Set([...m.team1, ...m.team2].map(
 function findDuplicateMatch(bucketKey, idSet, excludeMatchId){
   return queueMatches.find(x => x.id !== excludeMatchId && QUEUE_MATCH_STATUSES.includes(x.status) && x.bucket === bucketKey && setsEqual(matchIdSetFromSnapshot(x), idSet));
 }
-function snapshotArr(arr){ return arr.map(p => ({ participantId:p.id, name:p.name, duprId:p.duprId||'', dupr:p.dupr, sourceType:p.sourceType, memberId:p.memberId||null, ...(p.refKey ? { refKey:p.refKey } : {}) })); }
+function snapshotArr(arr){ return arr.map(p => ({ participantId:p.id, name:p.name, duprId:p.duprId||'', dupr:p.dupr, sourceType:p.sourceType, memberId:p.memberId||null })); }
 
 /* One batch per match (or per round): match, player status, stats and counters together.
    No transaction and no waiting for the server: Firestore applies the write locally right away,
