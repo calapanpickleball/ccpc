@@ -1,0 +1,35 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Saved Teams — CCPC Team Tournament Composer</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f3f8fb;--card:#fff;--tx:#083d5f;--mu:#5d7f95;--ln:#d5e3ec;--gold:#fab813;--bl:#3992b9;--red:#bb1421;--navy:#083d5f}
+[data-t=dark]{--bg:#06283f;--card:#0b3a58;--tx:#eaf4fa;--mu:#9bbdd0;--ln:#1d5173}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--tx);font:15px Inter,sans-serif}
+header{background:var(--navy);color:#fff;padding:14px 16px;display:flex;align-items:center;gap:10px;border-bottom:4px solid var(--gold)}
+h1{font:800 22px 'Baloo 2';margin:0;flex:1}button,select,input{font:600 15px Inter;border-radius:10px;border:1.5px solid var(--ln);padding:10px;background:var(--card);color:var(--tx)}
+button{background:#ffffff22;color:#fff;border:0}main{max-width:760px;margin:auto;padding:12px}.bar{display:flex;gap:8px;margin-bottom:8px}.bar input{flex:1;min-width:0}
+.sum{color:var(--mu);font-size:13px;margin:4px 2px 10px}
+.c{background:var(--card);border:2px solid var(--ln);border-radius:12px;padding:12px;margin-bottom:10px}.c.bad{border-color:var(--red)}
+.c h3{margin:0;font:800 18px 'Baloo 2';display:flex;justify-content:space-between;gap:8px}.c .t{font-size:20px}.c.bad .t{color:var(--red)}
+.badge{background:var(--red);color:#fff;border-radius:20px;padding:2px 10px;font:700 12px Inter;align-self:center}
+.m{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:8px 0}.m div{background:var(--bg);border-radius:8px;padding:8px;font-size:14px}.m small{color:var(--mu);display:block}
+.f{color:var(--mu);font-size:12px}
+</style></head><body>
+<header><h1>Saved Teams<br><small style="font:400 12px Inter;color:#a9cde0">Records saved from the Team Tournament Composer</small></h1><button onclick="th()">🌓</button></header>
+<main><div class="bar"><input id="q" placeholder="Search team, device ID, or player…" oninput="draw()"><select id="fl" onchange="draw()"><option value="">All</option><option value="o">Over limit</option><option value="k">Within limit</option></select></div>
+<div class="sum" id="sum">Loading…</div><div id="l"></div></main>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script>
+firebase.initializeApp({apiKey:"AIzaSyBv_s3wzr6nbFcqZbTI0UDdcijFWnO-t4I",authDomain:"ccpc-dupr.firebaseapp.com",projectId:"ccpc-dupr",storageBucket:"ccpc-dupr.firebasestorage.app",messagingSenderId:"49883771837",appId:"1:49883771837:web:ca4be96157a62afbc858d4"});
+const db=firebase.firestore(),$=id=>document.getElementById(id);let R=[];
+document.documentElement.dataset.t=localStorage.getItem('ccpcTheme')||'light';
+function th(){const t=document.documentElement.dataset.t=='dark'?'light':'dark';document.documentElement.dataset.t=t;localStorage.setItem('ccpcTheme',t)}
+db.collection('ccpc-teams').orderBy('createdAt','desc').onSnapshot(s=>{R=s.docs.map(d=>({id:d.id,...d.data()}));draw()},e=>$('sum').textContent='Error: '+e.message);
+function draw(){const q=$('q').value.toLowerCase(),fl=$('fl').value;
+const L=R.filter(r=>(!fl||(fl=='o')==!!r.over)&&(!q||(r.teamName+' '+(r.deviceId||'')+' '+(r.createdBy||'')+' '+(r.members||[]).map(m=>m.name).join(' ')).toLowerCase().includes(q)));
+$('sum').textContent=L.length+' record(s) · '+L.filter(r=>r.over).length+' over the limit';
+$('l').innerHTML=L.map(r=>{const d=r.createdAt?r.createdAt.toDate().toLocaleString('en-US',{month:'short',day:'numeric',year:'numeric',hour:'numeric',minute:'2-digit'}):'…';
+return`<div class="c ${r.over?'bad':''}"><h3><span>${r.teamName}${r.over?' <span class="badge">Over limit</span>':''}</span><span class="t">${r.total.toFixed(3)} <small style="font:600 12px Inter;color:var(--mu)">/ ${(r.limit||11.5).toFixed(1)}</small></span></h3>
+<div class="m">${(r.members||[]).map(m=>`<div><small>${m.g=='M'?'Men':'Women'}</small><b>${m.name}</b> · ${m.dupr.toFixed(3)}${m.nr?' NR':''}</div>`).join('')}</div>
+<div class="f">Device: <b>${r.deviceId||'—'}</b>${r.createdBy?' · '+r.createdBy:''} · ${d}${r.revision?' · edited version':''}</div></div>`}).join('')||'<p>No records yet.</p>'}
+</script></body></html>

@@ -1,89 +1,100 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>DUPR Team Composer</title>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>CCPC Team Tournament Composer</title>
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#f3f8fb;--card:#fff;--tx:#083d5f;--mu:#5d7f95;--ln:#d5e3ec;--gold:#fab813;--or:#ff6600;--bl:#3992b9;--red:#bb1421;--navy:#083d5f}
+:root{--bg:#f3f8fb;--card:#fff;--tx:#083d5f;--mu:#5d7f95;--ln:#d5e3ec;--gold:#fab813;--bl:#3992b9;--red:#bb1421;--navy:#083d5f}
 [data-t=dark]{--bg:#06283f;--card:#0b3a58;--tx:#eaf4fa;--mu:#9bbdd0;--ln:#1d5173}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--tx);font:15px Inter,sans-serif;padding-bottom:90px}
 h1,h2,.big{font-family:'Baloo 2',sans-serif;margin:0}
-header{background:var(--navy);color:#fff;padding:14px 16px;display:flex;align-items:center;gap:10px;border-bottom:4px solid var(--gold)}
-header h1{font-size:22px;flex:1;line-height:1.1}header small{display:block;font:400 12px Inter;color:#a9cde0}
+header{background:var(--navy);color:#fff;padding:14px 16px;display:flex;align-items:center;gap:8px;border-bottom:4px solid var(--gold)}
+header h1{font-size:20px;flex:1;line-height:1.1}header small{display:block;font:400 12px Inter;color:#a9cde0}
 main{max-width:560px;margin:0 auto;padding:12px}
 button{font:600 14px Inter;border:0;border-radius:10px;padding:10px 14px;background:var(--gold);color:#083d5f;cursor:pointer}
 button.s{background:transparent;border:1.5px solid var(--bl);color:var(--bl)}button.d{background:var(--red);color:#fff}button.i{background:#ffffff22;color:#fff;padding:8px 10px}
 .tot{position:sticky;top:0;z-index:5;background:var(--card);border:2px solid var(--ln);border-radius:14px;padding:12px 14px;margin:0 0 12px;box-shadow:0 4px 14px #0002}
 .tot .big{font-size:34px;line-height:1}.bar{height:10px;background:var(--ln);border-radius:9px;margin-top:8px;overflow:hidden}.bar i{display:block;height:100%;background:var(--bl);width:0;transition:width .25s}
-.tot.bad{border-color:var(--red)}.tot.bad .big{color:var(--red)}.tot.bad .bar i{background:var(--red)}
-.tot.ok .bar i{background:#1f9d55}.tot .r{display:flex;justify-content:space-between;align-items:baseline}
+.tot.bad{border-color:var(--red)}.tot.bad .big{color:var(--red)}.tot.bad .bar i{background:var(--red)}.tot.ok .bar i{background:#1f9d55}.tot .r{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:13px}
 .badge{display:inline-block;background:var(--red);color:#fff;border-radius:20px;padding:2px 10px;font-size:12px;font-weight:700}
 h2{font-size:18px;margin:14px 2px 6px}
 .slot{background:var(--card);border:2px solid var(--ln);border-radius:12px;padding:10px;margin-bottom:8px}.slot.bad{border-color:var(--red);background:#bb142112}
 .slot label{font-weight:700;font-size:13px;color:var(--mu)}.slot.bad label{color:var(--red)}
 select,input{width:100%;font:16px Inter;padding:11px;border-radius:10px;border:1.5px solid var(--ln);background:var(--bg);color:var(--tx);margin-top:4px}
+.rel{position:relative}.dd{width:100%;display:flex;justify-content:space-between;align-items:center;margin-top:4px;background:var(--bg);color:var(--tx);border:1.5px solid var(--ln);padding:12px;font:16px Inter;text-align:left}.dd b{color:var(--bl)}
+.sug{position:absolute;left:0;right:0;top:100%;z-index:8;background:var(--card);border:2px solid var(--bl);border-radius:10px;margin-top:4px;max-height:300px;overflow:auto;box-shadow:0 8px 20px #0004}
+.sug div{padding:12px;border-bottom:1px solid var(--ln);cursor:pointer;display:flex;justify-content:space-between;gap:8px}.sug div:last-child{border:0}
+.sug small{color:var(--mu)}.sug .on{background:#3992b922}.sug .ad{color:var(--bl);font-weight:600}.sug .clr{color:var(--mu)}
+.sug .rd{color:var(--red);background:#bb142114;font-weight:700}.sug .rd small{color:var(--red)}.sug .hint{cursor:default;font-size:13px;color:var(--mu);background:var(--bg)}
 .meta{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:8px;font-size:13px;color:var(--mu)}.meta b{color:var(--tx);font-size:17px}.meta button{padding:6px 10px;font-size:12px}
 .note{background:#fab81322;border-left:4px solid var(--gold);border-radius:8px;padding:10px;font-size:13px;margin:10px 0}
 .row{display:flex;gap:8px;flex-wrap:wrap}.row>*{flex:1}
-.dock{position:fixed;bottom:0;left:0;right:0;background:var(--card);border-top:2px solid var(--ln);padding:10px;display:flex;gap:8px;max-width:560px;margin:auto}.dock button{flex:1}
+.dock{position:fixed;bottom:0;left:0;right:0;background:var(--card);border-top:2px solid var(--ln);padding:10px;display:flex;gap:8px;max-width:560px;margin:auto}.dock button{flex:1;padding:12px 6px}
 #m{position:fixed;inset:0;background:#000a;display:none;align-items:flex-end;justify-content:center;z-index:20}#m.on{display:flex}
 #m>div{background:var(--card);width:100%;max-width:560px;max-height:88vh;overflow:auto;border-radius:18px 18px 0 0;padding:16px}
 .tm{border:2px solid var(--ln);border-radius:12px;padding:10px;margin:8px 0}.tm.bad{border-color:var(--red)}.tm p{margin:4px 0;font-size:13px;color:var(--mu)}
-.rel{position:relative}.sug{position:absolute;left:0;right:0;top:100%;z-index:8;background:var(--card);border:2px solid var(--bl);border-radius:10px;margin-top:4px;max-height:260px;overflow:auto;box-shadow:0 8px 20px #0004;display:none}
-.sug div{padding:12px;border-bottom:1px solid var(--ln);cursor:pointer;display:flex;justify-content:space-between;gap:8px}.sug div:last-child{border:0}.sug .ad{color:var(--bl);font-weight:600;display:block}.sug small{color:var(--mu)}.sug .rd{color:var(--red);background:#bb142114;font-weight:700}.sug .rd small{color:var(--red)}.sug .hint{cursor:default;font-size:13px;color:var(--mu);background:var(--bg)}.tg{position:absolute;right:4px;top:6px;background:none;color:var(--bl);padding:8px 12px;font-size:16px}input.sq{padding-right:46px}.col{display:flex;flex-direction:column;gap:6px}
-#toast{position:fixed;left:50%;bottom:80px;transform:translateX(-50%);background:var(--navy);color:#fff;padding:10px 16px;border-radius:20px;display:none;z-index:30}
+#toast{position:fixed;left:50%;bottom:80px;transform:translateX(-50%);background:var(--navy);color:#fff;padding:10px 16px;border-radius:20px;display:none;z-index:30;max-width:90%;text-align:center}
 </style></head><body>
-<header><h1>DUPR Team Composer<small>Calapan City Pickleball Club</small></h1><button class="i" onclick="th()">🌓</button></header>
+<header><h1>CCPC Team Tournament Composer<small>Calapan City Pickleball Club</small></h1><button class="i" onclick="sets()">⚙</button><button class="i" onclick="th()">🌓</button></header>
 <main>
 <div class="tot" id="tot"></div>
 <h2>Men</h2><div id="sm"></div><h2>Women</h2><div id="sw"></div>
-<div class="note" id="nt" style="display:none">⚠ <b>Warning:</b> Hindi 100% updated ang record na ito. Please double check sa DUPR app.<br>Or tulungan mo kaming i-update: pindutin ang <b>Update DUPR</b> sa player.</div>
-<div class="row" style="margin-top:12px"><button class="s" onclick="addM()">+ Add name</button><button class="s" id="gb" onclick="setG()" style="display:none"></button></div>
+<div class="note" id="nt" style="display:none">⚠ <b>Warning:</b> These records may not be 100% up to date. Please double-check in the DUPR app.<br>Or help us update them: tap <b>Update DUPR</b> on a player.</div>
+<div class="row" style="margin-top:12px"><button class="s" onclick="addM()">+ Add player</button><button class="s" id="gb" onclick="setG()" style="display:none"></button></div>
 </main>
-<div class="dock"><button class="s" onclick="mine()">My teams</button><button onclick="save()">Save team</button></div>
+<div class="dock"><button class="d" onclick="clr()">Clear all</button><button class="s" onclick="mine()">Saved Teams</button><button onclick="save()">Save</button></div>
 <div id="m" onclick="if(event.target==this)cl()"><div id="mb"></div></div><div id="toast"></div>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 <script>
 firebase.initializeApp({apiKey:"AIzaSyBv_s3wzr6nbFcqZbTI0UDdcijFWnO-t4I",authDomain:"ccpc-dupr.firebaseapp.com",projectId:"ccpc-dupr",storageBucket:"ccpc-dupr.firebasestorage.app",messagingSenderId:"49883771837",appId:"1:49883771837:web:ca4be96157a62afbc858d4"});
-const db=firebase.firestore(),LIM=11.5,DEF=new Date(2026,9,1).getTime(),$=id=>document.getElementById(id),f=n=>n.toFixed(3);
+const db=firebase.firestore(),DEF=new Date(2026,9,1).getTime(),$=id=>document.getElementById(id),f=n=>n.toFixed(3),LIMS=[11.5,12,13,14];
 const SL=[['M','Men 1'],['M','Men 2'],['W','Women 1'],['W','Women 2']];
-let M=[],sel=[null,null,null,null],ord=[],edit=null,qs=['','','',''],addSlot=null;
+let LIM=parseFloat(localStorage.getItem('ccpcLim'));if(!LIMS.includes(LIM))LIM=11.5;
+let SORT=localStorage.getItem('ccpcSort')||'name',M=[],sel=[null,null,null,null],ord=[],edit=null,openI=null,addSlot=null;
 const LS=k=>{try{return JSON.parse(localStorage.getItem(k))}catch(e){return null}},ST=(k,v)=>localStorage.setItem(k,JSON.stringify(v));
 let dev=localStorage.getItem('ccpcDev');if(!dev){dev='d'+Math.random().toString(36).slice(2,10);localStorage.setItem('ccpcDev',dev)}
 document.documentElement.dataset.t=localStorage.getItem('ccpcTheme')||'light';
 function th(){const t=document.documentElement.dataset.t=='dark'?'light':'dark';document.documentElement.dataset.t=t;localStorage.setItem('ccpcTheme',t)}
 const dt=t=>new Date(t).toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'});
-const toast=s=>{const t=$('toast');t.textContent=s;t.style.display='block';setTimeout(()=>t.style.display='none',3500)};
-const cl=()=>$('m').classList.remove('on'),op=h=>{$('mb').innerHTML=h;$('m').classList.add('on')};
-const get=id=>M.find(x=>x.id==id);
+const toast=s=>{const t=$('toast');t.textContent=s;t.style.display='block';clearTimeout(t.h);t.h=setTimeout(()=>t.style.display='none',3500)};
+const cl=()=>$('m').classList.remove('on'),op=h=>{$('mb').innerHTML=h;$('m').classList.add('on')},get=id=>M.find(x=>x.id==id);
+const srt=(a,b)=>SORT=='lo'?a.d-b.d||a.name.localeCompare(b.name):SORT=='hi'?b.d-a.d||a.name.localeCompare(b.name):a.name.localeCompare(b.name);
+document.addEventListener('click',e=>{if(openI!=null&&!e.target.closest('.rel')){openI=null;render()}});
 db.collection('ccpc-dupr').onSnapshot(s=>{M=s.docs.map(d=>{const x=d.data(),r=x.curDupr!=null?x.curDupr:x.curdupr,n=typeof r=='number';
-return{id:d.id,name:x.name||'?',g:x.gender||'',d:n?r:3,nr:!n,u:x.duprUpdated||DEF}}).sort((a,b)=>a.name.localeCompare(b.name));render()},e=>toast('Hindi ma-load: '+e.message));
+return{id:d.id,name:x.name||'?',g:x.gender||'',d:n?r:3,nr:!n,u:x.duprUpdated||DEF}}).sort((a,b)=>a.name.localeCompare(b.name));render()},e=>toast('Could not load: '+e.message));
 function tally(){let t=0,c=0;sel.forEach(i=>{const m=i&&get(i);if(m){t+=m.d;c++}});return{t:Math.round(t*1000)/1000,c}}
-function render(){const{t,c}=tally(),over=t>LIM,last=ord.length?ord[ord.length-1]:-1;
+function slot(i){const s=SL[i],m=sel[i]&&get(sel[i]),{t,c}=tally(),hl=c-(m?1:0)==3,base=t-(m?m.d:0),bad=t>LIM&&i==(ord.length?ord[ord.length-1]:-1);
+let h=`<div class="slot ${bad?'bad':''}"><label>${s[1]}${bad?' — pushes the team over the limit':''}</label><div class="rel"><button class="dd" onclick="tg(${i},event)"><span>${m?m.name+' — '+f(m.d)+(m.nr?' (NR)':''):'Select player…'}</span><b>▾</b></button>`;
+if(openI==i){const L=M.filter(x=>x.g==s[0]&&(x.id==sel[i]||!sel.includes(x.id))).sort(srt);
+h+=`<div class="sug">${hl?`<div class="hint">${f(LIM-base)} left · red = over the limit</div>`:''}${m?`<div class="clr" onclick="pick(${i},'')">✕ Clear selection</div>`:''}${L.map(x=>{const b=hl&&base+x.d>LIM+1e-9;return`<div class="${b?'rd':''}${x.id==sel[i]?' on':''}" onclick="pick(${i},'${x.id}')"><span>${b?'⚠ ':''}${x.name}</span><small>${f(x.d)}${x.nr?' NR':''}</small></div>`}).join('')}<div class="ad" onclick="addM('${s[0]}',${i})">＋ Not listed? Add player</div></div>`}
+h+='</div>';if(m)h+=`<div class="meta"><span>DUPR <b>${f(m.d)}</b>${m.nr?' NR':''}<br>Updated: ${dt(m.u)}</span><button class="s" onclick="upd('${m.id}')">Update DUPR</button></div>`;return h+'</div>'}
+function render(){const{t,c}=tally(),over=t>LIM;
 $('tot').className='tot '+(over?'bad':c==4?'ok':'');
-$('tot').innerHTML=`<div class="r"><span class="big">${f(t)} <small style="font:600 14px Inter">/ ${LIM.toFixed(1)}</small></span><span>${over?'<span class="badge">Lampas ng '+f(t-LIM)+'</span>':c==4?'✔ Pasok ('+f(LIM-t)+' natira)':c+'/4 napili · Natitira '+f(LIM-t)+' para sa '+(4-c)+' pa'}</span></div><div class="bar"><i style="width:${Math.min(100,t/LIM*100)}%"></i></div>`;
-['M','W'].forEach(g=>$('s'+g.toLowerCase()).innerHTML=SL.map((s,i)=>s[0]!=g?'':{i,s}).filter(x=>x).map(({i,s})=>{const m=sel[i]&&get(sel[i]),hl=!m&&c==3;
-const opts=M.filter(x=>x.g==s[0]&&(x.id==sel[i]||!sel.includes(x.id))).map(x=>{const bad=hl&&t+x.d>LIM+1e-9;return`<option value="${x.id}"${x.id==sel[i]?' selected':''}${bad?' style="color:#bb1421;font-weight:700"':''}>${bad?'⚠ ':''}${x.name} — ${f(x.d)}${x.nr?' (NR)':''}${bad?' · lalampas':''}</option>`}).join('');
-return`<div class="slot ${over&&i==last?'bad':''}"><label>${s[1]}${over&&i==last?' — nagpa-lampas':''}</label><select onchange="chg(${i},this)"><option value="">Pumili ng player…</option>${opts}<option value="__add">＋ Hindi nakalista? Idagdag…</option></select>${!m&&c==3?`<div class="meta"><span>Natitira ${f(LIM-t)} · pula = lalampas sa limit</span></div>`:''}${m?`<div class="meta"><span>DUPR <b>${f(m.d)}</b>${m.nr?' NR':''}<br>Updated: ${dt(m.u)}</span><button class="s" onclick="upd('${m.id}')">Update DUPR</button></div>`:''}</div>`}).join(''));
+$('tot').innerHTML=`<div class="r"><span class="big">${f(t)} <small style="font:600 14px Inter">/ ${LIM.toFixed(1)}</small></span><span style="text-align:right">${over?'<span class="badge">Over by '+f(t-LIM)+'</span>':c==4?'✔ Within limit ('+f(LIM-t)+' left)':c+'/4 selected<br><b>'+f(LIM-t)+'</b> left for '+(4-c)+' more'}</span></div><div class="bar"><i style="width:${Math.min(100,t/LIM*100)}%"></i></div>`;
+['M','W'].forEach(g=>$('s'+g.toLowerCase()).innerHTML=SL.map((s,i)=>s[0]==g?slot(i):'').join(''));
 $('nt').style.display=c?'block':'none';const ng=M.filter(x=>!x.g).length;$('gb').style.display=ng?'block':'none';$('gb').textContent='Set gender ('+ng+')'}
-function chg(i,el){if(el.value=='__add'){el.value='';render();addM(SL[i][0],i)}else pick(i,el.value)}
-function pick(i,v){qs[i]='';sel[i]=v||null;ord=ord.filter(x=>x!=i);if(v)ord.push(i);render();if(v&&tally().t>LIM)toast('Lalampas sa '+LIM+' ang total')}
-function upd(id){const m=get(id);op(`<h2>Update DUPR: ${m.name}</h2><div class="note">⚠ Hindi 100% updated ang record na ito. Please double check sa DUPR app.</div><label>Current DUPR (2.000–8.000)</label><input id="uv" type="number" step="0.001" min="2" max="8" value="${m.nr?'':m.d}" placeholder="NR kung wala pa"><div class="row" style="margin-top:12px"><button class="s" onclick="cl()">Cancel</button><button onclick="doUpd('${id}')">Save DUPR</button></div>`)}
+function tg(i,e){e.stopPropagation();openI=openI==i?null:i;render()}
+function pick(i,v){openI=null;sel[i]=v||null;ord=ord.filter(x=>x!=i);if(v)ord.push(i);render();if(v&&tally().t>LIM)toast('Total is over the '+LIM.toFixed(1)+' limit')}
+function clr(){sel=[null,null,null,null];ord=[];edit=null;openI=null;render();toast('Cleared')}
+function sets(){op(`<h2>Settings</h2><label>Team DUPR limit</label><select onchange="LIM=parseFloat(this.value);localStorage.setItem('ccpcLim',LIM);render()">${LIMS.map(l=>`<option value="${l}"${l==LIM?' selected':''}>${l.toFixed(1)}</option>`).join('')}</select><label>Sort players by</label><select onchange="SORT=this.value;localStorage.setItem('ccpcSort',SORT);render()">${[['name','Name (A–Z)'],['lo','DUPR (low → high)'],['hi','DUPR (high → low)']].map(o=>`<option value="${o[0]}"${o[0]==SORT?' selected':''}>${o[1]}</option>`).join('')}</select><button style="width:100%;margin-top:14px" onclick="cl()">Done</button>`)}
+function upd(id){const m=get(id);op(`<h2>Update DUPR: ${m.name}</h2><div class="note">⚠ This record may not be 100% up to date. Please double-check in the DUPR app.</div><label>Current DUPR (2.000–8.000)</label><input id="uv" type="number" step="0.001" min="2" max="8" value="${m.nr?'':m.d}" placeholder="Leave blank for NR"><div class="row" style="margin-top:12px"><button class="s" onclick="cl()">Cancel</button><button onclick="doUpd('${id}')">Save DUPR</button></div>`)}
 async function doUpd(id){const v=parseFloat($('uv').value);if($('uv').value&&!(v>=2&&v<=8))return toast('Invalid DUPR');
 await db.collection('ccpc-dupr').doc(id).update({curDupr:isNaN(v)?'NR':v,duprUpdated:Date.now(),updatedAt:firebase.firestore.FieldValue.serverTimestamp()});cl();toast('DUPR updated')}
-function addM(g,i){addSlot=i==null?null:i;op(`<h2>Add name</h2><label>Pangalan</label><input id="an" value="${(i!=null?qs[i]:'').replace(/"/g,'&quot;')}"><label>Gender</label><select id="ag"><option value="M"${g=='M'?' selected':''}>Men</option><option value="W"${g=='W'?' selected':''}>Women</option></select><label>DUPR ID (optional)</label><input id="ai"><label>Current DUPR (blank = NR)</label><input id="ad" type="number" step="0.001" min="2" max="8"><div class="row" style="margin-top:12px"><button class="s" onclick="cl()">Cancel</button><button onclick="doAdd()">Add</button></div>`)}
-async function doAdd(){const n=$('an').value.trim(),v=parseFloat($('ad').value);if(!n)return toast('Ilagay ang pangalan');
-if(M.some(x=>x.name.toLowerCase()==n.toLowerCase())&&!confirm('May kapangalan na. Idagdag pa rin?'))return;
+function addM(g,i){addSlot=i==null?null:i;openI=null;op(`<h2>Add player</h2><label>Name</label><input id="an"><label>Gender</label><select id="ag"><option value="M"${g=='M'?' selected':''}>Men</option><option value="W"${g=='W'?' selected':''}>Women</option></select><label>DUPR ID (optional)</label><input id="ai"><label>Current DUPR (blank = NR)</label><input id="ad" type="number" step="0.001" min="2" max="8"><div class="row" style="margin-top:12px"><button class="s" onclick="cl()">Cancel</button><button onclick="doAdd()">Add</button></div>`)}
+async function doAdd(){const n=$('an').value.trim(),v=parseFloat($('ad').value);if(!n)return toast('Enter a name');
+if(M.some(x=>x.name.toLowerCase()==n.toLowerCase())&&!confirm('A player with this name already exists. Add anyway?'))return;
 const gv=$('ag').value,c=isNaN(v)?'NR':v,ts=firebase.firestore.FieldValue.serverTimestamp();
-const r=await db.collection('ccpc-dupr').add({name:n,duprId:$('ai').value.trim(),athDupr:'NR',curDupr:c,clubDupr:isNaN(v)?3:v,gender:gv,duprUpdated:Date.now(),createdAt:ts,updatedAt:ts});cl();toast('Naidagdag: '+n);if(addSlot!=null&&SL[addSlot][0]==gv)pick(addSlot,r.id);addSlot=null}
-function setG(){const l=M.filter(x=>!x.g);op(`<h2>Set gender</h2><p>Para lumabas sila sa Men/Women list.</p>${l.map(x=>`<div class="meta" style="margin:8px 0"><b style="font-size:15px">${x.name}</b><span class="row"><button onclick="sg('${x.id}','M')">Men</button><button onclick="sg('${x.id}','W')">Women</button></span></div>`).join('')||'Tapos na!'}<button class="s" style="width:100%" onclick="cl()">Close</button>`)}
+const r=await db.collection('ccpc-dupr').add({name:n,duprId:$('ai').value.trim(),athDupr:'NR',curDupr:c,clubDupr:isNaN(v)?3:v,gender:gv,duprUpdated:Date.now(),createdAt:ts,updatedAt:ts});
+cl();toast('Added: '+n);if(addSlot!=null&&SL[addSlot][0]==gv)pick(addSlot,r.id);addSlot=null}
+function setG(){const l=M.filter(x=>!x.g);op(`<h2>Set gender</h2><p>So they appear in the Men / Women lists.</p>${l.map(x=>`<div class="meta" style="margin:8px 0"><b style="font-size:15px">${x.name}</b><span class="row"><button onclick="sg('${x.id}','M')">Men</button><button onclick="sg('${x.id}','W')">Women</button></span></div>`).join('')||'All done!'}<button class="s" style="width:100%" onclick="cl()">Close</button>`)}
 async function sg(id,g){await db.collection('ccpc-dupr').doc(id).update({gender:g});setG();if(!M.filter(x=>!x.g&&x.id!=id).length)cl()}
-async function save(){if(tally().c<4)return toast('Kumpletuhin muna ang 4 players');
+async function save(){if(tally().c<4)return toast('Select all 4 players first');
 const{t}=tally(),mem=SL.map((s,i)=>{const m=get(sel[i]);return{id:m.id,name:m.name,g:s[0],dupr:m.d,nr:m.nr}}),L=LS('ccpcTeams')||[],i=L.findIndex(x=>x.id==edit);
 let n;if(i>=0)n=L[i].name;else{const k=(parseInt(localStorage.getItem('ccpcN'))||0)+1;localStorage.setItem('ccpcN',k);n='Team '+k}
-const id=i>=0?edit:'t'+Date.now(),o={id,name:n,mem,total:t,over:t>LIM,at:Date.now()};i<0?L.unshift(o):L[i]=o;ST('ccpcTeams',L);edit=id;
-try{await db.collection('ccpc-teams').add({teamName:n,deviceId:dev,localId:id,members:mem,total:t,limit:LIM,over:t>LIM,revision:i>=0,createdAt:firebase.firestore.FieldValue.serverTimestamp()})}catch(e){return toast('Na-save sa device, pero hindi sa database')}
-toast('Na-save! Ikaw lang ang nakakakita nito, puwedeng i-edit/burahin')}
-function mine(){const L=LS('ccpcTeams')||[];op(`<h2>My teams</h2><p style="font-size:13px;color:var(--mu)">Ikaw lang ang nakakakita nito, puwedeng i-edit/burahin.</p>${L.map(x=>`<div class="tm ${x.over?'bad':''}"><b>${x.name}</b> ${x.over?'<span class="badge">Lampas</span>':''}<p>${x.mem.map(m=>m.name+' ('+f(m.dupr)+')').join(', ')}</p><p>Total <b>${f(x.total)}</b> · ${dt(x.at)}</p><div class="row"><button onclick="ld('${x.id}')">Edit</button><button class="d" onclick="del('${x.id}')">Delete</button></div></div>`).join('')||'<p>Wala pang naka-save sa device na ito.</p>'}<button class="s" style="width:100%" onclick="cl()">Close</button>`)}
-function ld(id){const x=LS('ccpcTeams').find(t=>t.id==id);sel=x.mem.map(m=>get(m.id)?m.id:null);ord=[0,1,2,3].filter(i=>sel[i]);edit=id;cl();render();toast('Na-load: '+x.name)}
-function del(id){if(!confirm('Burahin ang team na ito sa device mo? Mananatili ang record sa database.'))return;ST('ccpcTeams',LS('ccpcTeams').filter(x=>x.id!=id));if(edit==id)edit=null;mine()}
+const id=i>=0?edit:'t'+Date.now(),o={id,name:n,mem,total:t,limit:LIM,over:t>LIM,at:Date.now()};i<0?L.unshift(o):L[i]=o;ST('ccpcTeams',L);edit=id;
+try{await db.collection('ccpc-teams').add({teamName:n,deviceId:dev,localId:id,members:mem,total:t,limit:LIM,over:t>LIM,revision:i>=0,createdAt:firebase.firestore.FieldValue.serverTimestamp()})}catch(e){return toast('Saved on this device, but not to the database')}
+toast('Saved! Only you can see this on your device — you can edit or delete it.')}
+function mine(){const L=LS('ccpcTeams')||[];op(`<h2>Saved Teams</h2><p style="font-size:13px;color:var(--mu)">Only you can see these on this device. You can edit or delete them.</p>${L.map(x=>`<div class="tm ${x.over?'bad':''}"><b>${x.name}</b> ${x.over?'<span class="badge">Over limit</span>':''}<p>${x.mem.map(m=>m.name+' ('+f(m.dupr)+')').join(', ')}</p><p>Total <b>${f(x.total)}</b> / ${(x.limit||11.5).toFixed(1)} · ${dt(x.at)}</p><div class="row"><button onclick="ld('${x.id}')">Edit</button><button class="d" onclick="del('${x.id}')">Delete</button></div></div>`).join('')||'<p>No saved teams on this device yet.</p>'}<button class="s" style="width:100%" onclick="cl()">Close</button>`)}
+function ld(id){const x=LS('ccpcTeams').find(t=>t.id==id);sel=x.mem.map(m=>get(m.id)?m.id:null);ord=[0,1,2,3].filter(i=>sel[i]);edit=id;openI=null;
+if(LIMS.includes(x.limit)){LIM=x.limit;localStorage.setItem('ccpcLim',LIM)}cl();render();toast('Loaded '+x.name+' (limit '+LIM.toFixed(1)+')')}
+function del(id){if(!confirm('Delete this team from your device? The database record stays.'))return;ST('ccpcTeams',LS('ccpcTeams').filter(x=>x.id!=id));if(edit==id)edit=null;mine()}
 render();
 </script></body></html>
