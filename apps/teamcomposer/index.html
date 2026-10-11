@@ -95,6 +95,6 @@ toast('Saved! Only you can see this on your device — you can edit or delete it
 function mine(){const L=LS('ccpcTeams')||[];op(`<h2>Saved Teams</h2><p style="font-size:13px;color:var(--mu)">Only you can see these on this device. You can edit or delete them.</p>${L.map(x=>`<div class="tm ${x.over?'bad':''}"><b>${x.name}</b> ${x.over?'<span class="badge">Over limit</span>':''}<p>${x.mem.map(m=>m.name+' ('+f(m.dupr)+')').join(', ')}</p><p>Total <b>${f(x.total)}</b> / ${(x.limit||11.5).toFixed(1)} · ${dt(x.at)}</p><div class="row"><button onclick="ld('${x.id}')">Edit</button><button class="d" onclick="del('${x.id}')">Delete</button></div></div>`).join('')||'<p>No saved teams on this device yet.</p>'}<button class="s" style="width:100%" onclick="cl()">Close</button>`)}
 function ld(id){const x=LS('ccpcTeams').find(t=>t.id==id);sel=x.mem.map(m=>get(m.id)?m.id:null);ord=[0,1,2,3].filter(i=>sel[i]);edit=id;openI=null;
 if(LIMS.includes(x.limit)){LIM=x.limit;localStorage.setItem('ccpcLim',LIM)}cl();render();toast('Loaded '+x.name+' (limit '+LIM.toFixed(1)+')')}
-function del(id){if(!confirm('Delete this team from your device? The database record stays.'))return;ST('ccpcTeams',LS('ccpcTeams').filter(x=>x.id!=id));if(edit==id)edit=null;mine()}
+function del(id){if(!confirm('Delete this team from your device?'))return;ST('ccpcTeams',LS('ccpcTeams').filter(x=>x.id!=id));if(edit==id)edit=null;mine()}
 render();
 </script></body></html>
