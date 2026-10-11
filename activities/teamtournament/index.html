@@ -52,6 +52,7 @@ h2{font-family:Unbounded,sans-serif;font-size:clamp(22px,4.6vw,34px);margin:0 0 
 @media(max-width:700px){.sum{grid-template-columns:1fr}}
 .sb{border:2px solid var(--navy);border-radius:18px;padding:18px 20px}
 .sb h3{margin:0 0 6px;font-family:Unbounded,sans-serif;font-size:14px;color:var(--red);text-transform:uppercase}
+.sb ol{margin:0;padding-left:20px}.note{background:#fff4d6;border-left:5px solid var(--yellow);border-radius:10px;padding:9px 13px;margin-top:10px;font-size:13px;color:var(--ink)}
 .sb p,.sb li{font-size:14px;margin:0;color:#34566d}.sb ul{margin:0;padding-left:18px}
 /* rules */
 .tabs{display:flex;gap:8px;margin-top:20px;flex-wrap:wrap}
@@ -101,11 +102,11 @@ footer .tg{margin-top:8px;font-size:12px;letter-spacing:2px;opacity:.8;font-weig
   <h1 class="d">2nd Team<br><b>Tournament</b></h1>
   <p class="tag">Round 2 is here. Open to every skill level.</p>
   <div class="chips">
-    <div class="chip">📅 Oct 24, 2026 · Saturday</div>
-    <div class="chip">⏰ 7:00 AM to 5:00 PM</div>
+    <div class="chip">📅 Oct 25, 2026 · Sunday</div>
+    <div class="chip">⏰ 2:00 PM onwards</div>
     <div class="chip">📍 PKL Box Calapan</div>
     <div class="chip">💸 ₱400 per person</div>
-    <div class="chip">📝 Registration ends Oct 17</div>
+    <div class="chip">📝 Registration ends Oct 15</div>
   </div>
   <a class="cta" href="#register">Join the Interest Check</a>
 </div>
@@ -122,7 +123,7 @@ footer .tg{margin-top:8px;font-size:12px;letter-spacing:2px;opacity:.8;font-weig
     <div class="card c3"><span class="big">Pool Play</span><span class="sm">Round robin first</span></div>
     <div class="card c2"><span class="big">Knockout</span><span class="sm">Then single elimination</span></div>
   </div>
-  <div class="panel"><b>DUPR cut-off date:</b> <span id="cut"></span><br><b>Registration ends:</b> October 17, 2026<br> Your team rating is locked in at registration, so later rating changes will not affect your division.</div>
+  <div class="panel"><b>DUPR cut-off date:</b> <span id="cut"></span><br><b>Registration ends:</b> October 15, 2026<br> Your team rating is locked in at registration, so later rating changes will not affect your division.</div>
 </section>
 
 <section>
@@ -139,8 +140,8 @@ footer .tg{margin-top:8px;font-size:12px;letter-spacing:2px;opacity:.8;font-weig
   <h2>Rules at a glance</h2>
   <p class="lede">A short version. The full rules are below.</p>
   <div class="sum">
-    <div class="sb"><h3>Match Formats</h3><ul><li>Men's Doubles</li><li>Women's Doubles</li><li>2 Mixed Doubles</li><li>Singles Dreambreaker (if necessary)</li></ul></div>
-    <div class="sb"><h3>Scoring: Rally Scoring</h3><p>Rally point to 16, with a freeze point at 15. A team can only win the game while serving, and must win by two.</p></div>
+    <div class="sb"><h3>Match Formats</h3><ol><li>Women's Doubles</li><li>Men's Doubles</li><li>Mixed Doubles 1</li><li>Mixed Doubles 2</li><li>Singles Dreambreaker (if tied)</li></ol></div>
+    <div class="sb"><h3>Scoring: Rally Scoring</h3><p>Rally point to 16, with a freeze point at 15. A team can only win the game while serving, and must win by two. Singles Dreambreaker is rally point to 21, freeze point at 20.</p><div class="note"><b>If we reach 16 teams:</b> games are to 11 (freeze at 10) and the Dreambreaker is to 16 (freeze at 15).</div></div>
     <div class="sb"><h3>Singles Dreambreaker</h3><p>Tied 2 to 2? One singles game where all four players on each team play, in an order set before the game. Home discloses their lineup first, then Away reacts. Players switch every 4 points, whoever scores, following each team's order.</p></div>
     <div class="sb"><h3>Line Up</h3><p>Act and React system, Home and Away. Captains use the line up sheet every match (see the Rules section below).</p></div>
   </div>
@@ -154,17 +155,18 @@ footer .tg{margin-top:8px;font-size:12px;letter-spacing:2px;opacity:.8;font-weig
   <div class="tabs"><button class="tb on" onclick="tab('rt',this)">Tournament Rules</button><button class="tb" onclick="tab('lt',this)">Line Up Sheet</button></div>
   <div id="rt" class="tp on">
 <details><summary>How the Tournament Works <i>+</i></summary><div class="rb">Teams are grouped and play round robin within their group, so everyone gets guaranteed matches. The top team from each group then moves on to a single elimination bracket playoff. There is no match for 3rd place. Teamwork counts as much as skill here, so pick your squad wisely.</div></details>
-<details><summary>The Match Format <i>+</i></summary><div class="rb">Each match is 4 games played to 16 points: a women's doubles, a men's doubles, and two mixed doubles games. If the match is tied 2 to 2 after those 4 games, a Singles Dreambreaker decides the winner.</div></details>
+<details><summary>The Match Format <i>+</i></summary><div class="rb">Each match is 4 games played to 16 points, in this order: Women's Doubles, Men's Doubles, Mixed Doubles 1, and Mixed Doubles 2. If the match is tied 2 to 2 after those 4 games, a Singles Dreambreaker decides the winner.<div class="note"><b>If we reach 16 teams:</b> the 4 doubles games are played to 11 points, and the Dreambreaker to 16.</div></div></details>
 <details><summary>Round Robin Seeding and Bracket Advancement <i>+</i></summary><div class="rb">Only the top team from each group advances to the bracket. If seeding is needed: first, matches won. Second, head to head result, only if exactly two teams are tied and they already played each other. Third, point differential (points scored minus points scored against, calculated match to match as a percentage). The number 1 seed plays the number 4 seed, and number 2 plays number 3. Winners move on. No 3rd place match is held.</div></details>
-<details><summary>Scoring: Rally Scoring <i>+</i></summary><div class="rb">Every rally earns a point, whether the serving or receiving team wins it. But a team can only win the game while serving, and must win by two. This creates a freeze at 15 points if the non serving team gets what would be the winning point, since they still need to serve to close it out. Trailing teams never freeze and just keep scoring normally.</div></details>
+<details><summary>Scoring: Rally Scoring <i>+</i></summary><div class="rb">Every rally earns a point, whether the serving or receiving team wins it. But a team can only win the game while serving, and must win by two. Regular games are played to 16 points, so the freeze point is 15: if the non serving team gets what would be the winning point, they still need to serve to close it out. The Singles Dreambreaker is played to 21 points, with the freeze point at 20. Trailing teams never freeze and just keep scoring normally.<div class="note"><b>If we reach 16 teams:</b> regular games are rally point to 11 with the freeze at 10, and the Dreambreaker is rally point to 16 with the freeze at 15.</div></div></details>
 <details><summary>Coin Toss and Lineups <i>+</i></summary><div class="rb">Before each match, team captains meet for a coin toss. The winner picks one of two options: Home (reacts to the visiting team's mixed doubles lineup) or Away (sets their mixed doubles lineup first, and also chooses to serve or receive, plus which side of the court to start on). Whoever loses the toss gets the option the winner did not pick. Away reveals their two mixed doubles lineups first, then Home responds immediately after.</div></details>
 <details><summary>Switching Ends and Sides <i>+</i></summary><div class="rb">Teams switch ends once either side reaches 8 points in a game, and stay on that side to start the next game (no switching ends between games). If you chose to serve at the coin toss, your team starts every game serving. Player A starts on the right and serves on even scores, Player B serves on odd scores from the left, and both receive serve from their same side. Teams can swap which player is on which side during an end change or during a timeout, as long as they announce it first.</div></details>
 <details><summary>Timeouts <i>+</i></summary><div class="rb">Each team gets 1 timeout per game, up to 1 minute. This is separate from the 1 minute timeout that happens automatically when the first team hits 8 points in a game.</div></details>
 <details><summary>Schedule and Between Game Rules <i>+</i></summary><div class="rb">Once both teams are on the court, you get 5 minutes total to warm up, sort out home and away, and start the first game. After that, there is only 2 minutes between games, no extra warm ups. Be in position and ready to play by the 2 minute mark, or your team forfeits its timeout for that game.</div></details>
-<details><summary>Singles Dreambreaker <i>+</i></summary><div class="rb">If the match is tied 2 to 2, a Singles Dreambreaker decides it. It is a singles game in which all four players on each team take part, and the playing order is assigned before the game starts. Right after the second mixed doubles game ends, Home discloses their lineup first, then Away reacts with theirs. The Dreambreaker uses the same rally scoring as every other game (to 16, freeze at 15, win by two while serving). The player on court switches after every 4 points scored, regardless of which team scored them, following the assigned order. Each team follows its own order, and the order repeats once all four players have played. Each team gets 1 timeout for this game.</div></details>
+<details><summary>Singles Dreambreaker <i>+</i></summary><div class="rb">If the match is tied 2 to 2, a Singles Dreambreaker decides it. It is a singles game in which all four players on each team take part, and the playing order is assigned before the game starts. Right after the second mixed doubles game ends, Home discloses their lineup first, then Away reacts with theirs. The Dreambreaker uses the same rally scoring rules as every other game, but is played to 21 with the freeze at 20 (win by two while serving). If we reach 16 teams, it is played to 16 with the freeze at 15. The player on court switches after every 4 points scored, regardless of which team scored them, following the assigned order. Each team follows its own order, and the order repeats once all four players have played. Each team gets 1 timeout for this game.</div></details>
 <details><summary>Team Captains <i>+</i></summary><div class="rb">Every team needs a captain. They handle the coin toss, lineup calls, communication with the CCPC Programs and Events Committee, and any referee concerns. If a captain cannot make it for a match, the team names a substitute captain.</div></details>
-<details><summary>Substitutes, Injuries, and Forfeits <i>+</i></summary><div class="rb">You can substitute a player after registration, as long as the sub has a DUPR rating and it does not push your team's aggregate rating above 11.500. An injury substitute must stay in for the rest of the event and cannot be swapped back out later. If a team cannot field the required players, that game is forfeited 16 to 0. If a player gets hurt mid game and cannot continue, the team retires from that game, keeps its current score, and the other team is awarded a winning score of 16 or more to keep the two point win margin. Forfeits, withdrawals, and retirements still count toward wins and point percentage, but games where both teams scored fewer than 8 points will not be submitted to DUPR.</div></details>
-<details><summary>DUPR Team Rating and NR Players <i>+</i></summary><div class="rb">Every team's combined DUPR rating must not go over 11.500, and it gets locked in once you register, so ratings changing afterward will not affect your division. A DUPR account is required at the time of registration. If a player is not yet rated (NR), they are counted as 3.000, and the other three players on that team must add up to 8.500 or less.</div></details>
+<details><summary>Substitutes, Injuries, and Forfeits <i>+</i></summary><div class="rb">You can substitute a player after registration, as long as the sub has a DUPR rating and it does not push your team's aggregate rating above 11.500. An injury substitute must stay in for the rest of the event and cannot be swapped back out later. If a team cannot field the required players, that game is forfeited by the full game score (16 to 0, or 11 to 0 if we reach 16 teams). If a player gets hurt mid game and cannot continue, the team retires from that game, keeps its current score, and the other team is awarded a winning score of at least the game target (16, or 11 if we reach 16 teams) while keeping the two point win margin. Forfeits, withdrawals, and retirements still count toward wins and point percentage, but games where both teams scored fewer than 8 points will not be submitted to DUPR.</div></details>
+<details><summary>DUPR Team Rating and NR Players <i>+</i></summary><div class="rb">Every team's combined DUPR rating must not go over 11.500, and it gets locked in once you register, so ratings changing afterward will not affect your division. A DUPR account is required at the time of registration. Players who are not yet rated (NR) are counted as 2.9. See DUPR Eligibility below for the full rule.</div></details>
+<details><summary>DUPR Eligibility <i>+</i></summary><div class="rb"><b>One account per player.</b> Strictly 1 DUPR account per player. If a player has more than one account, we will use the highest rating.<br><br><b>NR and low credibility.</b> Players with an NR rating, or a Credibility Score lower than 30%, will be assigned a DUPR of 2.9 for team rating purposes.</div></details>
 <details><summary>Single Registrations <i>+</i></summary><div class="rb">No team yet? You can still register solo and the CCPC Programs and Events Committee will try to place you on a team, though placement is not guaranteed. If you cannot be placed, your registration fee will be refunded.</div></details>
 <details><summary>Paddles, Coaching, and Officiating <i>+</i></summary><div class="rb">Paddles must be on the official USA Pickleball or UPA-A approved paddle list, and players are expected to be honest about a delaminated paddle rather than sneak it into play. Coaching from non playing teammates is allowed anytime the ball is not in play, as long as it does not disrupt the game. During round robin, the non playing team assigned to each court handles refereeing, scorekeeping, and line calls. Unresolved disputes go to a CCPC committee member who is not involved in that match.</div></details>
 <details><summary>Player Conduct and Final Say <i>+</i></summary><div class="rb">Mistreating another player gets you one official verbal warning. After that, a player is subject to ejection from the tournament. For anything not covered here, the CCPC Programs and Events Committee has final authority, and they may revise these rules at any time.</div></details>
@@ -215,6 +217,17 @@ footer .tg{margin-top:8px;font-size:12px;letter-spacing:2px;opacity:.8;font-weig
     <a class="b" href="https://calapancitypickleball.club/apps/teamcomposer">Open Team Composer</a>
     <p style="margin:14px 0 0;font-size:13px;font-weight:600">Questions? Message any CCPC officer.</p>
   </div>
+</section>
+
+<section id="faq">
+  <span class="k b">Got Questions?</span>
+  <h2>FAQ</h2>
+  <details><summary>Can we use a team rating of 11.501? <i>+</i></summary><div class="rb">No. The maximum combined team rating is 11.500.</div></details>
+  <details><summary>What if the 12 team slots are full? Can we still join? <i>+</i></summary><div class="rb">Yes. There will be a waitlist. We will wait for 4 more teams so we can complete 16 teams.</div></details>
+  <details><summary>What if only 2 teams are on the waitlist? <i>+</i></summary><div class="rb">Sorry, we need at least 4 teams on the waitlist.</div></details>
+  <details><summary>Can non-members join? <i>+</i></summary><div class="rb">Club members have priority for the 12 team slots. Non-member teams can go on the waitlist, but at least 2 of the 4 players must be club members, and the team must still follow the DUPR Eligibility rules.</div></details>
+  <details><summary>Can we change team members after registration? <i>+</i></summary><div class="rb">Yes, but it is subject to club approval, and the new lineup must still follow all the rules.</div></details>
+  <details><summary>What if 1 team member does not show up? <i>+</i></summary><div class="rb">The team is automatically defaulted.</div></details>
 </section>
 </div>
 
