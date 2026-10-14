@@ -290,6 +290,24 @@
   tr.dup-row td{background:rgba(255,102,0,.16);}
   tr.dup-row td:first-child{box-shadow:inset 4px 0 0 var(--orange);}
   .badge.dup{background:var(--orange);color:#fff;margin-left:6px;cursor:help;}
+  /* ---- Mixed Doubles: gender tag ---- */
+  .gtoggle{display:inline-flex;margin-left:8px;vertical-align:middle;border:1px solid var(--border);border-radius:8px;overflow:hidden;}
+  .gtoggle button{border:0;background:transparent;padding:2px 10px;font-weight:700;font-size:12px;cursor:pointer;color:var(--muted);font-family:'Inter',sans-serif;}
+  .gtoggle button + button{border-left:1px solid var(--border);}
+  .gtoggle button.on.m{background:#1f7fb8;color:#fff;}
+  .gtoggle button.on.f{background:#d6458f;color:#fff;}
+  .badge.nogender{background:var(--muted);margin-left:6px;}
+  .gen-row.nogender{opacity:.55;cursor:default;}
+  .gen-row.nogender .gtoggle{opacity:1;}
+  .gsym{font-weight:700;margin-left:4px;}
+  .gsym.m{color:#1f7fb8;} .gsym.f{color:#d6458f;}
+  /* ---- Queue light (good-to-go indicator) ---- */
+  .qlight{width:14px;height:14px;border-radius:50%;flex:none;cursor:help;border:2px solid rgba(255,255,255,.75);}
+  .qlight.green{background:#2fbf6b;box-shadow:0 0 8px 2px rgba(47,191,107,.65);}
+  .qlight.orange{background:#ff9f1a;box-shadow:0 0 8px 2px rgba(255,159,26,.65);}
+  .qlight.red{background:#e5484d;box-shadow:0 0 8px 2px rgba(229,72,77,.6);}
+  .qlegend{font-size:12px;font-weight:500;color:var(--muted);text-transform:none;letter-spacing:0;display:inline-flex;gap:12px;align-items:center;flex-wrap:wrap;}
+  .qlegend i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:5px;vertical-align:-1px;}
   .gen-note{font-size:12px;color:var(--orange);padding:8px 12px;border-bottom:1px solid var(--border);}
   .sync-chip{margin-right:12px;padding:5px 11px;border-radius:14px;font-size:12px;font-weight:700;white-space:nowrap;}
   .sync-chip.busy{background:rgba(255,255,255,.16);color:#fff;}
@@ -301,7 +319,7 @@
 <header class="top">
   <img class="brand-logo" alt="DUPR" src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAQDAwMDAgQDAwMEBAQFBgoGBgUFBgwICQcKDgwPDg4MDQ0PERYTDxAVEQ0NExoTFRcYGRkZDxIbHRsYHRYYGRj/2wBDAQQEBAYFBgsGBgsYEA0QGBgYGBgYGBgYGBgYGBgYGBgYGBgYGBgYGBgYGBgYGBgYGBgYGBgYGBgYGBgYGBgYGBj/wAARCADwAPADASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwDwUORxTw3GeoqorYNPD+9fvtz8jcS0DjvTlbnOarrJ609WJPWrUiHEsb/enq5qsG9KcrGqTM3Atqc07JzVYPxT1kIq1IycSwHPrTg1QBwetOBHrVXM3EsBz60/eCOc59qrZpwYd6q5DiWQc9+aeGx2qsHHWpBID1p3JsWVlOetTLKQapBgRnNOBPrVXFsaST+9TJNxwaylkxUyzc8UWT2KU2aqS571KsnfNZSz4FTrMfWpaNFJM0kkyRzUwk96zVm96mWXtmlYu5eWTPenh/xqksnFSLJSC5cD8c08OevSqgcH2p4bjrQVoWxLUgkz7VTV/enhueOaYFwSZp6v9KpBuOtP3YGc0FWPFt5x0p4b0NVg9PDZrz0z03AnDc08MRVcPgc808Nx6VSkZOJZV/anh/aqwb3p4aquZuJZBNOD4681XV896kDjvVKRm4k4kpwbnrUGc0oYir5iHAtCTNP3iqm/B5p+4VSZm4FncacH5qAP2p4dfeqUkZOJOHp4Y561BkGl3VSZDiWQ/vTs85zVYNx708SHuc1SZDRYDmpUlIANVlcEc0uR61SYi6JuOtWEnwfeswGpEkwaNxqTRqLNUqykDrWWsuO9SrNmhxLVTuaglJ71IsvHWs1Z/epVm5qbWLU0aIk/GpBIcYHFZ4lAHWpFlJ70jSMrF9ZBjrTw4IqisnHWpBKcdaLFqZ47k0oaog/HNPzxXkqZ7DiShuaeDnpVfP1pwbmtLkNFsEY96Xn1qur08OfWqUjNw7EwNPDVBv8AanBsjrVpmbiTh+3NPDc9arhsetOD45zTuQ4lrcMU4HBzVYOaeJOeapMhxLAenhuKrhgadk+tUpGbjcsBu9SBwTnFVQ1ODVVzNwLYYEZFODVVVqeHxVKRnKBZD4pwbjNVw4Ip2TVpmbiWVfin5HrVZWPQ04NTTI5SyCRTg5Aqur44Ip4celUmTYsLIcZqVZcdTVPdShiDVJgX1myODUqze9ZyufWniTJp2THzNGkk+TkGphKT3rLWU96lWbnmlyFqr3PMN/FKJDjg1Bk04GvAPqXEsbzjmngj1quGHpT0YZ5qlIhxJ8mnBjUQbNOB9DWikZ8rJVY5p4aoASKUMfarTIcSfcfWnhhgZquGz3pwbPFO5LgWM/WnBuagDHjmpAQRVKRk4WJg/epFc9SarA+hpwYiqTIcS0HBNLkdM1WVyD2p4c1SZm4lkN2pwbiq4c45p4Y9qtSIcSxu4pyyEVX3U4NnvVXM3AtCQGng981VD4p4k5qlIycCwHpyv71AHBpwqkyHEn3c1J5g9KrZx3pQ2O9VcjlLIYfSnZxzVYMPWnhywwapMmxMGp4c1XVvUU8Nz7VSkKx5wH45pwIPNQ7velDZNfOJn2rimTA+9ODHNRDninDPtVpmTiTh+KUNx1FQ5NKGpkOJYV/enhge9Vg3NSK2aadiHEmBNODVAHI4p+8VakQ4k249qeHqAHjNKH9DWidyGiwGIpwbHWq4b3p4b0NUmQ4JljPoaUMcVAGxT92BjNUpEOBMrGpA+DUGe+aUMcVSZk4loSDHNODZNVQxzT1Yg9apMhxLGTTw/wCFQCT1p24GqUiHEnDY6Yp6yEDmq4NKCQetUmZuBZEg70/I9aq76erYPFWpGbgWM07cagEnrzTwwJq+ZEOJMG4pwaocntil3HNNMhxPOc04MRUQbJxT8184pH2liUN71IGGK+jf2dv2bPDnxn+HWo+IdX8R6vpk9rqLWSx2aRMrKI0fJ3qTnLn8q9hH7Bfggf8AM9eJf+/Vv/8AEV5FfP8ACUKjpVJO68mdlPLa1SKnFaM+FAwPApa+6x+wb4IHTx14k/79W/8A8RUVx+wb4UMDCy+IGuxSno01rBIo/ABf51C4mwH8z+5hLKMR2X3nwzmnBvevpLxt+xX8S/D1vLd+F9S07xTAmSIIgbW5I9kclWPsGz7V86ahp2oaTqk+marY3Fje27bJra5jMckbejKeRXq4TH4fFq9Gaf8AXY4K+FqUXaorEYYdDTgwFQDrX198Nf2O/Dvjn4SeH/F11401e0m1SyS6eCK3iZYy3YE8kfWjG5jQwUVOs7J6dww+DqYhuNNbHyWH+XinKcnmvt3/AIYS8LD/AJqBrmP+vWGvi3X7BNG8Xaro8UrypZXs1qsjgAuI5GQEgdztzWeAzbD42TjQd7eVhYrAVcOk6itcrUoPNQBsmrVhCLvVbW1ZiommSIkdQGYDP616ntLK7OLku7CBuKcDX3B/wwz4KPTxv4j/AO/dv/8AEVleKP2L/COheDtS1i38Z6/JLaQNMqSRQbWI7HCg14UeKcBJpcz+5npPJMUldpfefG4anhq+3B+w54L/AOh28Rcf9M4P/iacP2HfBg/5nbxF/wB+4P8A4mj/AFsy/wDmf3MTyHFv7K+9HxJmgHFfbn/DD3gz/odvEX/fuD/4iqt7+w74faE/2d4/1eGTHBubSKVfxC7TVx4sy9uzk/uZm8gxf8q+9HxgGwacG9K9q+If7LXxJ8C2E2q2kdv4k0yFS0k2mhvNiUfxNCecepUtivMvAPh638XfFDw/4XurmW3g1S/itHmhwXRXOMrnjP1r2aOZYevSdalPmitXY82pga1Ooqc42bMUSHHJp4fnmvtQfsReDe3jXxD/AN+4P/iaX/hiPwd/0OviH/v3B/8AE15C4uy7+Z/czufD2M/lX3o+LaXd719pf8MS+D/+h18Q/wDfuD/4mszVv2I9PNs7aF4+vI5gPlW/s0dSfcoVI/KrhxblzdnN/cyJcO41K/KvvR8ghyKeGzXcfEf4OeOvhdcKfEenLLp8j7IdTs2MlvIewJwCjf7LAe2a5zw34Y1PxPfvb2AjRY9okllztBYkIoCgszsQcKoJOCegJHu08bQqUvbQmnHueRUwlSE/ZyjaRmK2KkDjPPWtbxF4S1Pw3HDPcvHPaynYs0asuG27grKwBUlTuHZhyCcHGCH57100q0KkeaDujCdGUHaW55+OlO3GogeafuFfOqVj61o/Qf8AYPOfgTrv/Ydf/wBERV9VV8qfsHf8kI13/sPP/wCiIq+q6/Mc4/32r6n1WB/gQI3nhjba8iKfQsBTwQRkHj1r81P2xp5o/wBrLV1SaRQLGzOA5AH7qvKvC3xM8f8Agu/S78L+MNY05lOdkdyzRt7NGxKsPqK9Whw1OvQjWhU1ava36/8AAOSpmip1HCUdj9gCAeteXfGP4GeEPi94eaPU7dbLW4UIs9ZgQedCeyt/z0j9VP4YNef/ALOP7T1v8VJl8H+LYbfT/FccZeF4Rth1BVHzFAfuyAclOhGSOhA+ks5rxKlPEZfXs/dmv6+47oyp4mn3TPyB8ceC/EHw78d3vhPxNa+Rf2jdV5SZD92RD3RhyD9QeQa/TP8AZ8/5Nf8AAv8A2B4f5V57+1/8LLfxn8H5fF+n2wOt+HEa4DIuWmtc/vYz64Hzj02n1Neh/s+jH7MHgX/sDQf+g17ubZl9ewFOb+JSs/W36nn4LCfVsROK2a0+89JPT8a/ILxyw/4Wn4mGf+Yvd/8Ao96/X09Pxr8fvHLH/haXib/sL3f/AKPeujg92q1fRGOeq8IerMYNz1q/ozH/AISTTj/09w/+jFrN6Vd0hseIdP8AUXUJ/wDIi191N+6z5uK95H7IDv8AWuZ+Iv8AySrX/wDryk/lXTL0P1rmfiKcfCrX/wDryk/lX4xS+OPqff1PgZ0y9T9ajuLiC0tJLm5mjhhjUu8kjBVUDqSTwBUg6n61wvxqx/wzr43yMj+xLvr/ANcmooU/aVIw7tL7wnLlg5djcj8beEJX2ReK9Ddum1b+En/0KtyORJYlkjdWVhkMpyD9DX44BY8j5E6f3RX0h+yN8Tde0b4yWPgSfUJ7jQ9YEka2srl1t5lQurxg/dztKkDg5B6ivq8fwo8PQlWpVL8qvZq2n3nhYXPVVqqnOFrn6AlQR3r5M+JvwmsPCH7Wvw88c+HbRLbTdY1+CG8t41wkV1nduUdAHUMcf3lPrX1p1Fcn490eHVtK0iSUDfY63YXsZPZkuFB/8dZh+NfP5djJ4aq3F6STT9GrHrYzDxrQ13TTXyOs7Vm65rukeGtCuNa17UrfTtPt8GW6uXCRx5IUZPbJIH41pV4/+1EcfspeLD/sW/8A6Ux1hhKKr16dJvSTS+9mteo6dKU10TZ12lfFj4aa5dra6T488PXVw52rFHfR7mPoATk12KnIr8fC4LHcAfwr7n/Y38f654m8Ga14Y1u9mvRorwm0nnYs6wyBh5ZY8kKU4z0Bx2FfS5zwwsDQeIpT5kt0zxMtzp4mr7KpGzex9G63oul+IPD93ous2UV7YXcZint5lyrqe3+B6g4NfAmuaVa/Bb4xar4N1OZxZQ3sGsaVeyxl1dRHKiLKACSpWZlJAOGj6EMa/Quviv8AbgsoYvGnhDUlAE09lcQOe5CSIy/+jGrDhaq3iXhJP3Jr8Vrf8DTPaK9j7dfFH8noeLeMfFWn3+gJplncQ3M8zW0l01pCYbS3+zwvEkduhVSFJkkcjaACcDPJrhwwPaqwfrTg/tX6ph6MaEOSJ8JWnKrLmkcGDTs4qOlz614Nz6ax+hv7Bhz8Btd/7Dz/APoiKvqyvlL9gog/AXXcf9B6T/0RFX1bX5rm/wDvlT1Pp8F/AifmZ+2X/wAna6v/ANeNn/6KrwMHFe9ftmnH7W+r/wDXhZ/+iq8BDV9/lT/2Ol/hX5HzuMX76fqbHh7xBqHhfxVp3iPSZmhvtOuUu4XU4wyHOPocEH2Jr9jNE1OHWvDen6zbjEN7bR3KD/ZdAw/Q1+LrYMLYPO08fhX7F/Dqzn0/4ReFrC5Vlmt9HtIpFbqGWFAR+deBxXGLVKfXVfkejk7fvLob17Z29/p09ldRiSC4jaKRG6MrDBH5E1x3we0l9B+B/hrQ5PvWFmLT/v2zJ/Su5PSub8CX0Go+BLK9t2DRStKyEdCPOevkVJ+zcel1+p7DS5kzoz0/Gvx68dt/xdTxP/2F7z/0e9fsKelfjv49DJ8V/FCngjWLwH/v+9fVcI/xanojx86Xuw9TFDZq/pLA+ILAD/n6i/8ARi1lhuKv6ISfE2mj1u4R/wCRFr7icrRZ8/Fe8j9mF6fjXL/Eg4+E/iA/9OUn8q6gd/rXK/Es4+EniA/9OT1+O0f4kfVH3FT4H6HVDqfrXDfGhHk/Z48bRxozu2iXQVUUsSfKPAA6mu5XqfrS0Uqns5xn2dxyjzRce5+Ow0fV2cIuk6gWPQC1kz+W2vqD9kv4MeK/+Fo2vxE8RaNdaXpWmxSfYxeRGJ7qZ1KAqjYO1VZjuIwTgDPNfdOKMCvpsdxTVxNGVGEFG6s3e+n3I8fD5LTpVFUcr2CuM+ImuxaNp2hW7sBJqWv6fYRj1LTqx/8AHUauwlmjhiaWV1RFBZmY4CgdST2FfGPjz40WHxH/AGyPh34Z8M3QuPD+i67CftMZyl3cltrOvqij5VPfLHoRXi5dg54mo2lpFNv5L9T0MXXjSik93oj7Rryf9pTT9R1b9mLxRp2lWF1fXcqQCO3tYmlkfFxGThVBJ4BP4V6wOlNZlXrXLh6zoVYVUr8rT+42q0/aQcH1Vj8rdI+D3xV1u9W2074e+InZjjdNZPAg+ryBVH5191/s5fBq7+EngS7/ALbnhm1zVZEmuxAd0cCqCEiVv4sbmJPQk8cCvaODVPVtW0vQtHuNV1m/trCxt13zXNzII44x0yzHgV7eZ8RYnMafsGkovot2ebg8oo4Sftb3fmXCcCvgb9sjxbba38bbLQbSVZF0SxEUxU5CzStvZfqFEefrXq/xV/bB8LaNpdxpXw3Ya5qzqUXUWQraWx/vDdgykdgBt9T2r4gvtRvNU1S51LUbqW6vLmVppp5m3PI7HLMT3JJr2uFsmrUq31uvHlSWie+vU83O8wp1KfsKTv3EDDrmnZqDIp25sV+gqR8m4nF0UhwRjNJz2r5259Ryo/Q/9gj/AJIHrv8A2H5P/REVfVtfKP7BH/JAtd/7D8n/AKIhr6ur82zf/fKnqfSYT+DE/Mj9s/8A5O41f/rwsv8A0VXgAJr9IvjF+yNYfF34r3fje48c3ekyXEEMBtY7BJgvlrtzuLg8/Ssfwr+wj8OdJ1BLnxP4i1vxCiEH7L8lnC/s2zLkfRhX02Dz3CUMLCEm7pLSzPKr4CrUqyklo2fMv7NHwU1L4r/FG0vryykHhXSZ1n1G6dcJMykMtup7sxxux0XOeoz+oqrtUADH0rN0Hw9onhfQLbRPD2l2umadbJshtbWMRog9gO57nqa0JZY4YmkkdVVQWJY4AA6kntXzWZ5jLHVedqyWyPTwuGjh42W5xvxa8dWvw4+DmveLrmRVeztW+zqTzJO3yxIPq5H4A1yv7L2pjVf2T/BtyZfMlS1eCVs5O9JnU5/L9a+PP2tPj1b/ABM8XReEPCt35vhfR5S7XCH5b+5wVMg9UUEqvqSzdCK9o/YQ8c21/wDDbWvANxOovNKuzewITy0E2MkD/ZkBz/vj1ruq5XOjlvtZL3m035LZfmYQxSnieVbWt8z65PSvyT+OGi3Ph/8AaO8a6bdRGNv7XnnQEY3Ryt5qMPYq4NfrbXhPx9/Zp0L4zCHWrO/GieJraLyUvfK8yK4jGSEmUYJwScMDkZI5HFZZFmMMFXbqfDJW9Cswwrr01y7o/Mmuu+F+izeJPjT4T0KFCzXerWyEAZwokVmP4KpP4V7gf2Ffi2L/AMka94SaDP8Ar/tEw49dvlZr6I+Av7LWjfCLVT4n1nU113xKY2iinSLy4LNWGG8pSSSxHBc9sgAZOfq8bn+FhRl7OfNJrRI8ehltaVRcysj6FXpXE/F+/i034JeIbqY4X7MI/wAXdUA/NhXb181ftfePINH8IeGvA9tODe69q9tJLGDyttDMjEkehk8sfgfSvhMBRdbEQgu//BZ9BiJ8lKTZ9Jr3+tYHjzxM3gz4Za94sSzF42lWE16LcvsEuxS23dg4zjrg10C9/rXAfHP/AJNq8d/9gK7/APRRrLDRU6sIy2bX5mk21FtHzOn7e97yH+GMBPbGrH/41VK9/bx8SSRkaf8ADzSoG7G4v5JR+Sov86+QN2KUNk8kiv0uPD+X7+z/ABf+Z8m8yxNvj/I9Z+If7RHxT+JVnJp2ua6tppUnD6bpifZ4XHo/JZx7MxHtWb8DW/4yU8CZ/wCg3bf+h154CMdc16B8DT/xkt4EGf8AmOW3/oddlbD0qGFnCjFRVnt6HNTnOpXjKbu7o/V8dK8o/aS1TUNE/Zm8S6xpN5LZ31n9lnt7iI4aN1uoiCP889K9XHSvHP2qP+TSvGH/AFyt/wD0pir8ty9J4qkntzL8z7HFaUZ27M3Pgl8UrD4s/Cy08Qw+XFqMX+j6laqf9TcADOB/dYYZfY47Gu71PS7DWdIudK1S1iu7K6jaGe3lXckiMMFSPQivzI+AHxdn+EvxWhv7qWQ6BqG211WFecR5+WUD+9GTn3BYd6/T20uYLyxiu7aaOaCVBJHLGdyupGQwPcEEGu/O8teX4j3Pheq/y+Ry5di1iqXvbrc/Mr48fB2/+EXxEe0iEs2gX5aXS7t+SV7wuf76ZA9xg+uPKwea/V74m/DrQ/if8O73wrrkeEmG+3uVAL2swB2Sp7g9R3BI71+XnjbwhrngHx1qHhTxDbeTfWUm0kZ2SoeVkQ91Ycg/h1Br7jh3Ovr1L2VV/vI/iu/+f/BPm81y76vPngvdf4eRi7z608OemahBHanZNfTHj8pxwbnJp4kA7VAD3pw5r5659Kfop+wQT/wz/rhwT/xP5Og/6YQ19Wb/APZP5V+KNjresadCYdO1fULOJjuKW11JEpPqQpAz71aHivxT1HijW/8AwYTf/FV81jOH3iK0qqqWv5f8E9Gjjo04KHLsftJv/wBlvyo38dCPqK/F4+LPFRXB8Ua4R6f2jN/8XUU3iTxDcwtDceINXljPBSS+lZT+Baub/VeX/P38P+Caf2nH+U/WTx18cvhb8OrN5PE3jHTYrgAlbG2kFxcufQRJk/icD3r4Y+O37Wnib4o2tx4Z8L283h3wvJlZULg3V8vpKy8Ih/uKTnuT0r5uHBJ2gZ5yB1+tKGycV62ByKhhpKcveku+33HHiMdUqLlWiHjJ5rq/hx8Qdf8Ahh8RtP8AGPhyVRdWrFXhkJ8u5ib78TgfwsPyIBHIrkqK9qcY1IuE1dM8+LcXzI/Wf4S/Hz4f/FzR4m0PVI7TVwgNxot5IEuYm77R/wAtF9GXPvg8V6kGGcV+JMUskUySxO0ciHcjoSrKfUEcg16X4c/aE+NHhWFIdI+I2teQgwsN5It2gHoBMGxXymJ4Ybd8PPTs/wDP/gHr0s0VrVF9x+tlIWAr8w1/bI+Pwj2nxZYk4+8dKt8/+g1zPiH9o742+J4ni1P4javHE42tFYFLNSPT90qn9a5IcMYlu0pJff8A5GzzSklomfoz8Vvjj4D+EmiSXHiHVI5tSKE22j2rhrq4bt8v8C+rtgD3PFfm94p+I2v/ABS+O1r4u8QuBPPf28cNvGT5dtCJV2RJ7DPXuST3rz2Wea5uZLi4mkmmkO55ZGLs59Sx5J+tNV2VgysVYHIIOCDX0uW5PSwUW73m+v8AkeVisdKu1pZLoftYGxng9fSuA+OZz+zV484P/ICu+3/TJq/KYeJfEe7nxFrH/gdN/wDFU2XxFrs8LwT65qssTgq6SXkrKw9CC2CPrXk0eFpU5xn7XZp7f8E7Z5tGUWuUpgkU7moqAa+1TPn2icMRivQvgY3/ABkv4DJ/6Dlt/wCh15wGqaKaWCdJoJJIpEYMkkbFWUjoQRyD71FaHtKcoX3TX3jpvlmpdj9og/sfyNeOftUN/wAYj+MTgj91b9v+nmKvzW/4S3xXnnxTrn/gwm/+KqO58Ra/f2rWt9r2q3UD/einvJZEbHqrMQa+Tw3CsqNaFX2t+Vp7dn6ntVc3jODhybruVMnOQa+4v2N/jONV0Y/CnxDdZvbGMy6RJIeZoBy0PuydR/skj+GvhgH06VPbXU9rdJcWs8tvNGdySwuUZT6gjkGvpczy+GPoOlLR9H2Z4+Eryw1RTR+zJYHs35GvD/2j/ghB8V/A/wDaWjwInirS42aykxj7SnVrdz6Hqp7N7E1+dQ8W+Ku3ijXP/BhN/wDFU7/hLvFeP+Rn1v8A8GE3/wAVXzmF4Xr4arGtSrWa8v8AgnqV84pVoOnOm7PzKdxBPaXctrdQSQTxOY5IZVKsjA4KsD0IPBFR54pstxNdXD3FzNJNNIxZ5JGLsxPUknkmm7uK+4jJ9T5tx7HI5pwNMo569q8FM+gsSjrmlyKjHrS5qriJ1bsaXI9agU808c07hYlBpcA89Kj3dh2o3NTTFYk5z7UmRnGKQH5etKPfFO5LQ6iiimmS4i5pwP40zpRTuQ4km7B5pQ2T1NR5pQfSquTYmDDHWnA5qEGlBHrVJk8pMCfWnBgTUQanVakTYkpc1ECQaduGOapMmxIGpwJqMetGTVJktEwY9zTgxzzUGfWnBge9WpCsT54p272qAMAOKcDzwapMlxJgcjNLk1Fu4waUPz61SZDgczRSAg96XmvDTPcClB9aSiquKw7I9aASKbS59aaYh+fejPvTMilp3ESAjAp4OKhBpQeaaYibeM08MDUG6nBvSncViXNJk98UinIpaq4mhwopB05oJwM0yHEdk9KUGm0uTVJkOI7dzTg3vUecGlBFVclomDHA4pdwqIH3pQaLisS5zjmnbvaoQaXdzV8xLRODkUVGGI70obnmrUhWJMml3GmA5ozxkVdyGiTcacDxUeTShj6VSYmjn6UEDiowxzzT68O57FhxOBRTaXPHNUmKwtFJkYparmEFFFFO4rBmlzSUU7isOpc0ylzTTFYk3cU8N6GoQeKUGqTEThscnrTqr5NPVzmncViXKnigZHTpTVbPWnA1SYmh1FNIycijJFUmQ4jqUNTQfWlpkNDweM0u41HS5ppisSg5FKCRUWfelBIqlImxOp70A4qINTs8VSkLlJVb1peg4qHP1p4JxVqQrGDRSZFGRXjnqkm4UA5plFAEmecUoqNSc4pxIHWncmw7NLTAw6UucH600xWHUUmRS5quYQUUUU07gFKGINJRVXJaHA880oNMpQaYiRWp24VEOtLmmmInVh0zzTqrqeafu96q4WJaOR0pqsOlKCDVJk2HA0tNpcmqTJcRaKQHjmlpkcrFzS7uabRTTFYk3Uoeo80uadxWMWl3HNJRXlnpjs5paZRTuFiSimAkU/PFNE2AZzTg3rTaKAJO1FM3EClU5ouJofmlptKKpMQtFJx60ZNUmKwtFBoqkxBS5pKKdxWHdaUUyjNO5NiQNinhvWosiiqTCxOGOOKcpJNVwxFODc9aaYWJ6KiDZHWnAkGquS0Pyadmo93tTqq5LQ6ikzQDnrTJcT//2Q==">
   <div class="titles">
-    <h1>DUPR and Tournament Engine v.1.1</h1>
+    <h1>DUPR and Tournament Engine v.1.2</h1>
     <div class="sub">Developed by Calapan City Pickleball Club</div>
   </div>
   <div class="session-chip" id="sessionLabel">Loading session…</div>
@@ -339,6 +357,7 @@
       <button class="btn btn-ghost btn-sm" id="btnOptimizeQueue" style="text-transform:none;letter-spacing:0;">✨ Optimize queue</button>
       <button class="btn btn-ghost btn-sm" id="btnUndoOptimize" style="display:none;text-transform:none;letter-spacing:0;">↩ Undo optimize</button>
       <button class="btn btn-ghost btn-sm" id="btnClearQueue" style="text-transform:none;letter-spacing:0;">🧹 Clear queue</button>
+      <span class="qlegend" id="qLegend"><span><i style="background:#2fbf6b"></i>Good to go</span><span><i style="background:#ff9f1a"></i>Just finished</span><span><i style="background:#e5484d"></i>Playing / on court</span></span>
       <label class="tv-switch" title="Show the waiting list on the TV display"><input type="checkbox" id="chkDisplayQueue" checked><span>Display queue on TV</span></label>
       <button class="btn btn-ghost btn-sm" id="btnShowLeaderboard" style="text-transform:none;letter-spacing:0;">🏆 Show leaderboard</button>
     </div>
@@ -399,7 +418,7 @@
     <div class="modal-sub" id="bucketModalSub">Give the bucket a name and choose its mode.</div>
     <div class="field"><label for="bucketName">Bucket name</label><input type="text" id="bucketName" placeholder="e.g. Beginners, Open Singles"></div>
     <div class="field"><label for="bucketMode">Mode</label>
-      <select id="bucketMode"><option value="singles">Singles (1 vs 1)</option><option value="doubles">Doubles (2 vs 2)</option><option value="fixed">Doubles - Fixed Partner (2 vs 2)</option></select>
+      <select id="bucketMode"><option value="singles">Singles (1 vs 1)</option><option value="doubles">Doubles (2 vs 2)</option><option value="fixed">Doubles - Fixed Partner (2 vs 2)</option><option value="mixed">Mixed Doubles (2 vs 2 · 1 man + 1 woman per team)</option></select>
       <div class="helper" id="bucketModeHelper">The mode can't be changed after the bucket is created.</div></div>
     <div class="field"><label>Courts</label><div class="court-checks" id="bucketCourts"></div>
       <div class="helper">Matches from this bucket can only be put on the checked courts.</div></div>
@@ -425,6 +444,7 @@
       <div class="field"><label>Guest Name</label><input type="text" id="guestName" placeholder="Guest Name"></div>
       <div class="field"><label>DUPR ID </label><input type="text" id="guestDuprId" placeholder="e.g. ABC1234" required></div>
       <div class="field"><label>Current DUPR</label><input type="text" id="guestDupr" placeholder="e.g. 3.250 or NR"><div class="error-text" id="errGuestDupr"></div></div>
+      <div class="field" id="guestGenderField" style="display:none;"><label>Gender</label><select id="guestGender"><option value="">Select…</option><option value="M">Male</option><option value="F">Female</option></select></div>
       <button type="button" class="btn btn-ghost btn-sm" id="btnGuestToList" style="margin-bottom:12px;">+ Add guest to list</button>
     </div>
     <div id="pendingWrap" class="field" style="display:none;"><label id="pendingLabel">To be added</label><div class="pending-list" id="pendingList"></div></div>
@@ -653,9 +673,11 @@ function freeCourtsFor(key){
   return bucketCourts(key).filter(c => !busy.has(c)).length;
 }
 function bucketSize(key){ const b = BUCKETS.find(x => x.key === key); return b ? b.size : 4; }
+function normMode(v){ return v === 'singles' ? 'singles' : (v === 'fixed' ? 'fixed' : (v === 'mixed' ? 'mixed' : 'doubles')); }
+function modeLabel(m){ return m === 'singles' ? 'Singles' : (m === 'fixed' ? 'Doubles · Fixed Partner' : (m === 'mixed' ? 'Mixed Doubles' : 'Doubles')); }
 function modeTagHtml(b){
   if (!b || !b.mode) return '';
-  let h = `<span class="mode-tag">${b.mode === 'singles' ? 'Singles' : (b.mode === 'fixed' ? 'Doubles · Fixed Partner' : 'Doubles')}</span>`;
+  let h = `<span class="mode-tag">${modeLabel(b.mode)}</span>`;
   if (bucketHasSpecificCourts(b)) h += `<span class="mode-tag">Court${b.courts.length===1?'':'s'} ${b.courts.join(', ')}</span>`;
   return h;
 }
@@ -741,7 +763,7 @@ dbMembers.collection('ccpc-dupr').onSnapshot(snap => { allMembers = snap.docs.ma
 
 db.collection('pkl-queue-buckets').onSnapshot(snap => {
   BUCKETS = snap.docs.map(d => {
-    const x = d.data(), mode = x.mode === 'singles' ? 'singles' : (x.mode === 'fixed' ? 'fixed' : 'doubles');
+    const x = d.data(), mode = normMode(x.mode);
     return { key:d.id, label:x.name || 'Bucket', mode, size: mode === 'singles' ? 2 : 4, color: BUCKET_COLOR, createdAtMs: x.createdAtMs || 0,
       order: (x.order !== undefined && x.order !== null) ? Number(x.order) : (x.createdAtMs || 0),
       courts: (Array.isArray(x.courts) ? x.courts.map(Number).filter(c => c >= 1 && c <= COURTS) : []).sort((a,b) => a-b) };
@@ -919,7 +941,7 @@ function renderParticipants(){
       return `
       <tr class="${movable ? 'draggable-row' : ''} ${dup ? 'dup-row' : ''}" ${movable ? 'draggable="true"' : ''} data-pid="${p.id}">
         <td class="stat-hover" data-refkey="${refKeyFor(p)}" data-pid="${p.id}">
-          <b>${escapeHtml(p.name)}</b>${p.sourceType==='guest' ? ' <span style="color:var(--muted);font-size:11px;">(guest)</span>' : ''}${dup ? ` <span class="badge dup" title="${escapeHtml(dupTitle(p))}">Duplicate</span>` : ''}${b.mode === 'fixed' ? partnerLineHtml(p) : ''}
+          <b>${escapeHtml(p.name)}</b>${p.sourceType==='guest' ? ' <span style="color:var(--muted);font-size:11px;">(guest)</span>' : ''}${dup ? ` <span class="badge dup" title="${escapeHtml(dupTitle(p))}">Duplicate</span>` : ''}${b.mode === 'fixed' ? partnerLineHtml(p) : ''}${b.mode === 'mixed' ? genderToggleHtml(p) : ''}
         </td>
         <td>${p.duprId ? escapeHtml(p.duprId) : '<span style="color:var(--muted)">—</span>'}</td>
         <td>${p.duprRaw || fmtNum(p.dupr)}</td>
@@ -935,7 +957,7 @@ function renderParticipants(){
     <div class="bucket-card" data-bucket="${b.key}">
       <div class="bucket-head">
         <h3><span class="bucket-tag" style="background:${b.color}"></span>${escapeHtml(b.label)}${modeTagHtml(b)}</h3>
-        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:flex-end;"><span class="count">${list.length} player${list.length===1?'':'s'}</span>
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:flex-end;"><span class="count">${list.length} player${list.length===1?'':'s'}${b.mode === 'mixed' ? ` · ${list.filter(x => genderOf(x) === 'M').length} M · ${list.filter(x => genderOf(x) === 'F').length} F` : ''}</span>
           <span class="bucket-drag" draggable="true" title="Drag to rearrange buckets">⠿</span>
           <button class="btn-icon" title="Move left" ${bi===0?'disabled':''} onclick="moveBucket('${b.key}',-1)">◀</button>
           <button class="btn-icon" title="Move right" ${bi===BUCKETS.length-1?'disabled':''} onclick="moveBucket('${b.key}',1)">▶</button>
@@ -976,7 +998,7 @@ document.getElementById('btnBucketSave').addEventListener('click', async () => {
   const errEl = document.getElementById('errBucket');
   errEl.textContent = '';
   const name = document.getElementById('bucketName').value.trim();
-  const mv = document.getElementById('bucketMode').value, mode = mv === 'singles' ? 'singles' : (mv === 'fixed' ? 'fixed' : 'doubles');
+  const mv = document.getElementById('bucketMode').value, mode = normMode(mv);
   const courts = [...document.querySelectorAll('#bucketCourts input:checked')].map(i => Number(i.value));
   if (!name) { errEl.textContent = 'Enter a bucket name.'; return; }
   if (!courts.length) { errEl.textContent = 'Select at least one court.'; return; }
@@ -1213,6 +1235,8 @@ function openAddModal(bucketKey){
   ['guestName','guestDuprId','guestDupr'].forEach(id => document.getElementById(id).value = '');
   document.getElementById('errAdd').textContent = '';
   document.getElementById('errGuestDupr').textContent = '';
+  document.getElementById('guestGenderField').style.display = isMixed(bucketKey) ? 'block' : 'none';
+  document.getElementById('guestGender').value = '';
   setSourceUI('member');
   renderPending();
   addOverlay.classList.add('show');
@@ -1240,10 +1264,12 @@ function renderPending(){
   document.getElementById('pendingLabel').textContent = `To be added (${pendingAdds.length})` + (isFixed(addBucket) && pendingAdds.length % 2 ? ' · add 1 more to complete the pair' : '');
   list.innerHTML = pendingAdds.map((x, i) => `
     <div class="pending-item"><span>${isFixed(addBucket) ? `<span class="mode-tag" style="margin:0 6px 0 0;">Pair ${Math.floor(i/2)+1}</span>` : ''}<b>${escapeHtml(x.name)}</b>${x.sourceType==='guest' ? ' <span style="color:var(--muted);font-size:11px;">(guest)</span>' : ''}
-      <span style="color:var(--muted);"> · ${x.duprRaw}</span></span><button type="button" data-i="${i}" title="Remove from list">✕</button></div>`).join('');
+      <span style="color:var(--muted);"> · ${x.duprRaw}</span>${isMixed(addBucket) ? pendingGenderHtml(x, i) : ''}</span><button type="button" data-i="${i}" title="Remove from list">✕</button></div>`).join('');
   document.getElementById('btnAddConfirm').textContent = pendingAdds.length > 1 ? `Add ${pendingAdds.length} to bucket` : 'Add to bucket';
 }
 document.getElementById('pendingList').addEventListener('click', e => {
+  const gb = e.target.closest('button[data-gi]');
+  if (gb) { pendingAdds[Number(gb.dataset.gi)].gender = gb.dataset.gv; renderPending(); return; }
   const b = e.target.closest('button[data-i]');
   if (!b) return;
   pendingAdds.splice(Number(b.dataset.i), 1);
@@ -1264,7 +1290,7 @@ memberSearch.addEventListener('input', () => {
     el.addEventListener('click', () => {
       const m = allMembers.find(x => x.id === el.dataset.id);
       if (!m || pendingMemberIds().has(m.id)) return;
-      pendingAdds.push({ sourceType:'member', memberId:m.id, name:m.name, duprId:m.duprId || '', dupr:memberCur(m).value, duprRaw:memberCur(m).raw });
+      pendingAdds.push({ sourceType:'member', memberId:m.id, name:m.name, duprId:m.duprId || '', dupr:memberCur(m).value, duprRaw:memberCur(m).raw, gender:normGender(m.gender) });
       renderPending();
       memberSearch.value = ''; memberResults.classList.remove('show'); memberSearch.focus();
     });
@@ -1281,8 +1307,8 @@ function addGuestToPending(){
   if (activeGuestNames().has(key) || pendingGuestNames().has(key)) { errAdd.textContent = `${name} is already in a bucket or on the list.`; return false; }
   const d = parseDupr(document.getElementById('guestDupr').value);
   if (!d.ok) { errD.textContent = d.error; return false; }
-  pendingAdds.push({ sourceType:'guest', memberId:null, name, duprId: document.getElementById('guestDuprId').value.trim(), dupr:d.value, duprRaw:d.raw });
-  ['guestName','guestDuprId','guestDupr'].forEach(id => document.getElementById(id).value = '');
+  pendingAdds.push({ sourceType:'guest', memberId:null, name, duprId: document.getElementById('guestDuprId').value.trim(), dupr:d.value, duprRaw:d.raw, gender: isMixed(addBucket) ? document.getElementById('guestGender').value : '' });
+  ['guestName','guestDuprId','guestDupr','guestGender'].forEach(id => document.getElementById(id).value = '');
   renderPending();
   document.getElementById('guestName').focus();
   return true;
@@ -1307,11 +1333,15 @@ document.getElementById('btnAddConfirm').addEventListener('click', async () => {
     pendingAdds.forEach((x, ix) => {
       batch.set(db.collection('pkl-queue-participants').doc(), {
         bucket: addBucket, sourceType:x.sourceType, memberId:x.memberId, name:x.name, duprId:x.duprId || '',
-        dupr:x.dupr, duprRaw:x.duprRaw, status:'active', statusSince: now, sitOutStreak: 0, ...(fixedAdd ? { pairId: pairIds[ix - (ix % 2)] } : {}),
+        dupr:x.dupr, duprRaw:x.duprRaw, status:'active', statusSince: now, sitOutStreak: 0, ...(x.gender ? { gender: x.gender } : {}), ...(fixedAdd ? { pairId: pairIds[ix - (ix % 2)] } : {}),
         joinedAt: firebase.firestore.FieldValue.serverTimestamp()
       });
     });
     await batch.commit();
+    pendingAdds.filter(x => x.sourceType === 'member' && x.gender).forEach(x => {
+      const r = allMembers.find(m => m.id === x.memberId);
+      if (r && normGender(r.gender) !== x.gender) dbMembers.collection('ccpc-dupr').doc(x.memberId).update({ gender: rosterGenderValue(x.gender) }).catch(() => {});
+    });
     showToast(`${pendingAdds.length} player${pendingAdds.length===1?'':'s'} added to ${bucketLabel(addBucket)}.`);
     addOverlay.classList.remove('show');
   } catch (err) { showToast('Add failed: ' + err.message, true); }
@@ -1319,6 +1349,49 @@ document.getElementById('btnAddConfirm').addEventListener('click', async () => {
 });
 
 /* ================= SESSION HISTORY HELPERS ================= */
+
+/* ================= GENDER (Mixed Doubles) ================= */
+function isMixed(bk){ const b = BUCKETS.find(x => x.key === bk); return !!b && b.mode === 'mixed'; }
+function normGender(v){ const t = String(v || '').trim().toLowerCase(); if (!t) return ''; if (t[0] === 'm') return 'M'; if (t[0] === 'f' || t[0] === 'w') return 'F'; return ''; }
+/* A player's gender: tag on the participant, else the CCPC members roster */
+function genderOf(p){
+  if (!p) return '';
+  const live = p.id ? (participants.find(x => x.id === p.id) || p) : p;
+  let g = normGender(live.gender);
+  if (!g && live.sourceType === 'member' && live.memberId) { const r = allMembers.find(x => x.id === live.memberId); g = normGender(r && r.gender); }
+  return g;
+}
+/* Write back to the members roster using the same wording the roster already uses (Male/Female, M/F, lowercase...) */
+function rosterGenderValue(g){
+  const samples = allMembers.map(m => String(m.gender || '').trim()).filter(Boolean);
+  const sample = samples.find(v => v.length > 1) || samples[0] || '';
+  const word = !sample || sample.length > 1;
+  let out = word ? (g === 'M' ? 'Male' : 'Female') : g;
+  if (sample && sample === sample.toLowerCase()) out = out.toLowerCase();
+  else if (sample && sample === sample.toUpperCase() && sample.length > 1) out = out.toUpperCase();
+  return out;
+}
+async function setGender(pid, g){
+  const p = participants.find(x => x.id === pid);
+  if (!p || genderOf(p) === g) return;
+  const live = queueMatches.some(m => QUEUE_MATCH_STATUSES.includes(m.status) && isInMatch(pid, m));
+  if (live && isMixed(p.bucket) && !confirm(`${p.name} is in a queued or playing match. Changing the gender may make that match non-mixed. Continue?`)) return;
+  try { await db.collection('pkl-queue-participants').doc(pid).update({ gender: g }); }
+  catch (err) { showToast('Could not set gender: ' + err.message, true); return; }
+  if (p.sourceType === 'member' && p.memberId) {
+    dbMembers.collection('ccpc-dupr').doc(p.memberId).update({ gender: rosterGenderValue(g) })
+      .catch(err => showToast('Saved here, but the CCPC members database was not updated: ' + err.message, true));
+  }
+  if (suggestionState[p.bucket] && allRoundParticipants(p.bucket).some(x => x.id === pid)) { discardSuggestions(p.bucket); showToast(`Gender changed. Suggestions for ${bucketLabel(p.bucket)} were cleared, generate again.`); }
+}
+function genderToggleHtml(p){
+  const g = genderOf(p);
+  return ` <span class="gtoggle"><button type="button" class="${g === 'M' ? 'on m' : ''}" title="Male" onclick="setGender('${p.id}','M')">M</button><button type="button" class="${g === 'F' ? 'on f' : ''}" title="Female" onclick="setGender('${p.id}','F')">F</button></span>${g ? '' : ' <span class="badge nogender" title="Tag male or female so this player can be matched">Tag gender</span>'}`;
+}
+function genderSym(p){ const g = genderOf(p); return g === 'M' ? ' <span class="gsym m">♂</span>' : (g === 'F' ? ' <span class="gsym f">♀</span>' : ''); }
+function pendingGenderHtml(x, i){
+  return ` <span class="gtoggle"><button type="button" data-gi="${i}" data-gv="M" class="${x.gender === 'M' ? 'on m' : ''}">M</button><button type="button" data-gi="${i}" data-gv="F" class="${x.gender === 'F' ? 'on f' : ''}">F</button></span>${x.gender ? '' : ' <span class="badge nogender">Tag gender</span>'}`;
+}
 
 /* ================= FIXED PARTNER (pairs) ================= */
 function isFixed(bk){ const b = BUCKETS.find(x => x.key === bk); return !!b && b.mode === 'fixed'; }
@@ -1504,9 +1577,81 @@ function benchPairsHtml(bk, ri){
   return units.map(u => `<div class="bench-chip">${pairSelectHtml(bk, ri, u.id)}</div>`).join('')
     + rd.bench.filter(p => !inPair.has(p.id)).map(p => `<div class="bench-chip">${escapeHtml(p.name)} (unpaired)</div>`).join('');
 }
+/* ---- Mixed doubles: every match = 2 men + 2 women, each team 1 man + 1 woman ---- */
+function mixedMatchBest(m1, m2, w1, w2, P, O){
+  const opts = [
+    { t1:[m1, w1], t2:[m2, w2] },
+    { t1:[m1, w2], t2:[m2, w1] }
+  ];
+  let best = null;
+  opts.forEach(o => {
+    const c = PARTNER_W * (cnt(P, o.t1[0].id, o.t1[1].id) + cnt(P, o.t2[0].id, o.t2[1].id))
+      + OPP_W * (cnt(O, o.t1[0].id, o.t2[0].id) + cnt(O, o.t1[0].id, o.t2[1].id) + cnt(O, o.t1[1].id, o.t2[0].id) + cnt(O, o.t1[1].id, o.t2[1].id));
+    if (!best || c < best.cost) best = { ...o, cost:c };
+  });
+  return best;
+}
+function mixedArrCost(M, W, P, O){
+  let t = 0;
+  for (let i = 0; i < M.length; i += 2) t += mixedMatchBest(M[i], M[i+1], W[i], W[i+1], P, O).cost;
+  return t;
+}
+function buildMixedRound(playM, playW, P, O){
+  let best = null;
+  for (let r = 0; r < 10; r++){
+    const M = shuffle(playM), W = shuffle(playW);
+    let cur = mixedArrCost(M, W, P, O), improved = true;
+    while (improved && cur > 0){
+      improved = false;
+      [M, W].forEach(arr => {
+        for (let i = 0; i < arr.length - 1; i++) for (let j = i + 1; j < arr.length; j++){
+          if (Math.floor(i / 2) === Math.floor(j / 2)) continue;
+          [arr[i], arr[j]] = [arr[j], arr[i]];
+          const c = mixedArrCost(M, W, P, O);
+          if (c < cur){ cur = c; improved = true; } else { [arr[i], arr[j]] = [arr[j], arr[i]]; }
+        }
+      });
+    }
+    if (!best || cur < best.cost) best = { M: M.slice(), W: W.slice(), cost: cur };
+    if (best.cost === 0) break;
+  }
+  return best;
+}
+function planMixedRounds(selected, roundCount){
+  const men = selected.filter(p => genderOf(p) === 'M'), women = selected.filter(p => genderOf(p) === 'F');
+  const k = Math.min(Math.floor(men.length / 2), Math.floor(women.length / 2));
+  let bestPlan = null;
+  for (let at = 0; at < 12; at++){
+    const P = Object.assign({}, sessionState.partnerCounts || {});
+    const O = Object.assign({}, sessionState.opponentCounts || {});
+    const played = {}; selected.forEach(p => played[p.id] = 0);
+    const rounds = []; let total = 0;
+    for (let r = 0; r < roundCount; r++){
+      // fair sit-out inside each gender: fewest games this run first, then longest sit-out streak
+      const ord = arr => shuffle(arr).sort((x, y) => (played[x.id] - played[y.id]) || ((y.sitOutStreak || 0) - (x.sitOutStreak || 0)));
+      const mo = ord(men), wo = ord(women);
+      const playM = mo.slice(0, 2 * k), playW = wo.slice(0, 2 * k);
+      const bench = [...mo.slice(2 * k), ...wo.slice(2 * k)];
+      const built = buildMixedRound(playM, playW, P, O);
+      total += built.cost;
+      const matches = [];
+      for (let i = 0; i < built.M.length; i += 2){
+        const b = mixedMatchBest(built.M[i], built.M[i+1], built.W[i], built.W[i+1], P, O);
+        const m = { team1: b.t1, team2: b.t2, added:false };
+        matches.push(m);
+        [m.team1, m.team2].forEach(t => { const kp = pairKey(t[0].id, t[1].id); P[kp] = (P[kp] || 0) + 1; });
+        m.team1.forEach(a => m.team2.forEach(c => { const kk = pairKey(a.id, c.id); O[kk] = (O[kk] || 0) + 1; }));
+        [...m.team1, ...m.team2].forEach(a => played[a.id]++);
+      }
+      rounds.push({ matches, bench });
+    }
+    if (!bestPlan || total < bestPlan.total) bestPlan = { rounds, total };
+  }
+  return bestPlan.rounds;
+}
 function generateSuggestions(bucketKey, selected, roundCount){
   const g = bucketSize(bucketKey);
-  const rounds = isFixed(bucketKey) ? planFixedRounds(selected, roundCount) : planRounds(selected, g, roundCount);
+  const rounds = isFixed(bucketKey) ? planFixedRounds(selected, roundCount) : (isMixed(bucketKey) ? planMixedRounds(selected, roundCount) : planRounds(selected, g, roundCount));
   suggestionState[bucketKey] = { rounds };
   renderSuggestions(bucketKey);
   const placed = new Set();
@@ -1551,7 +1696,9 @@ function stateSuffix(p){ const s = playerState(p); return s==='playing' ? ' · p
 function allRoundParticipants(bucketKey){ const st = sugg(bucketKey); return st ? st.rounds.flatMap(roundParticipants) : []; }
 function slotSelectHtml(bucketKey, ri, loc, current){
   const rd = sugg(bucketKey).rounds[ri];
-  const options = roundParticipants(rd).map(p => `<option value="${p.id}" ${p.id===current.id?'selected':''}>${escapeHtml(p.name)}${stateSuffix(p)}</option>`).join('');
+  const mx = isMixed(bucketKey), cg = mx ? genderOf(current) : '';
+  const pool = mx ? roundParticipants(rd).filter(p => genderOf(p) === cg) : roundParticipants(rd);
+  const options = pool.map(p => `<option value="${p.id}" ${p.id===current.id?'selected':''}>${escapeHtml(p.name)}${mx ? (genderOf(p) === 'F' ? ' ♀' : ' ♂') : ''}${stateSuffix(p)}</option>`).join('');
   const locStr = JSON.stringify(loc).replace(/"/g,'&quot;');
   return `<select data-loc="${locStr}" onchange="swapSlot('${bucketKey}', ${ri}, JSON.parse(this.dataset.loc), this.value)">${options}</select>`;
 }
@@ -1587,7 +1734,18 @@ function renderSuggestions(bucketKey){
 /* ---- Generate modal ---- */
 const genOverlay = document.getElementById('genOverlay');
 let genBucket = null, genList = [], genSelected = new Set();
+function genEligible(p){ return !isMixed(genBucket) || !!genderOf(p); }
 function genUpdateSummary(){
+  if (isMixed(genBucket)) {
+    const sel = genList.filter(p => genSelected.has(p.id) && genderOf(p));
+    const nm = sel.filter(p => genderOf(p) === 'M').length, nw = sel.filter(p => genderOf(p) === 'F').length;
+    const k = Math.min(Math.floor(nm / 2), Math.floor(nw / 2)), sit = nm + nw - 4 * k;
+    const el0 = document.getElementById('genSummary');
+    el0.textContent = k < 1 ? `Need at least 2 men and 2 women (selected ${nm} men, ${nw} women).`
+      : `${nm} men · ${nw} women → ${k} match${k === 1 ? '' : 'es'} per round (each team 1 man + 1 woman)` + (sit ? `, ${sit} sit out each round (rotated fairly)` : '') + '.';
+    document.getElementById('btnGenConfirm').disabled = k < 1;
+    return;
+  }
   const g = bucketSize(genBucket);
   let n = genSelected.size;
   if (isFixed(genBucket)) n = pairUnits(genList.filter(p => genSelected.has(p.id))).length * 2;
@@ -1617,8 +1775,16 @@ function genRender(){
   const pIds = playingIds();
   list.innerHTML = dupNote + genList.map(p => {
     const s = playerState(p, pIds);
-    return `<label class="gen-row"><input type="checkbox" data-id="${p.id}" ${genSelected.has(p.id)?'checked':''}><span class="gen-name">${escapeHtml(p.name)}${fixedTag(p)}<span class="gen-meta">(Played: ${gamesPlayed(p)} | Pending: ${gamesPending(p)})</span></span><span class="gen-state s-${s}">${STATUS_LABELS[s]}</span></label>`;
+    if (isMixed(genBucket) && !genderOf(p)) {
+      return `<label class="gen-row nogender"><input type="checkbox" data-id="${p.id}" disabled><span class="gen-name">${escapeHtml(p.name)} <span class="badge nogender">Tag gender</span> <span class="gtoggle"><button type="button" data-gtag="M" data-pid="${p.id}">M</button><button type="button" data-gtag="F" data-pid="${p.id}">F</button></span></span><span class="gen-state s-${s}">${STATUS_LABELS[s]}</span></label>`;
+    }
+    return `<label class="gen-row"><input type="checkbox" data-id="${p.id}" ${genSelected.has(p.id)?'checked':''}><span class="gen-name">${escapeHtml(p.name)}${isMixed(genBucket) ? genderSym(p) : ''}${fixedTag(p)}<span class="gen-meta">(Played: ${gamesPlayed(p)} | Pending: ${gamesPending(p)})</span></span><span class="gen-state s-${s}">${STATUS_LABELS[s]}</span></label>`;
   }).join('');
+  list.querySelectorAll('button[data-gtag]').forEach(btn => btn.addEventListener('click', e => {
+    e.preventDefault(); e.stopPropagation();
+    genSelected.add(btn.dataset.pid);
+    setGender(btn.dataset.pid, btn.dataset.gtag);
+  }));
   list.querySelectorAll('input[type=checkbox]').forEach(cb => cb.addEventListener('change', () => {
     if (cb.checked) genSelected.add(cb.dataset.id); else genSelected.delete(cb.dataset.id);
     genUpdateSummary();
@@ -1630,19 +1796,26 @@ function openGenerateModal(bucketKey){
   const b = BUCKETS.find(x=>x.key===bucketKey);
   document.getElementById('genTitle').textContent = 'Generate matchups · ' + b.label;
   genList = participants.filter(p => p.bucket === bucketKey && !isDuplicate(p)).sort((x,y) => x.name.localeCompare(y.name));
-  genSelected = new Set(genList.filter(p => p.status !== 'resting').map(p => p.id));
+  genSelected = new Set(genList.filter(p => p.status !== 'resting' && genEligible(p)).map(p => p.id));
   document.getElementById('errGen').textContent = '';
   genRender();
   genOverlay.classList.add('show');
 }
-document.getElementById('genAll').onclick = () => { genSelected = new Set(genList.map(p=>p.id)); genRender(); };
+document.getElementById('genAll').onclick = () => { genSelected = new Set(genList.filter(genEligible).map(p=>p.id)); genRender(); };
 document.getElementById('genNone').onclick = () => { genSelected = new Set(); genRender(); };
-document.getElementById('genAvail').onclick = () => { genSelected = new Set(genList.filter(p=>p.status==='active').map(p=>p.id)); genRender(); };
+document.getElementById('genAvail').onclick = () => { genSelected = new Set(genList.filter(p=>p.status==='active' && genEligible(p)).map(p=>p.id)); genRender(); };
 document.getElementById('btnGenCancel').onclick = () => genOverlay.classList.remove('show');
 document.getElementById('btnGenConfirm').onclick = () => {
   const g = bucketSize(genBucket);
-  const selected = genList.filter(p => genSelected.has(p.id));
+  const selected = genList.filter(p => genSelected.has(p.id) && genEligible(p));
   const rounds = Math.max(1, Math.min(30, parseInt(document.getElementById('genRounds').value, 10) || 1));
+  if (isMixed(genBucket)) {
+    const nm = selected.filter(p => genderOf(p) === 'M').length, nw = selected.filter(p => genderOf(p) === 'F').length;
+    if (nm < 2 || nw < 2) { document.getElementById('errGen').textContent = 'Mixed doubles needs at least 2 men and 2 women (tagged).'; return; }
+    generateSuggestions(genBucket, selected, rounds);
+    genOverlay.classList.remove('show');
+    return;
+  }
   const playable = isFixed(genBucket) ? pairUnits(selected).length * 2 : selected.length;
   if (playable < g){ document.getElementById('errGen').textContent = isFixed(genBucket) ? 'Select at least 2 complete pairs (both partners).' : `Select at least ${g} players.`; return; }
   generateSuggestions(genBucket, selected, rounds);
@@ -1887,6 +2060,7 @@ function renderQueueList(){
         <button class="btn-icon" title="Move up" ${i===0?'disabled':''} onclick="moveQueueMatch('${m.id}',-1)">▲</button>
         <button class="btn-icon" title="Move down" ${i===list.length-1?'disabled':''} onclick="moveQueueMatch('${m.id}',1)">▼</button>
       </div>
+      <span class="qlight" data-mid="${m.id}" style="display:none"></span>
       <div class="qid">${m.matchId}</div>
       <div class="qteams">${teamWithWaitHtml(m.team1)}
         <span style="color:var(--muted);font-weight:400;"> vs </span>${teamWithWaitHtml(m.team2)}
@@ -2109,7 +2283,37 @@ function lastEndMap(){
   sessionLogs().forEach(l => { const t = Number(l.endedAt) || 0; [...l.team1, ...l.team2].forEach(p => { const k = refKeyFor(p); if (t > (mp[k] || 0)) mp[k] = t; }); });
   return mp;
 }
+/* ---- Queue light: green = good to go, orange = someone just finished, red = someone is playing / on a court ---- */
+const LIGHT_ORANGE_MS = 3 * 60 * 1000;
+function agoText(ms){ const m = Math.floor(ms / 60000); return m < 1 ? 'less than a minute ago' : `${m} min ago`; }
+function queueLightFor(m, mp){
+  if (!courtsActive()) return null;
+  const now = Date.now(), red = [], orange = [];
+  [...m.team1, ...m.team2].forEach(e => {
+    const busy = queueMatches.find(x => x.id !== m.id && COURT_BUSY_STATUSES.includes(x.status) && isInMatch(e.participantId, x));
+    if (busy) { red.push(`${e.name} ${busy.status === 'playing' ? 'is playing on' : 'is assigned to'} Court ${busy.court}`); return; }
+    const t = mp[refKeyFor(e)] || 0;
+    if (t && now - t < LIGHT_ORANGE_MS) orange.push(`${e.name} finished ${agoText(now - t)}`);
+  });
+  if (red.length) return { cls:'red', tip:'Not ready: ' + red.concat(orange).join(' · ') };
+  if (orange.length) return { cls:'orange', tip:'Just finished: ' + orange.join(' · ') };
+  return { cls:'green', tip:'Good to go: all players are free' };
+}
+function updateQueueLights(){
+  const els = document.querySelectorAll('.qlight');
+  if (!els.length) return;
+  const mp = lastEndMap();
+  els.forEach(el => {
+    const m = queueMatches.find(x => x.id === el.dataset.mid), r = m ? queueLightFor(m, mp) : null;
+    if (!r) { el.style.display = 'none'; el.className = 'qlight'; el.removeAttribute('title'); return; }
+    el.style.display = '';
+    const cls = 'qlight ' + r.cls;
+    if (el.className !== cls) el.className = cls;
+    if (el.title !== r.tip) el.title = r.tip;
+  });
+}
 function updateWaitTimes(){
+  updateQueueLights();
   const els = document.querySelectorAll('.wt');
   if (!els.length) return;
   const act = Number(sessionState.courtsActiveAt) || 0, mp = lastEndMap(), playing = playingIds(), now = Date.now();
@@ -2169,11 +2373,13 @@ function openCustomMatchModal(bucketKey){
   const fx = b.mode === 'fixed', units = fx ? pairUnits(list) : [];
   if (fx && units.length < 2) { showToast(`Need at least 2 pairs in "${b.label}" for a custom match.`, true); return; }
   if (list.length < b.size) { showToast(`Need at least ${b.size} participants in "${b.label}" for a custom match.`, true); return; }
+  const mixedB = b.mode === 'mixed', men = list.filter(p => genderOf(p) === 'M'), women = list.filter(p => genderOf(p) === 'F');
+  if (mixedB && (men.length < 2 || women.length < 2)) { showToast(`Need at least 2 men and 2 women tagged in "${b.label}" for a custom match.`, true); return; }
   customBucket = bucketKey;
   const per = fx ? 1 : b.size / 2;
   customIds = [];
-  const slot = (team, i) => { const id = `cm-${team}-${i}`; customIds.push(id); return `<select id="${id}"><option value="">${fx ? 'Select pair…' : 'Select player…'}</option>${(fx ? units.map(u => `<option value="${u.id}">${escapeHtml(u.name)}</option>`) : list.map(p => `<option value="${p.id}">${escapeHtml(playerOptionLabel(p))}</option>`)).join('')}</select>`; };
-  document.getElementById('customSub').textContent = `${b.label} · ${b.mode === 'singles' ? 'Singles' : (b.mode === 'fixed' ? 'Doubles · Fixed Partner' : 'Doubles')}`;
+  const slot = (team, i) => { const id = `cm-${team}-${i}`; customIds.push(id); const pool = mixedB ? (i === 0 ? men : women) : list; return `<select id="${id}"><option value="">${fx ? 'Select pair…' : (mixedB ? (i === 0 ? 'Select man…' : 'Select woman…') : 'Select player…')}</option>${(fx ? units.map(u => `<option value="${u.id}">${escapeHtml(u.name)}</option>`) : pool.map(p => `<option value="${p.id}">${escapeHtml(playerOptionLabel(p))}</option>`)).join('')}</select>`; };
+  document.getElementById('customSub').textContent = `${b.label} · ${modeLabel(b.mode)}`;
   document.getElementById('customTeam1').innerHTML = Array.from({ length: per }, (_, i) => slot('t1', i)).join('');
   document.getElementById('customTeam2').innerHTML = Array.from({ length: per }, (_, i) => slot('t2', i)).join('');
   customIds.forEach(id => document.getElementById(id).addEventListener('change', () => disableDuplicatePicks(customIds)));
@@ -2215,8 +2421,9 @@ function openReplaceModal(matchDocId){
   document.getElementById('errReplace').textContent = '';
   const inMatch = new Set(matchPlayerIds(m));
   const others = participants.filter(p => p.bucket === m.bucket && !inMatch.has(p.id) && !isDuplicate(p)).sort((x, y) => x.name.localeCompare(y.name));
-  const slot = (entry, side, idx) => `<div class="field" style="margin-bottom:10px;"><label>${side === 'team1' ? 'Team 1' : 'Team 2'} · ${escapeHtml(entry.name)}</label>
-    <select id="rp-${side}-${idx}"><option value="">Keep ${escapeHtml(entry.name)}</option>${others.map(p => `<option value="${p.id}">Replace with ${escapeHtml(playerOptionLabel(p))}</option>`).join('')}</select></div>`;
+  const poolFor = entry => { if (!isMixed(m.bucket)) return others; const g = genderOf(participantOf(entry) || {}); return g ? others.filter(x => genderOf(x) === g) : []; };
+  const slot = (entry, side, idx) => `<div class="field" style="margin-bottom:10px;"><label>${side === 'team1' ? 'Team 1' : 'Team 2'} · ${escapeHtml(entry.name)}${isMixed(m.bucket) ? ' · same gender only' : ''}</label>
+    <select id="rp-${side}-${idx}"><option value="">Keep ${escapeHtml(entry.name)}</option>${poolFor(entry).map(p => `<option value="${p.id}">Replace with ${escapeHtml(playerOptionLabel(p))}</option>`).join('')}</select></div>`;
   document.getElementById('replaceSlots').innerHTML = m.team1.map((e, i) => slot(e, 'team1', i)).join('') + m.team2.map((e, i) => slot(e, 'team2', i)).join('');
   const ids = [...m.team1.map((_, i) => `rp-team1-${i}`), ...m.team2.map((_, i) => `rp-team2-${i}`)];
   ids.forEach(id => document.getElementById(id).addEventListener('change', () => disableDuplicatePicks(ids)));
@@ -2406,7 +2613,9 @@ function openEditQueueModal(matchDocId){
   document.getElementById('errEditQueue').textContent = '';
   const eligible = participants.filter(p => p.bucket===m.bucket && (p.status==='active' || (p.status==='queued' && isInMatch(p.id, m))));
   const buildSlots = (team, sideKey) => team.map((occupant, idx) => {
-    const options = eligible.map(p => `<option value="${p.id}" ${p.id===occupant.participantId?'selected':''}>${escapeHtml(p.name)}</option>`).join('');
+    const mixedB = isMixed(m.bucket), og = mixedB ? genderOf(participants.find(p => p.id === occupant.participantId) || {}) : '';
+    const pool = mixedB ? eligible.filter(p => genderOf(p) === og) : eligible;
+    const options = pool.map(p => `<option value="${p.id}" ${p.id===occupant.participantId?'selected':''}>${escapeHtml(p.name)}${mixedB && og ? (og === 'F' ? ' ♀' : ' ♂') : ''}</option>`).join('');
     return `<select id="editSlot-${sideKey}-${idx}">${options}</select>`;
   }).join('');
   document.getElementById('editTeam1Slots').innerHTML = buildSlots(m.team1, 'team1');

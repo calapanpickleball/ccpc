@@ -245,7 +245,7 @@ function setMode(mode){
   const isYes = mode === 'yes';
   $('btnNotListed').style.display = isYes ? '' : 'none';
   $('nameHint').style.display = isYes ? '' : 'none';
-  $('fName').placeholder = isYes ? 'Start typing your name…' : (mode === 'no' ? 'Your full name' : 'Choose Yes or No above first');
+  $('fName').placeholder = isYes ? 'Start typing your name…' : (mode === 'no' ? 'Your Name | e.g Kenneth' : 'Choose Yes or No above first');
   $('fName').disabled = !mode;
   if (isYes) {
     if (prev !== 'yes') { state.member = null; $('fDuprId').value = ''; $('fRating').value = ''; }
