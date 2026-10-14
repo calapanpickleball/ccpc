@@ -308,6 +308,23 @@
   .qlight.red{background:#e5484d;box-shadow:0 0 8px 2px rgba(229,72,77,.6);}
   .qlegend{font-size:12px;font-weight:500;color:var(--muted);text-transform:none;letter-spacing:0;display:inline-flex;gap:12px;align-items:center;flex-wrap:wrap;}
   .qlegend i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:5px;vertical-align:-1px;}
+  /* ---- End session recap ---- */
+  .recap-card{padding:18px;border-radius:14px;background:var(--surface);border:1px solid var(--border);margin-bottom:6px;}
+  .recap-title{font-family:'Baloo 2';font-weight:800;font-size:21px;color:var(--navy);}
+  html[data-theme="dark"] .recap-title{color:var(--blue);}
+  .recap-sub{color:var(--muted);font-size:12.5px;margin:2px 0 4px;}
+  .recap-h{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:18px 0 8px;}
+  .recap-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;}
+  .recap-tile{background:var(--surface-2);border:1px solid var(--border);border-radius:12px;padding:10px 12px;}
+  .recap-tile .v{font-family:'Baloo 2';font-weight:800;font-size:22px;line-height:1.15;}
+  .recap-tile .l{font-size:11.5px;color:var(--muted);font-weight:700;}
+  .recap-tile .s{font-size:11.5px;color:var(--muted);margin-top:2px;}
+  .recap-bucket{border:1px solid var(--border);border-radius:12px;padding:10px 12px;margin-bottom:10px;background:var(--surface-2);}
+  .recap-bucket h4{margin:0 0 6px;font-size:14px;}
+  .recap-kv{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:6px 12px;font-size:12.5px;}
+  .recap-kv span{color:var(--muted);display:block;font-size:11px;font-weight:700;}
+  .recap-kv b{font-weight:700;}
+  .recap-warn{background:rgba(229,72,77,.1);border:1px solid #e5484d;color:var(--text);border-radius:10px;padding:12px 14px;font-size:14px;margin-bottom:12px;}
   .gen-note{font-size:12px;color:var(--orange);padding:8px 12px;border-bottom:1px solid var(--border);}
   .sync-chip{margin-right:12px;padding:5px 11px;border-radius:14px;font-size:12px;font-weight:700;white-space:nowrap;}
   .sync-chip.busy{background:rgba(255,255,255,.16);color:#fff;}
@@ -319,7 +336,7 @@
 <header class="top">
   <img class="brand-logo" alt="DUPR" src="data:image/jpeg;base64,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">
   <div class="titles">
-    <h1>DUPR and Tournament Engine v.1.2</h1>
+    <h1>DUPR and Tournament Engine v.1.2.1</h1>
     <div class="sub">Developed by Calapan City Pickleball Club</div>
   </div>
   <div class="session-chip" id="sessionLabel">Loading session…</div>
@@ -327,6 +344,7 @@
   <div class="top-actions">
     <button class="btn-top" id="btnSaveSnap" title="Save a snapshot of the current session">💾 Save</button>
     <button class="btn-top" id="btnSnapshots" title="View or restore saved snapshots">🗂 Snapshots</button>
+    <button class="btn-danger-ghost" id="btnEndSession" title="End the session and see the recap">⏹ End session</button>
     <button class="btn-danger-ghost" id="btnNewSession">↻ New session</button>
     <div class="toggle-pill" id="themeToggle" title="Toggle light/dark mode"><div class="knob" id="themeKnob">☀️</div></div>
   </div>
@@ -624,10 +642,27 @@
   </div>
 </div>
 
+<!-- End Session / Recap Modal -->
+<div class="overlay" id="endSessOverlay">
+  <div class="modal wide">
+    <h2 id="endSessTitle">End session</h2>
+    <div class="modal-sub" id="endSessSub"></div>
+    <div class="recap-warn" id="endSessWarn" style="display:none;"></div>
+    <div class="recap-card" id="recapCard"></div>
+    <div class="error-text" id="errEndSess"></div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" id="btnEndSessClose">Cancel</button>
+      <button class="btn btn-ghost" id="btnEndSessImg">⬇ Download image</button>
+      <button class="btn btn-primary" id="btnEndSessConfirm">Confirm &amp; end session</button>
+    </div>
+  </div>
+</div>
+
 <div class="stat-tooltip" id="statTooltip"></div>
 <div class="toast" id="toast"></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 <script>
@@ -838,8 +873,10 @@ function updateSessionLabel(){
   if (typeof updateExportTargetLabel === 'function') updateExportTargetLabel();
   const el = document.getElementById('sessionLabel');
   el.textContent = sessionState.currentSessionName
-    ? `Session: ${sessionState.currentSessionName} (${sessionState.currentSessionDate||''})`
+    ? `Session: ${sessionState.currentSessionName} (${sessionState.currentSessionDate||''})${sessionState.sessionEndedAt ? ' · ENDED' : ''}`
     : 'Starting session…';
+  const eb = document.getElementById('btnEndSession');
+  if (eb) eb.textContent = sessionState.sessionEndedAt ? '📊 Session recap' : '⏹ End session';
 }
 
 /* ================= Status + elapsed-time tracking (per session) ================= */
@@ -2006,6 +2043,9 @@ function updateCourtsButtons(){
     try { t = new Date(Number(sessionState.courtsActiveAt)).toLocaleTimeString([], { hour:'2-digit', minute:'2-digit' }); } catch (e) {}
     act.textContent = `✓ Courts active${t ? ' · since ' + t : ''}`;
     act.disabled = true; act.classList.remove('btn-primary'); act.classList.add('btn-ghost');
+  } else if (sessionState.sessionEndedAt) {
+    act.textContent = '⏹ Session ended';
+    act.disabled = true; act.classList.remove('btn-primary'); act.classList.add('btn-ghost');
   } else {
     act.textContent = '▶ Activate Courts (ALL)';
     act.disabled = false; act.classList.add('btn-primary'); act.classList.remove('btn-ghost');
@@ -2013,7 +2053,7 @@ function updateCourtsButtons(){
   document.getElementById('btnFlipCourts').textContent = flipCourts ? '⇅ Flipped: 4 → 1 (tap to reset)' : '⇅ Flip courts';
 }
 document.getElementById('btnActivateCourts').addEventListener('click', async () => {
-  if (courtsActive()) return;
+  if (courtsActive() || sessionState.sessionEndedAt) return;
   if (!confirm('Start the session now?\n\nWaiting, playing and resting timers start counting from this moment, and matches can be assigned to courts.')) return;
   try { await db.collection('pkl-queue-session').doc('state').set({ courtsActiveAt: Date.now() }, { merge:true }); showToast('Courts activated. Timers are running.'); }
   catch (err) { showToast('Could not activate courts: ' + err.message, true); }
@@ -2866,7 +2906,7 @@ document.getElementById('btnSessionStart').addEventListener('click', async () =>
     partsSnap.forEach(d => batch.delete(d.ref));
     matchesSnap.forEach(d => batch.delete(d.ref));
     bucketsSnap.forEach(d => batch.delete(d.ref));
-    batch.set(db.collection('pkl-queue-session').doc('state'), { matchCounter: 0, partnerCounts:{}, opponentCounts:{}, courtsActiveAt: null, currentSessionId: sessRef.id, currentSessionName: name, currentSessionDate: date }, { merge:true });
+    batch.set(db.collection('pkl-queue-session').doc('state'), { matchCounter: 0, partnerCounts:{}, opponentCounts:{}, courtsActiveAt: null, sessionEndedAt: null, sessionRecap: null, currentSessionId: sessRef.id, currentSessionName: name, currentSessionDate: date }, { merge:true });
     await batch.commit();
     await displayRef.set({ showQueue: true, leaderboard: { show: false, buckets: [] } }, { merge: true });
     lastOptimizeUndo = null; document.getElementById('btnUndoOptimize').style.display = 'none';
@@ -2876,6 +2916,241 @@ document.getElementById('btnSessionStart').addEventListener('click', async () =>
   finally { btn.disabled = false; }
 });
 
+
+/* ================= END SESSION (recap + lock) ================= */
+const endSessOverlay = document.getElementById('endSessOverlay');
+let recapCurrent = null, endSessMode = 'confirm', endSessBusy = false;
+function fmtMS(secs){
+  if (secs === null || secs === undefined || isNaN(secs)) return '—';
+  secs = Math.max(0, Math.round(secs));
+  const h = Math.floor(secs / 3600), m = Math.floor((secs % 3600) / 60), sc = secs % 60;
+  return h > 0 ? `${h}h ${m}m ${sc}s` : `${m}m ${sc}s`;
+}
+function endBlockers(){
+  const live = queueMatches.filter(m => QUEUE_MATCH_STATUSES.includes(m.status));
+  return {
+    playing: live.filter(m => m.status === 'playing').length,
+    onCourt: live.filter(m => m.status === 'assigned').length,
+    waiting: live.filter(m => m.status === 'waiting' || m.status === 'onhold').length,
+    total: live.length
+  };
+}
+/* Seconds a player has accumulated since their last flush (not yet in the stats docs) */
+function pendingSecs(p){
+  const since = effSince(p);
+  if (!since) return null;
+  const e = Math.max(0, Math.round((Date.now() - since) / 1000));
+  return e > 0 ? { cat: timeCategory(p), secs: e } : null;
+}
+function computeRecap(){
+  const sid = sessionState.currentSessionId || null, now = Date.now();
+  const act = Number(sessionState.courtsActiveAt) || 0;
+  const sl = logs.filter(l => (l.sessionId || null) === sid).slice().sort((a, b) => (Number(a.endedAt) || 0) - (Number(b.endedAt) || 0));
+  const prefix = `${sid || 'none'}__`;
+  const per = {}, nameOf = {}, bucketOf = {}, gamesBy = {};
+  const ent = k => per[k] || (per[k] = { name:'', wait:0, play:0, rest:0 });
+  Object.keys(statsCache).forEach(id => {
+    if (!id.startsWith(prefix)) return;
+    const d = statsCache[id], e = ent(id.slice(prefix.length));
+    e.name = d.name || e.name; e.wait += d.totalWaitingSeconds || 0; e.play += d.totalPlayingSeconds || 0; e.rest += d.totalRestingSeconds || 0;
+  });
+  const fieldOf = { waiting:'wait', playing:'play', resting:'rest' };
+  participants.forEach(p => {
+    const k = refKeyFor(p), e = ent(k);
+    e.name = p.name; nameOf[k] = p.name; bucketOf[k] = p.bucket;
+    const ps = pendingSecs(p);
+    if (ps) e[fieldOf[ps.cat]] += ps.secs;
+  });
+  sl.forEach(l => [...(l.team1 || []), ...(l.team2 || [])].forEach(p => {
+    const k = refKeyFor(p);
+    nameOf[k] = nameOf[k] || p.name; gamesBy[k] = (gamesBy[k] || 0) + 1;
+    if (!bucketOf[k]) bucketOf[k] = l.bucket;
+  }));
+  Object.keys(per).forEach(k => { if (!per[k].name) per[k].name = nameOf[k] || ''; });
+
+  const gstats = arr => {
+    const ds = arr.map(l => Number(l.durationSeconds) || 0).filter(d => d > 0);
+    return { games: arr.length,
+      avgGame: ds.length ? Math.round(ds.reduce((a, b) => a + b, 0) / ds.length) : null,
+      longest: ds.length ? Math.max(...ds) : null, shortest: ds.length ? Math.min(...ds) : null,
+      busy: ds.reduce((a, b) => a + b, 0),
+      points: arr.reduce((a, l) => a + (Number(l.score1) || 0) + (Number(l.score2) || 0), 0) };
+  };
+  const timeAvg = keys => {
+    const on = keys.filter(k => per[k] && (per[k].wait + per[k].play) > 0), n = on.length;
+    return { n, avgWait: n ? Math.round(on.reduce((a, k) => a + per[k].wait, 0) / n) : null,
+                avgPlay: n ? Math.round(on.reduce((a, k) => a + per[k].play, 0) / n) : null };
+  };
+  const g = gstats(sl), ta = timeAvg(Object.keys(per));
+  const lengthSec = act ? Math.max(0, Math.round((now - act) / 1000)) : 0;
+  const util = lengthSec > 0 && g.busy > 0 ? Math.round(g.busy / (lengthSec * COURTS) * 1000) / 10 : null;
+  const courtGames = {};
+  sl.forEach(l => { const c = l.court; if (c) courtGames[c] = (courtGames[c] || 0) + 1; });
+
+  let blowout = null, closest = null;
+  sl.forEach(l => {
+    const s1 = Number(l.score1) || 0, s2 = Number(l.score2) || 0, mg = Math.abs(s1 - s2);
+    const row = { score: `${s1} – ${s2}`, margin: mg, matchId: l.matchId || '' };
+    if (!blowout || mg > blowout.margin) blowout = row;
+    if (!closest || mg < closest.margin) closest = row;
+  });
+  const mostK = Object.keys(gamesBy).sort((a, b) => gamesBy[b] - gamesBy[a])[0];
+  const waitK = Object.keys(per).filter(k => per[k].wait > 0).sort((a, b) => per[b].wait - per[a].wait)[0];
+  const hours = {};
+  sl.forEach(l => { const t = Number(l.endedAt) || 0; if (t) { const h = new Date(t).getHours(); hours[h] = (hours[h] || 0) + 1; } });
+  const hk = Object.keys(hours).sort((a, b) => hours[b] - hours[a])[0];
+  const hf = h => `${(h % 12) || 12} ${h < 12 ? 'AM' : 'PM'}`;
+  const cur = {}; let streak = { n:0, name:'' };
+  sl.forEach(l => {
+    const win = l.winner === 'team2' ? (l.team2 || []) : (l.team1 || []), lose = l.winner === 'team2' ? (l.team1 || []) : (l.team2 || []);
+    win.forEach(p => { const k = refKeyFor(p); cur[k] = (cur[k] || 0) + 1; if (cur[k] > streak.n) streak = { n:cur[k], name:p.name }; });
+    lose.forEach(p => { cur[refKeyFor(p)] = 0; });
+  });
+  const lbAll = buildLeaderboard(sid);
+  const buckets = lbBuckets(sid).map(b => {
+    const arr = sl.filter(l => l.bucket === b.key), keys = Object.keys(per).filter(k => bucketOf[k] === b.key);
+    const players = new Set([...keys, ...Object.keys(gamesBy).filter(k => bucketOf[k] === b.key)]);
+    const bg = gstats(arr), bt = timeAvg(keys), lb = lbAll[b.key] || [];
+    return { label: bucketLabel(b.key, b.label), mode: b.mode || null, games: bg.games, players: players.size,
+      avgWait: bt.avgWait, avgPlay: bt.avgPlay, avgGame: bg.avgGame, longest: bg.longest, shortest: bg.shortest, points: bg.points,
+      top: lb[0] ? `${lb[0].name} (${lb[0].w}W–${lb[0].l}L)` : null };
+  }).filter(b => b.games > 0 || b.players > 0);
+  const allKeys = new Set([...Object.keys(per), ...Object.keys(gamesBy)]);
+  return {
+    sessionName: sessionState.currentSessionName || 'Session', sessionDate: sessionState.currentSessionDate || '',
+    startedAt: act || null, endedAt: now, lengthSec,
+    totals: {
+      games: g.games, players: allKeys.size, played: Object.keys(gamesBy).length, points: g.points,
+      avgWait: ta.avgWait, avgPlay: ta.avgPlay, avgGame: g.avgGame, longest: g.longest, shortest: g.shortest, util, courtGames,
+      blowout, closest,
+      mostGames: mostK ? { name: nameOf[mostK] || '', n: gamesBy[mostK] } : null,
+      longestWait: waitK ? { name: per[waitK].name, sec: per[waitK].wait } : null,
+      busiest: hk !== undefined ? { label: `${hf(Number(hk))}–${hf((Number(hk) + 1) % 24)}`, games: hours[hk] } : null,
+      streak: streak.n > 1 ? streak : null
+    },
+    buckets
+  };
+}
+function renderRecapHtml(r){
+  const t = r.totals, tile = (l, v, sub) => `<div class="recap-tile"><div class="l">${l}</div><div class="v">${v}</div>${sub ? `<div class="s">${sub}</div>` : ''}</div>`;
+  const dash = '—', e = escapeHtml;
+  const cg = Object.keys(t.courtGames || {}).sort().map(c => `C${c}: ${t.courtGames[c]}`).join(' · ');
+  const head = [
+    tile('Average waiting time', fmtMS(t.avgWait), 'per player'),
+    tile('Average playing time', fmtMS(t.avgPlay), 'per player'),
+    tile('Total games', t.games),
+    tile('Longest game', fmtMS(t.longest)),
+    tile('Shortest game', fmtMS(t.shortest))
+  ].join('');
+  const more = [
+    tile('Session length', r.startedAt ? fmtMS(r.lengthSec) : dash, 'courts active to end'),
+    tile('Players', t.players, `${t.played} played at least 1 game`),
+    tile('Average game length', fmtMS(t.avgGame)),
+    tile('Total points scored', t.points),
+    tile('Court utilization', t.util === null ? dash : t.util + '%', cg ? 'games per court · ' + e(cg) : ''),
+    tile('Biggest blowout', t.blowout ? e(t.blowout.score) : dash, t.blowout ? `${e(t.blowout.matchId)} · margin ${t.blowout.margin}` : ''),
+    tile('Closest game', t.closest ? e(t.closest.score) : dash, t.closest ? e(t.closest.matchId) : ''),
+    tile('Most games played', t.mostGames ? e(t.mostGames.name) : dash, t.mostGames ? t.mostGames.n + ' games' : ''),
+    tile('Longest waiter', t.longestWait ? e(t.longestWait.name) : dash, t.longestWait ? fmtMS(t.longestWait.sec) + ' total waiting' : ''),
+    tile('Busiest hour', t.busiest ? e(t.busiest.label) : dash, t.busiest ? t.busiest.games + ' games finished' : ''),
+    tile('Longest win streak', t.streak ? e(t.streak.name) : dash, t.streak ? t.streak.n + ' wins in a row' : '')
+  ].join('');
+  const bk = (r.buckets || []).map(b => `<div class="recap-bucket"><h4>${e(b.label)}${b.mode ? `<span class="mode-tag">${modeLabel(b.mode)}</span>` : ''}</h4>
+    <div class="recap-kv">
+      <div><span>GAMES</span><b>${b.games}</b></div><div><span>PLAYERS</span><b>${b.players}</b></div>
+      <div><span>AVG WAITING</span><b>${fmtMS(b.avgWait)}</b></div><div><span>AVG PLAYING</span><b>${fmtMS(b.avgPlay)}</b></div>
+      <div><span>AVG GAME</span><b>${fmtMS(b.avgGame)}</b></div><div><span>LONGEST</span><b>${fmtMS(b.longest)}</b></div>
+      <div><span>SHORTEST</span><b>${fmtMS(b.shortest)}</b></div><div><span>POINTS</span><b>${b.points}</b></div>
+      <div><span>TOP OF LEADERBOARD</span><b>${b.top ? e(b.top) : dash}</b></div>
+    </div></div>`).join('');
+  let endedTxt = '';
+  try { endedTxt = new Date(r.endedAt).toLocaleString([], { dateStyle:'medium', timeStyle:'short' }); } catch (x) {}
+  return `<div class="recap-title">🏓 ${e(r.sessionName)}</div>
+    <div class="recap-sub">${e(r.sessionDate || '')}${endedTxt ? ' · ended ' + e(endedTxt) : ''}</div>
+    <div class="recap-h">Session stats</div><div class="recap-grid">${head}</div>
+    <div class="recap-h">More stats</div><div class="recap-grid">${more}</div>
+    ${bk ? `<div class="recap-h">Per bucket</div>${bk}` : ''}`;
+}
+function setEndSessUI(mode){
+  endSessMode = mode;
+  const warn = document.getElementById('endSessWarn'), card = document.getElementById('recapCard');
+  const confirmBtn = document.getElementById('btnEndSessConfirm'), imgBtn = document.getElementById('btnEndSessImg'), closeBtn = document.getElementById('btnEndSessClose');
+  const name = sessionState.currentSessionName || 'Session';
+  document.getElementById('errEndSess').textContent = '';
+  warn.style.display = mode === 'blocked' ? 'block' : 'none';
+  card.style.display = mode === 'blocked' ? 'none' : 'block';
+  confirmBtn.style.display = mode === 'confirm' ? '' : 'none';
+  imgBtn.style.display = mode === 'blocked' ? 'none' : '';
+  closeBtn.textContent = mode === 'confirm' ? 'Cancel' : 'Close';
+  document.getElementById('endSessTitle').textContent = mode === 'blocked' ? "Can't end the session yet" : (mode === 'view' ? 'Session recap' : 'End session · recap');
+  document.getElementById('endSessSub').textContent = mode === 'confirm'
+    ? `Review the stats. Confirming saves "END - ${name}" to Snapshots and locks the session (timers stop, courts deactivate). Logs and the leaderboard stay until you start a New session.`
+    : (mode === 'view' ? `Saved as "END - ${name}" in Snapshots.` : '');
+}
+function openEndSession(){
+  if (!sessionState.currentSessionId) { showToast('No active session to end.', true); return; }
+  if (sessionState.sessionEndedAt) {
+    recapCurrent = sessionState.sessionRecap || computeRecap();
+    document.getElementById('recapCard').innerHTML = renderRecapHtml(recapCurrent);
+    setEndSessUI('view'); endSessOverlay.classList.add('show'); return;
+  }
+  const b = endBlockers();
+  if (b.total) {
+    document.getElementById('endSessWarn').innerHTML = `<b>Finish or clear these first:</b><br>${b.playing} game${b.playing === 1 ? '' : 's'} playing · ${b.onCourt} on a court (not started) · ${b.waiting} waiting in the queue.<br>End the games, then clear the waiting queue, and try again.`;
+    setEndSessUI('blocked'); endSessOverlay.classList.add('show'); return;
+  }
+  recapCurrent = computeRecap();
+  document.getElementById('recapCard').innerHTML = renderRecapHtml(recapCurrent);
+  setEndSessUI('confirm'); endSessOverlay.classList.add('show');
+}
+document.getElementById('btnEndSession').addEventListener('click', openEndSession);
+document.getElementById('btnEndSessClose').addEventListener('click', () => { if (!endSessBusy) endSessOverlay.classList.remove('show'); });
+endSessOverlay.addEventListener('click', e => { if (e.target === endSessOverlay && !endSessBusy) endSessOverlay.classList.remove('show'); });
+document.getElementById('btnEndSessConfirm').addEventListener('click', async () => {
+  if (endSessBusy || endSessMode !== 'confirm') return;
+  const errEl = document.getElementById('errEndSess');
+  errEl.textContent = '';
+  if (endBlockers().total) { openEndSession(); return; }     // something started while the pop-up was open
+  endSessBusy = true;
+  const btn = document.getElementById('btnEndSessConfirm'); btn.disabled = true;
+  try {
+    const recap = JSON.parse(JSON.stringify(computeRecap()));
+    const sid = sessionState.currentSessionId, name = sessionState.currentSessionName || 'Session';
+    const live = await readLiveState();
+    await saveSnapshot('end', `END - ${name}`, live, { recap });          // saved first: if this fails nothing else changes
+    const batch = db.batch();
+    participants.map(p => elapsedWrite(p)).filter(Boolean).forEach(w => batch.set(w.ref, w.data, { merge:true }));   // lock in everyone's waiting / playing / resting time
+    batch.set(db.collection('pkl-queue-session').doc('state'), { courtsActiveAt: null, sessionEndedAt: recap.endedAt, sessionRecap: recap }, { merge:true });
+    if (sid) batch.set(db.collection('pkl-queue-sessions').doc(sid), { endedAt: recap.endedAt }, { merge:true });
+    await batch.commit();
+    BUCKETS.forEach(b => discardSuggestions(b.key));
+    recapCurrent = recap;
+    document.getElementById('recapCard').innerHTML = renderRecapHtml(recap);
+    setEndSessUI('view');
+    showToast(`Session ended. Saved as "END - ${name}".`);
+  } catch (err) { errEl.textContent = 'Could not end the session: ' + err.message; }
+  finally { endSessBusy = false; btn.disabled = false; }
+});
+document.getElementById('btnEndSessImg').addEventListener('click', async () => {
+  if (typeof html2canvas === 'undefined') { showToast('The image tool did not load. Check your internet connection and refresh.', true); return; }
+  const node = document.getElementById('recapCard'), btn = document.getElementById('btnEndSessImg');
+  btn.disabled = true;
+  try {
+    const bg = getComputedStyle(document.documentElement).getPropertyValue('--surface').trim() || '#ffffff';
+    const canvas = await html2canvas(node, { scale: 2, backgroundColor: bg, useCORS: true, onclone: doc => {
+      let n = doc.getElementById('recapCard');
+      while (n) { n.style.maxHeight = 'none'; n.style.overflow = 'visible'; n = n.parentElement; }
+    } });
+    const fname = `END - ${(recapCurrent && recapCurrent.sessionName) || 'Session'}`.replace(/[\\/:*?"<>|]+/g, '-') + '.png';
+    canvas.toBlob(blob => {
+      if (!blob) { showToast('Could not create the image.', true); return; }
+      const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = fname;
+      document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(() => URL.revokeObjectURL(a.href), 3000);
+    }, 'image/png');
+  } catch (err) { showToast('Could not create the image: ' + err.message, true); }
+  finally { btn.disabled = false; }
+});
 
 /* ================= SNAPSHOTS (save / view / restore a session) ================= */
 const SNAP_COL = 'pkl-queue-snapshots';
@@ -2899,7 +3174,7 @@ async function readLiveState(){
     state: sSnap.exists ? sSnap.data() : {}
   };
 }
-async function saveSnapshot(kind, label, live){
+async function saveSnapshot(kind, label, live, extra){
   live = live || await readLiveState();
   const st = live.state || {};
   const ref = await db.collection(SNAP_COL).add({
@@ -2907,7 +3182,8 @@ async function saveSnapshot(kind, label, live){
     savedAtMs: Date.now(), savedAt: firebase.firestore.FieldValue.serverTimestamp(),
     sessionId: st.currentSessionId || null, sessionName: st.currentSessionName || '', sessionDate: st.currentSessionDate || '',
     participants: live.participants, matches: live.matches, buckets: live.buckets || [],
-    partnerCounts: st.partnerCounts || {}, opponentCounts: st.opponentCounts || {}, matchCounter: st.matchCounter || 0
+    partnerCounts: st.partnerCounts || {}, opponentCounts: st.opponentCounts || {}, matchCounter: st.matchCounter || 0,
+    ...(extra || {})
   });
   return ref.id;
 }
@@ -2946,10 +3222,10 @@ function renderSnapshotsList(){
   if (!el) return;
   if (!snapshotsList.length) { el.innerHTML = `<div style="padding:18px;text-align:center;color:var(--muted);font-size:13px;">No snapshots yet. Use 💾 Save, or start a new session and one is saved automatically.</div>`; return; }
   el.innerHTML = snapshotsList.map(s => {
-    const auto = s.kind === 'auto';
+    const auto = s.kind === 'auto', ended = s.kind === 'end';
     return `<div class="snap-item">
       <div><div class="snap-title">${escapeHtml(s.label || s.sessionName || 'Snapshot')}
-        <span class="badge" style="background:${auto ? '#6b7f8c' : '#2e9e5b'};">${auto ? 'Auto' : 'Manual'}</span></div>
+        <span class="badge" style="background:${ended ? '#c0392b' : (auto ? '#6b7f8c' : '#2e9e5b')};">${ended ? 'Session ended' : (auto ? 'Auto' : 'Manual')}</span></div>
         <div class="snap-meta">${escapeHtml(s.sessionName || '')}${s.sessionDate ? ' · ' + escapeHtml(s.sessionDate) : ''} · saved ${fmtSnapTime(s.savedAtMs)} · ${(s.participants||[]).length} players · ${(s.matches||[]).length} in queue</div></div>
       <div class="snap-actions">
         <button class="btn btn-ghost btn-sm" onclick="openSnapshotView('${s.id}')">View</button>
@@ -2975,7 +3251,7 @@ function openSnapshotView(id){
   if (!s) return;
   snapViewId = id;
   document.getElementById('snapViewTitle').textContent = s.label || s.sessionName || 'Snapshot';
-  document.getElementById('snapViewSub').textContent = `${s.sessionName || ''}${s.sessionDate ? ' · ' + s.sessionDate : ''} · saved ${fmtSnapTime(s.savedAtMs)} · ${s.kind === 'auto' ? 'auto-saved' : 'manual'} · read-only preview`;
+  document.getElementById('snapViewSub').textContent = `${s.sessionName || ''}${s.sessionDate ? ' · ' + s.sessionDate : ''} · saved ${fmtSnapTime(s.savedAtMs)} · ${s.kind === 'auto' ? 'auto-saved' : (s.kind === 'end' ? 'session ended' : 'manual')} · read-only preview`;
   const parts = s.participants || [], ms = (s.matches || []).slice().sort((a,b) => (a.order||0) - (b.order||0));
   const sb = (s.buckets && s.buckets.length) ? s.buckets.map(x => ({ key:x.id, label:x.name })) : BUCKETS.map(x => ({ key:x.key, label:x.label }));
   const sbLabel = k => (sb.find(x => x.key === k) || {}).label || bucketLabel(k);
@@ -3071,8 +3347,9 @@ async function restoreSnapshot(id){
     await db.collection('pkl-queue-session').doc('state').set({
       partnerCounts: P, opponentCounts: O,
       currentSessionId: s.sessionId || null, currentSessionName: s.sessionName || '', currentSessionDate: s.sessionDate || '',
-      matchCounter: Math.max((live.state && live.state.matchCounter) || 0, s.matchCounter || 0)
-    }, { mergeFields: ['partnerCounts','opponentCounts','currentSessionId','currentSessionName','currentSessionDate','matchCounter'] });
+      matchCounter: Math.max((live.state && live.state.matchCounter) || 0, s.matchCounter || 0),
+      sessionEndedAt: null, sessionRecap: null
+    }, { mergeFields: ['partnerCounts','opponentCounts','currentSessionId','currentSessionName','currentSessionDate','matchCounter','sessionEndedAt','sessionRecap'] });
 
     BUCKETS.forEach(b => discardSuggestions(b.key));
     snapViewOverlay.classList.remove('show'); snapListOverlay.classList.remove('show');
